@@ -1,0 +1,14 @@
+what do I want to learn or understand better?
+Då vi ska använda oss utav ramverket spring för java som jag ej använt tidigare samt utveckla en webapplikation vilket jag inte heller har försökt mig
+på tidigare ska det bli intressant att sätta sig in i det och lära sig hur man använder verktygen för webutveckling.
+
+how can I help someone else, or the entire team, to learn something new?
+Då många av verktygen vi kommer använda är nya för mig är det svårt att säga i dagsläget hur man kan hjälpa att lära ut den informationen.
+Vissa verktyg har jag dock sett tidigare och kan förhoppningsvis dela med mig av hur man använder effektivt, kommer även ta mig tid att studera 
+dem nya verktygen flitigt för att snabbt komma igång.
+
+what is my contribution towards the team’s use of Scrum?
+Vi fick testa på att jobba i sprints som ett scrumlag i workshoppen med minetest och känna på hur vi kommer arbeta tillsammans.
+
+what is my contribution towards the team’s deliveries?
+Vi delade upp oss för det som skulle levereras denna vecka och jag var delaktig i att designa mockups för vår webapplikation
