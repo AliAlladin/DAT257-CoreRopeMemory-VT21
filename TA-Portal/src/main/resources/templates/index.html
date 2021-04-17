@@ -27,5 +27,35 @@
     </tr>
 </table>
 <a class="btn btn-primary" th:href="@{add_workshift}">Add workshift</a>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
+                Add workshift modal
+            </button>
+
+            <th:block th:replace="_modals :: modal('exampleModal1')">modal</th:block>
+
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<script>
+    $('#exampleModal1').on('show.bs.modal', function () {
+        $.get("/modals/modal1", function (data) {
+            $('#exampleModal1').find('.modal-body').html(data);
+        })
+    });
+
+
+</script>
+
 </body>
 </html>

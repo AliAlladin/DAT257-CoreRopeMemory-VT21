@@ -24,7 +24,6 @@ public class ApplicationController {
     @RequestMapping(value = {"/save"}, method = RequestMethod.POST)
     public String addWorkshift(@ModelAttribute ("workshift")WorkShift workShift){
         Database.addWorkShift(workShift);
-
         return "redirect:/";
     }
 }
