@@ -1,10 +1,46 @@
 package com.CoreRopeMemory.TAPortal.model;
 
+import javax.persistence.*;
+
+@Entity
 public class WorkShift {
+    @Id
+    @SequenceGenerator(name = "workshift_sequence",
+                sequenceName = "workshift_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "workshift_sequence"
+    )
+    private Long id;
+
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String date;
+
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String startTime;
+
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String endTime;
+
+    @Column(
+            nullable = false
+    )
     private String type;
+
+    @Column(
+            columnDefinition = "TEXT"
+    )
     private String comment;
     
 
