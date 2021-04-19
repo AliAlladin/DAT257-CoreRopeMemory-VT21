@@ -1,0 +1,18 @@
+what do I want to learn or understand better?
+Skulle behöva kika över html syntaxen och thymeleaf lite mer så det inte saktar ned mig när vi kodar.
+Vill även läsa på lite mer om spring boot och kunna se vilka verktyg vi kan komma att använda längre fram för att kunna förbereda sig inom dessa.
+
+how can I help someone else, or the entire team, to learn something new?
+Under kommande veckan kommer vi koda mer då vi har fått upp vår skalapplikation och kommit igång nu och då vi alla är relativt nya till det 
+verktygen vi använder oss utav så får vi förhoppningsvis in några dagar med parprogrammering då det är ett utmärkt tillfälle att lära ut det
+man lär sig under veckan och även lära sig utav dem man kodar med.
+
+what is my contribution towards the team’s use of Scrum?
+har varit delaktig i att färdigställa våra tasks och user stories för första sprinten, vi har även diskuterat rollen product owner som finns inom 
+scrum och hur vi bäst använder oss utav den för att hjälpa oss i vårt projekt.
+
+what is my contribution towards the team’s deliveries?
+Våra deliveries denna veckan var att sätta upp vår utvecklingsmilö och vårt git-repo för att gå igenom git och hur vårt arbetsflöde skulle se ut 
+ungefärligt.
+Utöver det estimerade vi och färdigställde dem user stories vi skulle göra denna sprint och kodade mot dem, jag var delaktig i alla våra möten och 
+arbetspass men skulle behöva förstå ramverket bättre för att kunna bidra med mer kod i framtida sprints.
