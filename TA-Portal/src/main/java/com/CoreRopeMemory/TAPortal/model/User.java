@@ -10,6 +10,9 @@ public class User {
     private String city;
     private boolean haveMaster;
 
+    public User() {
+    }
+
     public int getpNumber() {
         return pNumber;
     }

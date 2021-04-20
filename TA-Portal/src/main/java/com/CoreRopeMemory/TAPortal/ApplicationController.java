@@ -2,6 +2,7 @@ package com.CoreRopeMemory.TAPortal;
 
 import com.CoreRopeMemory.TAPortal.Repositories.WorkshiftRepository;
 import com.CoreRopeMemory.TAPortal.Services.WorkshiftService;
+import com.CoreRopeMemory.TAPortal.model.User;
 import com.CoreRopeMemory.TAPortal.model.WorkShift;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,4 +35,21 @@ public class ApplicationController {
 
         return "redirect:/";
     }
+
+    @RequestMapping ({"/user_details"})
+    public String user(Model model){
+        if (Database.getUsers().isEmpty()){
+            Database.getUsers().add(new User());
+        }
+        model.addAttribute("user", Database.getUsers().get(0));
+        return "user_details";
+    }
+
+    @RequestMapping(value = {"/saveUser"}, method = RequestMethod.POST)
+    public String saveUserInfo(@ModelAttribute ("user")User user){
+        Database.saveUserInfo(user);
+        return "redirect:/user_details";
+    }
+
+
 }
