@@ -1,6 +1,5 @@
 package com.CoreRopeMemory.TAPortal;
 
-import com.CoreRopeMemory.TAPortal.Repositories.WorkshiftRepository;
 import com.CoreRopeMemory.TAPortal.Services.WorkshiftService;
 import com.CoreRopeMemory.TAPortal.model.User;
 import com.CoreRopeMemory.TAPortal.model.WorkShift;
@@ -38,16 +37,22 @@ public class ApplicationController {
 
     @RequestMapping(value = {"/save"}, method = RequestMethod.POST)
     public String addWorkshift(@ModelAttribute ("workshift")WorkShift workShift){
-        Database.addWorkShift(workShift);
+        //Database.addWorkShift(workShift);
         workshiftService.save(workShift);
 
         return "redirect:/";
     }
 
-    @RequestMapping(value = {"/edit"}, method = RequestMethod.POST)
-    public String edit(@ModelAttribute ("workshift")WorkShift workShift) {
-        Database.editWorkShift(workShift);
-        workshiftService.save(workShift);
+    @RequestMapping(value = {"/edit/{id}"}, method = RequestMethod.POST)
+    public String edit(@ModelAttribute ("workshift")WorkShift workShift, @PathVariable (value = "id") long id) {
+        //Database.editWorkShift(workShift);
+        workshiftService.update(workShift, id);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = {"/delete_workshift/{id}"})
+    public String delete(@PathVariable (value = "id") long id) {
+        workshiftService.delete(id);
         return "redirect:/";
     }
 

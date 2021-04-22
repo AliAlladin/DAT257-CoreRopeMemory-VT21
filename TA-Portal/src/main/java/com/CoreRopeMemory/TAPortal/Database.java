@@ -19,7 +19,6 @@ public class Database {
 
     public static void editWorkShift(WorkShift workShift){
         workShifts.add(workShift);
-        System.out.println(workShifts.toArray().toString());
     }
 
     private static List<User> users = new ArrayList<>();
