@@ -3,6 +3,7 @@ package com.CoreRopeMemory.TAPortal.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "work_shift")
 public class WorkShift {
     @Id
     @SequenceGenerator(name = "workshift_sequence",
@@ -42,6 +43,10 @@ public class WorkShift {
             columnDefinition = "TEXT"
     )
     private String comment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ta", referencedColumnName = "p_number", nullable = false)
+    private User ta;
     
 
     public WorkShift() {
@@ -86,5 +91,21 @@ public class WorkShift {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getTa() {
+        return ta;
+    }
+
+    public void setTa(User ta) {
+        this.ta = ta;
     }
 }
