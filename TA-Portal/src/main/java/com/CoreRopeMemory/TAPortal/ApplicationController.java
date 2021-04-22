@@ -55,4 +55,21 @@ public class ApplicationController {
 
         return "redirect:/";
     }
+
+    @RequestMapping ({"/user_details"})
+    public String user(Model model){
+        if (Database.getUsers().isEmpty()){
+            Database.getUsers().add(new User());
+        }
+        model.addAttribute("user", Database.getUsers().get(0));
+        return "user_details";
+    }
+
+    @RequestMapping(value = {"/saveUser"}, method = RequestMethod.POST)
+    public String saveUserInfo(@ModelAttribute ("user")User user){
+        Database.saveUserInfo(user);
+        return "redirect:/user_details";
+    }
+
+
 }

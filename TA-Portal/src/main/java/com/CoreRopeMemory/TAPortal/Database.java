@@ -1,5 +1,6 @@
 package com.CoreRopeMemory.TAPortal;
 
+import com.CoreRopeMemory.TAPortal.model.User;
 import com.CoreRopeMemory.TAPortal.model.WorkShift;
 
 import java.util.ArrayList;
@@ -14,5 +15,16 @@ public class Database {
 
     public static void addWorkShift(WorkShift workShift){
         workShifts.add(workShift);
+    }
+
+    private static List<User> users = new ArrayList<>();
+
+    public static List<User> getUsers(){
+        return users;
+    }
+
+    public static void saveUserInfo(User user){
+        users.clear();
+        users.add(user);
     }
 }
