@@ -1,6 +1,7 @@
 package com.CoreRopeMemory.TAPortal.model;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,7 +165,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "pNumber=" + pNumber +
+                "pNumber='" + pNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", familyName='" + familyName + '\'' +
                 ", firstName='" + firstName + '\'' +
