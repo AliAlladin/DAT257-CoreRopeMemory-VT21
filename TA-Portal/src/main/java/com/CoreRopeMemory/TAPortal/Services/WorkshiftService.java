@@ -9,13 +9,24 @@ import java.util.List;
 
 @Service
 public class WorkshiftService {
+    /**
+     * Inject workshift repository
+     */
     @Autowired
     private WorkshiftRepository repo;
 
+    /**
+     * Returns all workshifts from the database
+     * @return
+     */
     public List<WorkShift> listALl(){
         return repo.findAll();
     }
 
+    /**
+     * Saves a workshift to the database
+     * @param workshift the workshift to save
+     */
     public void save (WorkShift workshift){
         repo.save(workshift);
     }

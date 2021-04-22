@@ -2,6 +2,9 @@ package com.CoreRopeMemory.TAPortal.model;
 
 import javax.persistence.*;
 
+/**
+ * Class representing a workshift
+ */
 @Entity
 @Table(name = "work_shift")
 public class WorkShift {
@@ -44,6 +47,9 @@ public class WorkShift {
     )
     private String comment;
 
+    /**
+     * The TA that has done the workshift
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ta", referencedColumnName = "p_number", nullable = false)
     private User ta;

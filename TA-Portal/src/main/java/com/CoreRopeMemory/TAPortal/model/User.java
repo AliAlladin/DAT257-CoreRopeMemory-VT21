@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representing a user of the application
+ */
 @Entity
 @Table(name = "TA")
 public class User {
@@ -51,12 +54,18 @@ public class User {
     )
     private String city;
 
+    /**
+     * True if user has a masters degree
+     */
     @Column(
             nullable = false,
             columnDefinition = "BOOLEAN"
     )
     private boolean hasMaster;
 
+    /**
+     * All the workshifts of the TA
+     */
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "ta")
