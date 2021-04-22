@@ -20,5 +20,11 @@ public class UserService {
     public User get(String pNumber){
         return userRepoistory.getOne(pNumber);
     }
-    
+
+    public boolean isEmpty() {
+        if (userRepoistory.count() == 0){
+            return true;
+        }
+        return false;
+    }
 }

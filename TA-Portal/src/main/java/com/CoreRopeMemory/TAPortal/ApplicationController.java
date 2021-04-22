@@ -22,16 +22,17 @@ public class ApplicationController {
     @GetMapping({"/", "/index"})
     public String hello(Model model){
 
-        User user = new User("123456",
-                "test.person@mail.com",
-                "Person",
-                "Test",
-                "Kungsgatan 1",
-                12345,
-                "Göteborg",
-                false);
-
-        userService.save(user);
+        if (userService.isEmpty()){
+            User user = new User("123456",
+                    "test.person@mail.com",
+                    "Person",
+                    "Test",
+                    "Kungsgatan 1",
+                    12345,
+                    "Göteborg",
+                    false);
+            userService.save(user);
+        }
 
         model.addAttribute("workshifts", workshiftService.listALl());
         return "index";
@@ -58,16 +59,15 @@ public class ApplicationController {
 
     @RequestMapping ({"/user_details"})
     public String user(Model model){
-        if (Database.getUsers().isEmpty()){
-            Database.getUsers().add(new User());
-        }
-        model.addAttribute("user", Database.getUsers().get(0));
+        User user = userService.get("123456");
+        model.addAttribute("user", user);
         return "user_details";
     }
 
     @RequestMapping(value = {"/saveUser"}, method = RequestMethod.POST)
     public String saveUserInfo(@ModelAttribute ("user")User user){
-        Database.saveUserInfo(user);
+        //Database.saveUserInfo(user);
+        userService.save(user);
         return "redirect:/user_details";
     }
 
