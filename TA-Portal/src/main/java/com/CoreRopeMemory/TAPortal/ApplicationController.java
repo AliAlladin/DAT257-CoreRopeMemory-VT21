@@ -28,11 +28,26 @@ public class ApplicationController {
         return "add_workshift";
     }
 
+    //Getmapping?
+    @RequestMapping ({"/edit_workshift/{id}"})
+    public String editWorkshift(@PathVariable (value = "id") long id, Model model){
+        WorkShift workShift = workshiftService.getWorkshift(id);
+        model.addAttribute("workshift", workShift);
+        return "edit_workshift";
+    }
+
     @RequestMapping(value = {"/save"}, method = RequestMethod.POST)
     public String addWorkshift(@ModelAttribute ("workshift")WorkShift workShift){
         Database.addWorkShift(workShift);
         workshiftService.save(workShift);
 
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = {"/edit"}, method = RequestMethod.POST)
+    public String edit(@ModelAttribute ("workshift")WorkShift workShift) {
+        Database.editWorkShift(workShift);
+        workshiftService.save(workShift);
         return "redirect:/";
     }
 

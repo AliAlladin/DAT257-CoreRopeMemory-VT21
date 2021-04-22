@@ -16,6 +16,7 @@
         <th>End Time</th>
         <th>Type</th>
         <th>Comments</th>
+        <th>Actions</th>
     </tr>
     <tr th:each="workshift : ${workshifts}">
         <td th:text="${workshift.getDate()}"></td>
@@ -23,6 +24,8 @@
         <td th:text="${workshift.getEndTime()}"></td>
         <td th:text="${workshift.getType()}"></td>
         <td th:text="${workshift.getComment()}"></td>
+        <td> <a class="btn btn-primary" th:href="@{/edit_workshift/{id}(id=${workshift.getId()})}">Edit</a>
+            <a class="btn btn-danger" th:href="@{delete_workshift}">Delete</a></td>
     </tr>
     </tr>
 </table>

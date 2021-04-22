@@ -48,6 +48,10 @@ public class WorkShift {
 
     }
 
+    public Long getId(){
+        return id;
+    }
+
     public String getDate() {
         return date;
     }

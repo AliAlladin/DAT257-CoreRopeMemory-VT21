@@ -17,6 +17,11 @@ public class Database {
         workShifts.add(workShift);
     }
 
+    public static void editWorkShift(WorkShift workShift){
+        workShifts.add(workShift);
+        System.out.println(workShifts.toArray().toString());
+    }
+
     private static List<User> users = new ArrayList<>();
 
     public static List<User> getUsers(){
