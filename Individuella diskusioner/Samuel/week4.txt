@@ -1,0 +1,23 @@
+what do I want to learn or understand better?
+Under andra sprinten började vi parprogrammera och valde då ut olika user stories att jobba på, det som bromsade lite för oss denna sprint var att vissa stories
+krävde att en feature i en annan story skulle vara implementerad för att nå alla acceptance criterias men också att om en user story blev färdig före en annan så 
+kunde den lägga till mer arbete för den andra user storyn.
+Jag skulle vilja bli bättre på att dela upp user stories så att dem är mer självständiga och då lättare att implementera för oss som ett lag under sprintarna.
+Utöver det skulle jag vilja kunna bättre estimera tidskravet för våra user stories, men förhoppningsvis har denna veckans sprint gett ett bättre humm om 
+hur mycket tid olika stories tar.
+
+how can I help someone else, or the entire team, to learn something new?
+Kommande veckor kommer styling av vår webapplikation vara en sak vi kommer kika på, jag planerar på att läsa på om det och hur vi bäst kan göra det för att ligga i god fas
+och i så fall kunna lära ut något av det jag lär mig, utöver det kommer vi ha mer parprogrammering kommande veckor och av erfarenhet och av vad man märkte denna sprint så
+var det ett snabbt sätt att lära varandra olika saker som kom upp under den processen.  
+
+what is my contribution towards the team’s use of Scrum?
+jag har varit delaktig i diskutionerna vi haft den här veckan och under planeringen för sprinten där vi diskuterade om det skulle vara till fördel att
+använda oss utav scrumrollerna och om inte när det kan tänkas att vara hjälpbart. Under mötet estimerade vi även user stories tillsammans och delade sedan upp 
+arbetet parvis.
+
+what is my contribution towards the team’s deliveries?
+Vi hade först vår planering för sprinten i början av veckan där vi delade upp arbetet för denna sprint, jag och Oliver implementerade en sida för 
+användarens information och såg till så att det gick och ändra och spara den informationen i backenden.
+Jag såg även till att förstå hur databasen Dylan och Ali kopplade ihop fungerade för att i framtiden enklare kunna koppla ihop databasen med saker som 
+ska implementeras senare.
