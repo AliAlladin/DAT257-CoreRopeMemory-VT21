@@ -1,7 +1,8 @@
 what do I want to learn or understand better?
 Under andra sprinten började vi parprogrammera och valde då ut olika user stories att jobba på, det som bromsade lite för oss denna sprint var att vissa stories
-krävde att en feature i en annan story skulle vara implementerad för att nå alla acceptance criterias, jag skulle vilja bli bättre på att dela upp user stories
-så att dem är mer självständiga och då lättare att implementera för oss som ett lag under sprintarna.
+krävde att en feature i en annan story skulle vara implementerad för att nå alla acceptance criterias men också att om en user story blev färdig före en annan så 
+kunde den lägga till mer arbete för den andra user storyn.
+Jag skulle vilja bli bättre på att dela upp user stories så att dem är mer självständiga och då lättare att implementera för oss som ett lag under sprintarna.
 Utöver det skulle jag vilja kunna bättre estimera tidskravet för våra user stories, men förhoppningsvis har denna veckans sprint gett ett bättre humm om 
 hur mycket tid olika stories tar.
 
