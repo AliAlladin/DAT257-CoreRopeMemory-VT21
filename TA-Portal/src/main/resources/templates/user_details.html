@@ -31,10 +31,11 @@
     <input type="text" class="form-control" id="city" th:value=" ${user.getCity()}" required th:field="*{city}">
 
     <label for="master">Have a Master?</label><br>
-    <select class="form-control" id="master" th:field="*{haveMaster}">
+    <select class="form-control" id="master" th:field="*{hasMaster}">
         <option th:value="'Yes'">Yes</option>
         <option th:value="'No'">No</option>
     </select>
+
     <button type="submit" class="btn btn-primary">Spara</button>
 </form>
 <a class="btn btn-primary" th:href="@{/}">Back to Homepage</a>

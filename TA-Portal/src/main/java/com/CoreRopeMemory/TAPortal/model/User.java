@@ -150,11 +150,11 @@ public class User {
         this.city = city;
     }
 
-    public boolean isHaveMaster() {
+    public boolean isHasMaster() {
         return hasMaster;
     }
 
-    public void setHaveMaster(boolean haveMaster) {
+    public void setMaster(boolean haveMaster) {
         this.hasMaster = haveMaster;
     }
 

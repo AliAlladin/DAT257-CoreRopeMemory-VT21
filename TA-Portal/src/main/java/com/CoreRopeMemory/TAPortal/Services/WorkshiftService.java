@@ -43,9 +43,8 @@ public class WorkshiftService {
         return workshift;
     }
 
-    public void update(WorkShift workshift, Long id){
+    public void update(WorkShift workshift){
         //Id belongs to the old workshift to be deleted. 
-        repo.deleteById(id);
         repo.save(workshift);
     }
 

@@ -103,10 +103,6 @@ public class WorkShift {
         this.comment = comment;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -117,5 +113,18 @@ public class WorkShift {
 
     public void setTa(User ta) {
         this.ta = ta;
+    }
+
+    @Override
+    public String toString() {
+        return "WorkShift{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", type='" + type + '\'' +
+                ", comment='" + comment + '\'' +
+                ", ta=" + ta +
+                '}';
     }
 }

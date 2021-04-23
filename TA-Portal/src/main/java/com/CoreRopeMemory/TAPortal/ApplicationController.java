@@ -66,8 +66,9 @@ public class ApplicationController {
 
     @RequestMapping(value = {"/edit/{id}"}, method = RequestMethod.POST)
     public String edit(@ModelAttribute ("workshift")WorkShift workShift, @PathVariable (value = "id") long id) {
-        //Database.editWorkShift(workShift);
-        workshiftService.update(workShift, id);
+        User user = userService.get("123456");
+        workShift.setTa(user);
+        workshiftService.save(workShift);
         return "redirect:/";
     }
 
