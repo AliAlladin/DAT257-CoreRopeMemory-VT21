@@ -1,23 +1,104 @@
 package com.CoreRopeMemory.TAPortal.model;
 
-public class User {
-    private int pNumber;
-    private String email;
-    private String familyName;
-    private String firstName;
-    private String streetAddr;
-    private int postcode ;
-    private String city;
-    private boolean haveMaster;
+import javax.persistence.*;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
-    public User() {
+/**
+ * Class representing a user of the application
+ */
+@Entity
+@Table(name = "TA")
+public class User {
+    @Id
+    @Column(
+            name = "p_number",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String pNumber;
+
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String email;
+
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String familyName;
+
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String firstName;
+
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String streetAddr;
+
+    @Column(
+            nullable = false,
+            columnDefinition = "INTEGER"
+    )
+    private int postcode ;
+
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String city;
+
+    /**
+     * True if user has a masters degree
+     */
+    @Column(
+            nullable = false,
+            columnDefinition = "BOOLEAN"
+    )
+    private boolean hasMaster;
+
+    /**
+     * All the workshifts of the TA
+     */
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "ta")
+    private List<WorkShift> workshifts = new ArrayList<>();
+
+    public User(String pNumber,
+                String email,
+                String familyName,
+                String firstName,
+                String streetAddr,
+                int postcode,
+                String city,
+                boolean hasMaster) {
+        this.pNumber = pNumber;
+        this.email = email;
+        this.familyName = familyName;
+        this.firstName = firstName;
+        this.streetAddr = streetAddr;
+        this.postcode = postcode;
+        this.city = city;
+        this.hasMaster = hasMaster;
     }
 
-    public int getpNumber() {
+    public User() {
+
+    }
+
+    public String getpNumber() {
         return pNumber;
     }
 
-    public void setpNumber(int pNumber) {
+    public void setpNumber(String pNumber) {
         this.pNumber = pNumber;
     }
 
@@ -70,10 +151,29 @@ public class User {
     }
 
     public boolean isHaveMaster() {
-        return haveMaster;
+        return hasMaster;
     }
 
     public void setHaveMaster(boolean haveMaster) {
-        this.haveMaster = haveMaster;
+        this.hasMaster = haveMaster;
+    }
+
+    public void addWorkshift(WorkShift workShift){
+        workshifts.add(workShift);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "pNumber='" + pNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", familyName='" + familyName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", streetAddr='" + streetAddr + '\'' +
+                ", postcode=" + postcode +
+                ", city='" + city + '\'' +
+                ", hasMaster=" + hasMaster +
+                ", workshifts=" + workshifts +
+                '}';
     }
 }
