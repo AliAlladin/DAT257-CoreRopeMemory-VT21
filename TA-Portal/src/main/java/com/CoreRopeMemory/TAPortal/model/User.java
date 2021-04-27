@@ -162,6 +162,10 @@ public class User {
         workshifts.add(workShift);
     }
 
+    public List<WorkShift> getWorkshifts() {
+        return workshifts;
+    }
+
     @Override
     public String toString() {
         return "User{" +

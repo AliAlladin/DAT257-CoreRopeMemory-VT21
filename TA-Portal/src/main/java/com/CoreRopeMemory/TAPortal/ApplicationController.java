@@ -10,6 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Controller
 public class ApplicationController {
 
@@ -58,6 +63,7 @@ public class ApplicationController {
         User user = userService.get("123456");
 
         workShift.setTa(user);
+        user.addWorkshift(workShift);
 
         workshiftService.save(workShift);
 
@@ -92,5 +98,31 @@ public class ApplicationController {
         return "redirect:/user_details";
     }
 
+    @RequestMapping ({"/time_report"})
+    public String timeReport(Model model){
+        User user = userService.get("123456");
+        model.addAttribute("user", user);
+
+        model.addAttribute("lectureExercises",typeOfWorkshift(user.getWorkshifts(),"Lectures and exercise sessions"));
+        model.addAttribute("supervision",typeOfWorkshift(user.getWorkshifts(),"Project supervision and lab supervision"));
+        model.addAttribute("other",typeOfWorkshift(user.getWorkshifts(),"Other activities"));
+        model.addAttribute("labGrading",typeOfWorkshift(user.getWorkshifts(),"Lab grading"));
+        Set<String> dates = new HashSet<>();
+        for (WorkShift workShift : typeOfWorkshift(user.getWorkshifts(), "Exam grading")){
+            dates.add(workShift.getDate());
+        }
+        model.addAttribute("examGrading", dates.size());
+        return "time_report";
+    }
+
+    private List<WorkShift> typeOfWorkshift(List<WorkShift> workShifts, String type){
+        List<WorkShift> typeOfWorkshift = new ArrayList<>();
+        for (WorkShift workshift: workShifts) {
+            if (workshift.getType().equals(type)){
+                typeOfWorkshift.add(workshift);
+            }
+        }
+        return typeOfWorkshift;
+    }
 
 }
