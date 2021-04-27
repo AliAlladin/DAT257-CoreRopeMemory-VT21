@@ -58,7 +58,6 @@ public class ApplicationController {
         return "add_workshift";
     }
 
-    //Getmapping?
     @RequestMapping ({"/edit_workshift/{id}"})
     public String editWorkshift(@PathVariable (value = "id") long id, Model model){
         WorkShift workShift = workshiftService.getWorkshift(id);

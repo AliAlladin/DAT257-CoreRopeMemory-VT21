@@ -9,38 +9,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>Workshifts</h1>
-<table class="table table-striped table-hover">
-    <tr>
-        <th>Date</th>
-        <th>Start Time</th>
-        <th>End Time</th>
-        <th>Type</th>
-        <th>Comments</th>
-        <th>Actions</th>
-    </tr>
-    <tr th:each="workshift : ${workshifts}">
-        <td th:text="${workshift.getDate()}"></td>
-        <td th:text="${workshift.getStartTime()}"></td>
-        <td th:text="${workshift.getEndTime()}"></td>
-        <td th:text="${workshift.getType()}"></td>
-        <td th:text="${workshift.getComment()}"></td>
-        <td> <a class="btn btn-primary" th:href="@{/edit_workshift/{id}(id=${workshift.getId()})}">Edit</a>
-            <a class="btn btn-danger" th:href="@{delete_workshift/{id}(id=${workshift.getId()})}">Delete</a></td>
-    </tr>
-    </tr>
-</table>
-<a class="btn btn-primary" th:href="@{add_workshift}">Add workshift</a>
-
-<a class="btn btn-primary" th:href="@{/user_details}">User Information</a>
-
 <div class="container">
-    <h2>Workshifts by month</h2>
+    <h2 style="text-align: center;">Workshifts by month</h2>
+    <div class="container">
+        <h4 class="panel-title" style="text-align: left;">
+            <a class="btn btn-primary" th:href="@{add_workshift}">Add workshift</a>
+        </h4>
+
+        <h4 class="panel-title" style="text-align: right;">
+            <a class="btn btn-primary" th:href="@{/user_details}">User Information</a>
+        </h4>
+    </div>
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
             <div class="panel-heading">
-              <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">January</a>
+              <h4 class="panel-title" style="text-align: center;">
+                <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse1">January</a>
               </h4>
             </div>
             <div id="collapse1" class="panel-collapse collapse">
@@ -68,8 +52,8 @@
         </div>
         <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">February</a>
+          <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse2">February</a>
           </h4>
         </div>
         <div id="collapse2" class="panel-collapse collapse">
@@ -97,8 +81,8 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">March</a>
+          <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse3">March</a>
           </h4>
         </div>
         <div id="collapse3" class="panel-collapse collapse">
@@ -126,8 +110,8 @@
       </div>  
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse"  href="#collapse4">April</a>
+          <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse"  href="#collapse4">April</a>
           </h4>
         </div>
         <div id="collapse4" class="panel-collapse collapse in">
@@ -155,8 +139,8 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">May</a>
+          <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse5">May</a>
           </h4>
         </div>
         <div id="collapse5" class="panel-collapse collapse">
@@ -184,8 +168,8 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">June</a>
+          <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse6">June</a>
           </h4>
         </div>
         <div id="collapse6" class="panel-collapse collapse">
@@ -213,8 +197,8 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">July</a>
+          <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse7">July</a>
           </h4>
         </div>
         <div id="collapse7" class="panel-collapse collapse">
@@ -242,8 +226,8 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">August</a>
+          <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse8">August</a>
           </h4>
         </div>
         <div id="collapse8" class="panel-collapse collapse">
@@ -271,8 +255,8 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">September</a>
+          <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse9">September</a>
           </h4>
         </div>
         <div id="collapse9" class="panel-collapse collapse">
@@ -300,8 +284,8 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse10">October</a>
+          <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse10">October</a>
           </h4>
         </div>
         <div id="collapse10" class="panel-collapse collapse">
@@ -329,8 +313,8 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse11">November</a>
+          <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse11">November</a>
           </h4>
         </div>
         <div id="collapse11" class="panel-collapse collapse">
@@ -358,8 +342,8 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse12">December</a>
+          <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse12">December</a>
           </h4>
         </div>
         <div id="collapse12" class="panel-collapse collapse">
@@ -401,6 +385,28 @@
         </div>
     </div>
 </div>
+
+<h1>Workshifts</h1>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Type</th>
+        <th>Comments</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="workshift : ${workshifts}">
+        <td th:text="${workshift.getDate()}"></td>
+        <td th:text="${workshift.getStartTime()}"></td>
+        <td th:text="${workshift.getEndTime()}"></td>
+        <td th:text="${workshift.getType()}"></td>
+        <td th:text="${workshift.getComment()}"></td>
+        <td> <a class="btn btn-primary" th:href="@{/edit_workshift/{id}(id=${workshift.getId()})}">Edit</a>
+            <a class="btn btn-danger" th:href="@{delete_workshift/{id}(id=${workshift.getId()})}">Delete</a></td>
+    </tr>
+    </tr>
+</table>
 
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
