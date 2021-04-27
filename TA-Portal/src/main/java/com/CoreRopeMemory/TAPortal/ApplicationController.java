@@ -35,6 +35,7 @@ public class ApplicationController {
         }
 
         model.addAttribute("workshifts", workshiftService.listALl());
+        model.addAttribute("april_workshifts", workshiftService.listByMonth(4));
         return "index";
     }
 

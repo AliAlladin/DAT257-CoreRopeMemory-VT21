@@ -33,6 +33,26 @@
 <a class="btn btn-primary" th:href="@{add_workshift}">Add workshift</a>
 
 <a class="btn btn-primary" th:href="@{/user_details}">User Information</a>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Type</th>
+        <th>Comments</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="workshift : ${april_workshifts}">
+        <td th:text="${workshift.getDate()}"></td>
+        <td th:text="${workshift.getStartTime()}"></td>
+        <td th:text="${workshift.getEndTime()}"></td>
+        <td th:text="${workshift.getType()}"></td>
+        <td th:text="${workshift.getComment()}"></td>
+        <td> <a class="btn btn-primary" th:href="@{/edit_workshift/{id}(id=${workshift.getId()})}">Edit</a>
+            <a class="btn btn-danger" th:href="@{delete_workshift/{id}(id=${workshift.getId()})}">Delete</a></td>
+    </tr>
+    </tr>
+</table>
 
 <div class="container">
     <div class="row mt-5">
