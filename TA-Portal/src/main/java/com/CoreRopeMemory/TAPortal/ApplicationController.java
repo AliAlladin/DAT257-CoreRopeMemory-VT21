@@ -35,7 +35,19 @@ public class ApplicationController {
         }
 
         model.addAttribute("workshifts", workshiftService.listALl());
+        model.addAttribute("january_workshifts", workshiftService.listByMonth(1));
+        model.addAttribute("february_workshifts", workshiftService.listByMonth(2));
+        model.addAttribute("march_workshifts", workshiftService.listByMonth(3));
         model.addAttribute("april_workshifts", workshiftService.listByMonth(4));
+        model.addAttribute("may_workshifts", workshiftService.listByMonth(5));
+        model.addAttribute("june_workshifts", workshiftService.listByMonth(6));
+        model.addAttribute("july_workshifts", workshiftService.listByMonth(7));
+        model.addAttribute("august_workshifts", workshiftService.listByMonth(8));
+        model.addAttribute("september_workshifts", workshiftService.listByMonth(9));
+        model.addAttribute("october_workshifts", workshiftService.listByMonth(10));
+        model.addAttribute("november_workshifts", workshiftService.listByMonth(11));
+        model.addAttribute("december_workshifts", workshiftService.listByMonth(12));
+
         return "index";
     }
 
