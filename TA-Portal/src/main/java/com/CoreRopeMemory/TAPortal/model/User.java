@@ -2,6 +2,9 @@ package com.CoreRopeMemory.TAPortal.model;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -176,4 +179,39 @@ public class User {
                 ", workshifts=" + workshifts +
                 '}';
     }
+
+    public double totalHoursWorked(){
+        double sum = 0;
+        for (WorkShift workshift : workshifts){
+            double add= workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
+            sum += add/60;
+        }
+        return sum;
+    }
+
+    public double getOvertimeHours(){
+        double sum = 0;
+        for (WorkShift workshift : workshifts){
+            DayOfWeek day = workshift.getDate().getDayOfWeek();
+            if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY){
+                double add = workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
+                sum += add/60;
+            }
+            else {
+                LocalTime startOfOvertime= LocalTime.of(18,0);
+                if (workshift.getStartTime().isAfter(startOfOvertime)) {
+                    double add = workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
+                    sum += add/60;
+                }
+                else if (workshift.getEndTime().isAfter(startOfOvertime)){
+                    double add = startOfOvertime.until(workshift.getEndTime(), ChronoUnit.MINUTES);
+                    sum += add/60;
+                }
+            }
+        }
+
+        return sum;
+
+    }
+
 }

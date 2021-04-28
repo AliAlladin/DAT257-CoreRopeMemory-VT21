@@ -1,6 +1,11 @@
 package com.CoreRopeMemory.TAPortal.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 /**
  * Class representing a workshift
@@ -19,23 +24,24 @@ public class WorkShift {
     )
     private Long id;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(
             nullable = false,
-            columnDefinition = "TEXT"
+            columnDefinition = "date"
     )
-    private String date;
+    private LocalDate date;
 
     @Column(
             nullable = false,
-            columnDefinition = "TEXT"
+            columnDefinition = "time"
     )
-    private String startTime;
+    private LocalTime startTime;
 
     @Column(
             nullable = false,
-            columnDefinition = "TEXT"
+            columnDefinition = "time"
     )
-    private String endTime;
+    private LocalTime endTime;
 
     @Column(
             nullable = false
@@ -63,27 +69,27 @@ public class WorkShift {
         return id;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public String getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 

@@ -35,6 +35,7 @@ public class ApplicationController {
         }
 
         model.addAttribute("workshifts", workshiftService.listALl());
+        model.addAttribute("currentUser", userService.get("123456"));
         return "index";
     }
 

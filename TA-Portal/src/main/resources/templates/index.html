@@ -20,9 +20,9 @@
         <th>Actions</th>
     </tr>
     <tr th:each="workshift : ${workshifts}">
-        <td th:text="${workshift.getDate()}"></td>
-        <td th:text="${workshift.getStartTime()}"></td>
-        <td th:text="${workshift.getEndTime()}"></td>
+        <td th:text="${{workshift.getDate()}}"></td>
+        <td th:text="${{workshift.getStartTime()}}"></td>
+        <td th:text="${{workshift.getEndTime()}}"></td>
         <td th:text="${workshift.getType()}"></td>
         <td th:text="${workshift.getComment()}"></td>
         <td> <a class="btn btn-primary" th:href="@{/edit_workshift/{id}(id=${workshift.getId()})}">Edit</a>
@@ -47,6 +47,12 @@
         </div>
     </div>
 </div>
+
+<p> Total hours worked: <span th:text="${currentUser.totalHoursWorked()}"></span></p>
+
+<p> Overtime hours: <span th:text="${currentUser.getOvertimeHours()}"></span></p>
+
+
 
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
