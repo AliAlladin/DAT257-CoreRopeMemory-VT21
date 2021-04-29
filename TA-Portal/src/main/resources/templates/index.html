@@ -48,9 +48,9 @@
     </div>
 </div>
 
-<p> Total hours worked: <span th:text="${currentUser.totalHoursWorked()}"></span></p>
+<p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(), 1, 'COMMA', 2, 'POINT')}"></span></p>
 
-<p> Overtime hours: <span th:text="${currentUser.getOvertimeHours()}"></span></p>
+<p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(), 1 , 'COMMA', 2, 'POINT')}"></span></p>
 
 
 

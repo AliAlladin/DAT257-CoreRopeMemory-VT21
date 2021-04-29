@@ -4,9 +4,11 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 /**
  * Class representing a user of the application
@@ -193,19 +195,19 @@ public class User {
         double sum = 0;
         for (WorkShift workshift : workshifts){
             DayOfWeek day = workshift.getDate().getDayOfWeek();
-            if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY){
-                double add = workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
-                sum += add/60;
-            }
-            else {
-                LocalTime startOfOvertime= LocalTime.of(18,0);
-                if (workshift.getStartTime().isAfter(startOfOvertime)) {
+            if (!workshift.getType().equals("Exam grading")) {
+                if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
                     double add = workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
-                    sum += add/60;
-                }
-                else if (workshift.getEndTime().isAfter(startOfOvertime)){
-                    double add = startOfOvertime.until(workshift.getEndTime(), ChronoUnit.MINUTES);
-                    sum += add/60;
+                    sum += add / 60;
+                } else {
+                    LocalTime startOfOvertime = LocalTime.of(18, 0);
+                    if (workshift.getStartTime().isAfter(startOfOvertime)) {
+                        double add = workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
+                        sum += add / 60;
+                    } else if (workshift.getEndTime().isAfter(startOfOvertime)) {
+                        double add = startOfOvertime.until(workshift.getEndTime(), ChronoUnit.MINUTES);
+                        sum += add / 60;
+                    }
                 }
             }
         }
