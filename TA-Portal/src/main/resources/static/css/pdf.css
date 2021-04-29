@@ -52,6 +52,10 @@
         width: 8.333333333333332%;
     }
 
+    button{
+        visibility: hidden;
+    }
+
 }
 
 body{

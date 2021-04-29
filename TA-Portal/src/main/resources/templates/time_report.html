@@ -10,230 +10,238 @@
             integrity="sha384-JEW9xMcG8R+pH31jmWpWWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
             crossorigin="anonymous"></script>
     <link href="../static/css/pdf.css" th:href="@{/css/pdf.css}" rel="stylesheet" media="screen, print"/>
+
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script type="text/javascript" th:src="@{/js/pdf.js}"></script>
 </head>
 <body>
 
-<h4>Course time report</h4>
+<div id="timeReport">
 
-<div class="container border border-dark">
-    <div class="row">
-        <div class="col-sm-8 border border-dark p-2">
-            <label>One form for each month</label>
-        </div>
-        <div class="col-sm-4 border border-dark p-2">
-            <label for="month">Month</label>
-            <label id="month">April</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6 border border-dark p-2">
-            <label for="courseName">Course name:</label>
-            <label id="courseName">Grundläggande programvaruutveckling</label>
-        </div>
-        <div class="col-sm-3 border border-dark p-2">
-            <label for="courseCode">Course code:</label>
-            <label id="courseCode">TDA548</label>
-        </div>
-        <div class="col-sm-3 border border-dark p-2">
-            <label for="finalForm">Is this the final form?:</label>
-            <label id="finalForm">No</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6 border border-dark p-2">
-            <label for="firstName">First name:</label>
-            <label id="firstName" th:text=" ${user.getFirstName()}"></label>
-        </div>
-        <div class="col-sm-6 border border-dark p-2">
-            <label for="familyName">Family name:</label>
-            <label id="familyName" th:text=" ${user.getFamilyName()}"></label>
-        </div>
-    </div>
+    <h4>Course time report</h4>
 
-    <div class="row">
-        <div class="col-sm-6 border border-dark p-2">
-            <label for="pNumber">Personal Number:</label>
-            <label id="pNumber" th:text=" ${user.getpNumber()}"></label>
+
+    <div class="container border border-dark">
+        <div class="row">
+            <div class="col-sm-8 border border-dark p-1">
+                <label>One form for each month</label>
+            </div>
+            <div class="col-sm-4 border border-dark p-1">
+                <label for="month">Month</label>
+                <label id="month">April</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 border border-dark p-1">
+                <label for="courseName">Course name:</label>
+                <label id="courseName">Grundläggande programvaruutveckling</label>
+            </div>
+            <div class="col-sm-3 border border-dark p-1">
+                <label for="courseCode">Course code:</label>
+                <label id="courseCode">TDA548</label>
+            </div>
+            <div class="col-sm-3 border border-dark p-1">
+                <label for="finalForm">Is this the final form?:</label>
+                <label id="finalForm">No</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 border border-dark p-1">
+                <label for="firstName">First name:</label>
+                <label id="firstName" th:text=" ${user.getFirstName()}"></label>
+            </div>
+            <div class="col-sm-6 border border-dark p-1">
+                <label for="familyName">Family name:</label>
+                <label id="familyName" th:text=" ${user.getFamilyName()}"></label>
+            </div>
         </div>
 
-        <div class="col-sm-6 border border-dark p-2">
-            <label for="email">Email:</label>
-            <label id="email" th:text=" ${user.getEmail()}"></label>
+        <div class="row">
+            <div class="col-sm-6 border border-dark p-1">
+                <label for="pNumber">Personal Number:</label>
+                <label id="pNumber" th:text=" ${user.getpNumber()}"></label>
+            </div>
+
+            <div class="col-sm-6 border border-dark p-1">
+                <label for="email">Email:</label>
+                <label id="email" th:text=" ${user.getEmail()}"></label>
+            </div>
+
         </div>
 
+        <div class="row">
+            <div class="col-sm-12 border border-dark p-1">
+                <label for="streetAddr">Street Address:</label>
+                <label id="streetAddr" th:text=" ${user.getStreetAddr()}"></label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 border border-dark p-1">
+                <label for="postcode">Postal Code:</label>
+                <label id="postcode" th:text=" ${user.getPostcode()}"></label>
+            </div>
+            <div class="col-sm-6 border border-dark p-1">
+                <label for="city">City:</label>
+                <label id="city" th:text=" ${user.getCity()}"></label>
+            </div>
+            <div class="col-sm-3 border border-dark p-1">
+                <label for="firstForm">Is this a new address?:</label>
+                <label id="firstForm">No</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 border border-dark p-1">
+                <label for="masters">Do you have a Master´s degree?:</label>
+                <label id="masters">No</label>
+            </div>
+            <div class="col-sm-6 border border-dark p-1">
+                <label for="salary">Received salary previously from Chalmers/GU?:</label>
+                <label id="salary">No</label>
+            </div>
+        </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-12 border border-dark p-2">
-            <label for="streetAddr">Street Address:</label>
-            <label id="streetAddr" th:text=" ${user.getStreetAddr()}"></label>
+    <div class="container mt-4 border border-dark">
+        <div class="row">
+            <div class="col-sm-6 border border-dark py-2">
+                <h5>Lectures and exercise sessions</h5>
+            </div>
+            <div class="col-sm-6 border border-dark py-2">
+                <h5>Project supervision and lab supervision</h5>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-sm-6 px-0">
+                <table class="table border border-dark mb-0">
+                    <tr>
+                        <th class="px-3">Date</th>
+                        <th class="px-3">Time</th>
+                    </tr>
+                    <tr th:each="workshift : ${lectureExercises}">
+                        <td class="px-3" th:text="${workshift.getDate()}"></td>
+                        <td class="px-3" th:text="${workshift.getStartTime() + '-' + workshift.getEndTime()}"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-6 px-0">
+                <table class="table border border-dark mb-0">
+                    <tr>
+                        <th class="px-3">Date</th>
+                        <th class="px-3">Time</th>
+                    </tr>
+                    <tr th:each="workshift : ${supervision}">
+                        <td class="px-3" th:text="${workshift.getDate()}"></td>
+                        <td class="px-3" th:text="${workshift.getStartTime() + '-' + workshift.getEndTime()}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <p class="col-sm-3 py-2 border border-dark">Total nr of hours:</p>
+            <p class="col-sm-3 py-2 border border-dark">Of which after 6pm:</p>
+            <p class="col-sm-3 py-2 border border-dark">Total nr of hours:</p>
+            <p class="col-sm-3 py-2 border border-dark">Of which after 6pm:</p>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-3 border border-dark p-2">
-            <label for="postcode">Postal Code:</label>
-            <label id="postcode" th:text=" ${user.getPostcode()}"></label>
+    <div class="container mt-4 border border-dark">
+        <div class="row">
+            <div class="col-sm-12 border border-dark py-2">
+                <h5>Other activities</h5>
+            </div>
         </div>
-        <div class="col-sm-6 border border-dark p-2">
-            <label for="city">City:</label>
-            <label id="city" th:text=" ${user.getCity()}"></label>
+        <div class="row ">
+            <div class="col-sm-12 px-0">
+                <table class="table border border-dark mb-0">
+                    <tr>
+                        <th class="px-3">Date</th>
+                        <th class="px-3">Time</th>
+                        <th class="px-3">Comments</th>
+                    </tr>
+                    <tr th:each="workshift : ${other}">
+                        <td class="px-3" th:text="${workshift.getDate()}"></td>
+                        <td class="px-3" th:text="${workshift.getStartTime() + '-' + workshift.getEndTime()}"></td>
+                        <td class="px-3" th:text="${workshift.getComment()}"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="col-sm-3 border border-dark p-2">
-            <label for="firstForm">Is this a new address?:</label>
-            <label id="firstForm">No</label>
+        <div class="row">
+            <p class="col-sm-12 py-2 border border-dark">Total nr of hours:</p>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6 border border-dark p-2">
-            <label for="masters">Do you have a Master´s degree?:</label>
-            <label id="masters">No</label>
+
+    <div class="container mt-4 border border-dark">
+        <div class="row">
+            <div class="col-sm-12 border border-dark py-2">
+                <h5>Lab Grading</h5>
+            </div>
         </div>
-        <div class="col-sm-6 border border-dark p-2">
-            <label for="salary">Received salary previously from Chalmers/GU?:</label>
-            <label id="salary">No</label>
+        <div class="row ">
+            <div class="col-sm-12 px-0">
+                <table class="table border border-dark mb-0">
+                    <tr>
+                        <th class="px-3">Lab</th>
+                        <th class="px-3">Hours</th>
+                    </tr>
+                    <tr th:each="workshift : ${labGrading}">
+                        <td class="px-3" th:text="${workshift.getDate()}"></td>
+                        <td class="px-3" th:text="${workshift.getStartTime() + '-' + workshift.getEndTime()}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <p class="col-sm-12 py-2 border border-dark">Total nr of hours:</p>
         </div>
     </div>
+
+    <div id="page2el" class="container mt-4 border border-dark">
+        <div class="row">
+            <div class="col-sm-12 border border-dark py-2">
+                <h5>Exam Grading</h5>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-sm-12 px-0">
+                <table class="table border border-dark mb-0">
+                    <tr>
+                        <th class="px-3">Number of different days used for grading</th>
+                    </tr>
+                    <tr th:each="workshift : ${examGrading}">
+                        <td class="px-3">0</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <p class="col-sm-12 py-2 border border-dark">Total nr of hours:</p>
+        </div>
+    </div>
+
+    <div class="container mt-4 border border-dark">
+        <div class="row">
+            <div class="col-sm-3 border border-dark py-3">
+                <p>Date: 2021-05-01</p>
+            </div>
+            <div class="col-sm-9 border border-dark py-3">
+                <p>Signature: </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-sm-12 px-0">
+                <img th:src="@{/images/CourseResponsible.png}">
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<div class="container mt-4 border border-dark">
-    <div class="row">
-        <div class="col-sm-6 border border-dark py-2">
-            <h5>Lectures and exercise sessions</h5>
-        </div>
-        <div class="col-sm-6 border border-dark py-2">
-            <h5>Project supervision and lab supervision</h5>
-        </div>
-    </div>
-    <div class="row ">
-        <div class="col-sm-6 px-0">
-            <table class="table border border-dark mb-0">
-                <tr>
-                    <th class="px-3">Date</th>
-                    <th class="px-3">Time</th>
-                </tr>
-                <tr th:each="workshift : ${lectureExercises}">
-                    <td class="px-3" th:text="${workshift.getDate()}"></td>
-                    <td class="px-3" th:text="${workshift.getStartTime() + '-' + workshift.getEndTime()}"></td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-sm-6 px-0">
-            <table class="table border border-dark mb-0">
-                <tr>
-                    <th class="px-3">Date</th>
-                    <th class="px-3">Time</th>
-                </tr>
-                <tr th:each="workshift : ${supervision}">
-                    <td class="px-3" th:text="${workshift.getDate()}"></td>
-                    <td class="px-3" th:text="${workshift.getStartTime() + '-' + workshift.getEndTime()}"></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <p class="col-sm-3 py-2 border border-dark">Total nr of hours:</p>
-        <p class="col-sm-3 py-2 border border-dark">Of which after 6pm:</p>
-        <p class="col-sm-3 py-2 border border-dark">Total nr of hours:</p>
-        <p class="col-sm-3 py-2 border border-dark">Of which after 6pm:</p>
-    </div>
-</div>
-
-<div class="container mt-4 border border-dark">
-    <div class="row">
-        <div class="col-sm-12 border border-dark py-2">
-            <h5>Other activities</h5>
-        </div>
-    </div>
-    <div class="row ">
-        <div class="col-sm-12 px-0">
-            <table class="table border border-dark mb-0">
-                <tr>
-                    <th class="px-3">Date</th>
-                    <th class="px-3">Time</th>
-                    <th class="px-3">Comments</th>
-                </tr>
-                <tr th:each="workshift : ${other}">
-                    <td class="px-3" th:text="${workshift.getDate()}"></td>
-                    <td class="px-3" th:text="${workshift.getStartTime() + '-' + workshift.getEndTime()}"></td>
-                    <td class="px-3" th:text="${workshift.getComment()}"></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <p class="col-sm-12 py-2 border border-dark">Total nr of hours:</p>
-    </div>
-</div>
-
-<div class="container mt-4 border border-dark">
-    <div class="row">
-        <div class="col-sm-12 border border-dark py-2">
-            <h5>Lab Grading</h5>
-        </div>
-    </div>
-    <div class="row ">
-        <div class="col-sm-12 px-0">
-            <table class="table border border-dark mb-0">
-                <tr>
-                    <th class="px-3">Lab</th>
-                    <th class="px-3">Hours</th>
-                </tr>
-                <tr th:each="workshift : ${labGrading}">
-                    <td class="px-3" th:text="${workshift.getDate()}"></td>
-                    <td class="px-3" th:text="${workshift.getStartTime() + '-' + workshift.getEndTime()}"></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <p class="col-sm-12 py-2 border border-dark">Total nr of hours:</p>
-    </div>
-</div>
-
-<div class="container mt-4 border border-dark">
-    <div class="row">
-        <div class="col-sm-12 border border-dark py-2">
-            <h5>Exam Grading</h5>
-        </div>
-    </div>
-    <div class="row ">
-        <div class="col-sm-12 px-0">
-            <table class="table border border-dark mb-0">
-                <tr>
-                    <th class="px-3">Number of different days used for grading</th>
-                </tr>
-                <tr th:each="workshift : ${examGrading}">
-                    <td class="px-3">0</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <p class="col-sm-12 py-2 border border-dark">Total nr of hours:</p>
-    </div>
-</div>
-
-<div class="container mt-4 border border-dark">
-    <div class="row">
-        <div class="col-sm-3 border border-dark py-3">
-            <p>Date: 2021-05-01</p>
-        </div>
-        <div class="col-sm-9 border border-dark py-3">
-            <p>Signature: </p>
-        </div>
-    </div>
-</div>
-
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-sm-12 px-0">
-            <img th:src="@{/images/CourseResponsible.png}">
-        </div>
-    </div>
-</div>
-
-<button class="btn btn-primary">Save PDF</button>
+<button class="btn btn-primary" onclick="generatePDF()">Save PDF</button>
 
 </body>
 </html>
