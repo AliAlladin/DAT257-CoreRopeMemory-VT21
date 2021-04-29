@@ -69,6 +69,9 @@ public class User {
     )
     private boolean hasMaster;
 
+    private double SALARY = 156;
+    private double MASTER_SALARY = 200;
+
     /**
      * All the workshifts of the TA
      */
@@ -214,6 +217,21 @@ public class User {
 
         return sum;
 
+    }
+
+    public double getSalary(List<WorkShift> workshifts){
+        double salary = 0;
+        double overTimeHours = getOvertimeHours(workshifts);
+        double totalHours = totalHoursWorked(workshifts);
+        if (hasMaster){
+        salary += overTimeHours * MASTER_SALARY * 1.5;
+        salary += (totalHours - overTimeHours) * MASTER_SALARY;
+        }else{
+            salary += overTimeHours * SALARY * 1.5;
+            salary += (totalHours - overTimeHours) * SALARY;
+        }
+
+        return salary;
     }
 
 }

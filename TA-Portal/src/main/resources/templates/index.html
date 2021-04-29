@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container bg-light">
     <h2 style="text-align: center;">Workshifts by month</h2>
     <div class="container">
         <h4 class="panel-title" style="text-align: right;">
@@ -47,6 +47,7 @@
                 </table>
                 <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(january_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
                 <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(january_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+                <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(january_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
 
             </div>
         </div>
@@ -79,6 +80,7 @@
             </table>
             <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(february_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
             <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(february_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(february_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
         </div>
       </div>
       <div class="panel panel-default">
@@ -110,6 +112,7 @@
             </table>
             <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(march_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
             <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(march_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(march_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
         </div>
       </div>  
       <div class="panel panel-default">
@@ -141,6 +144,7 @@
             </table>
             <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(april_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
             <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(april_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(april_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
         </div>
       </div>
       <div class="panel panel-default">
@@ -172,6 +176,7 @@
             </table>
             <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(may_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
             <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(may_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(may_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
         </div>
       </div>
       <div class="panel panel-default">
@@ -203,6 +208,7 @@
             </table>
             <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(june_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
             <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(june_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(june_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
         </div>
       </div>
       <div class="panel panel-default">
@@ -234,6 +240,7 @@
             </table>
             <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(july_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
             <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(july_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(july_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
         </div>
       </div>
       <div class="panel panel-default">
@@ -265,6 +272,7 @@
             </table>
             <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(august_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
             <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(august_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(august_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
 
         </div>
       </div>
@@ -297,6 +305,7 @@
             </table>
             <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(september_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
             <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(september_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(september_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
 
         </div>
       </div>
@@ -329,6 +338,7 @@
             </table>
             <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(october_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
             <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(october_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(october_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
 
         </div>
       </div>
@@ -362,6 +372,7 @@
 
             <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(november_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
             <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(november_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(november_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
 
         </div>
       </div>
@@ -395,6 +406,7 @@
 
             <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(december_workshifts), 1, 'COMMA', 2, 'POINT')}"></span></p>
             <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(december_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(december_workshifts), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
 
         </div>
       </div>
