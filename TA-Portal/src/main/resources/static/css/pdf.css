@@ -59,33 +59,22 @@ body{
     font-size: 12px;
 }
 
-.personalInfo {
-    padding: 10px;
-    border: black solid 1px;
-}
 
 img {
-    width: 103.5%;
+    width: 100%;
+    padding: 0px;
 }
 
 h5 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
+    margin-bottom: 0px;
 }
 
 p {
     margin: 0px;
 }
 
-.page-break {
+.container {
     break-inside: avoid;
-}
-
-.section {
-    padding: 10px;
-    border: black solid 1px;
-}
-
-.margin-top{
-    margin-top: 20px;
 }
