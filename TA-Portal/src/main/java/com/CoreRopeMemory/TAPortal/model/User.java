@@ -182,7 +182,7 @@ public class User {
                 '}';
     }
 
-    public double totalHoursWorked(){
+    public double totalHoursWorked(List<WorkShift> workshifts){
         double sum = 0;
         for (WorkShift workshift : workshifts){
             double add= workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
@@ -191,7 +191,7 @@ public class User {
         return sum;
     }
 
-    public double getOvertimeHours(){
+    public double getOvertimeHours(List<WorkShift> workshifts){
         double sum = 0;
         for (WorkShift workshift : workshifts){
             DayOfWeek day = workshift.getDate().getDayOfWeek();

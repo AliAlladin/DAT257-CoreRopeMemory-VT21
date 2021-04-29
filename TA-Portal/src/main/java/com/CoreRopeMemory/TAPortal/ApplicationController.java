@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Month;
+
 @Controller
 public class ApplicationController {
 
@@ -35,7 +37,22 @@ public class ApplicationController {
         }
 
         model.addAttribute("workshifts", workshiftService.listALl());
+
         model.addAttribute("currentUser", userService.get("123456"));
+
+        model.addAttribute("january_workshifts", workshiftService.listByMonth(Month.JANUARY));
+        model.addAttribute("february_workshifts", workshiftService.listByMonth(Month.FEBRUARY));
+        model.addAttribute("march_workshifts", workshiftService.listByMonth(Month.MARCH));
+        model.addAttribute("april_workshifts", workshiftService.listByMonth(Month.APRIL));
+        model.addAttribute("may_workshifts", workshiftService.listByMonth(Month.MAY));
+        model.addAttribute("june_workshifts", workshiftService.listByMonth(Month.JUNE));
+        model.addAttribute("july_workshifts", workshiftService.listByMonth(Month.JULY));
+        model.addAttribute("august_workshifts", workshiftService.listByMonth(Month.AUGUST));
+        model.addAttribute("september_workshifts", workshiftService.listByMonth(Month.SEPTEMBER));
+        model.addAttribute("october_workshifts", workshiftService.listByMonth(Month.OCTOBER));
+        model.addAttribute("november_workshifts", workshiftService.listByMonth(Month.NOVEMBER));
+        model.addAttribute("december_workshifts", workshiftService.listByMonth(Month.DECEMBER));
+
         return "index";
     }
 
@@ -46,7 +63,6 @@ public class ApplicationController {
         return "add_workshift";
     }
 
-    //Getmapping?
     @RequestMapping ({"/edit_workshift/{id}"})
     public String editWorkshift(@PathVariable (value = "id") long id, Model model){
         WorkShift workShift = workshiftService.getWorkshift(id);
