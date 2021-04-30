@@ -1,6 +1,5 @@
 package com.CoreRopeMemory.TAPortal;
 
-import com.CoreRopeMemory.TAPortal.Repositories.WorkshiftRepository;
 import com.CoreRopeMemory.TAPortal.Services.UserService;
 import com.CoreRopeMemory.TAPortal.Services.WorkshiftService;
 import com.CoreRopeMemory.TAPortal.model.User;
@@ -9,6 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.time.Month;
 
 @Controller
 public class ApplicationController {
@@ -35,6 +41,22 @@ public class ApplicationController {
         }
 
         model.addAttribute("workshifts", workshiftService.listALl());
+
+        model.addAttribute("currentUser", userService.get("123456"));
+
+        model.addAttribute("january_workshifts", workshiftService.listByMonth(Month.JANUARY));
+        model.addAttribute("february_workshifts", workshiftService.listByMonth(Month.FEBRUARY));
+        model.addAttribute("march_workshifts", workshiftService.listByMonth(Month.MARCH));
+        model.addAttribute("april_workshifts", workshiftService.listByMonth(Month.APRIL));
+        model.addAttribute("may_workshifts", workshiftService.listByMonth(Month.MAY));
+        model.addAttribute("june_workshifts", workshiftService.listByMonth(Month.JUNE));
+        model.addAttribute("july_workshifts", workshiftService.listByMonth(Month.JULY));
+        model.addAttribute("august_workshifts", workshiftService.listByMonth(Month.AUGUST));
+        model.addAttribute("september_workshifts", workshiftService.listByMonth(Month.SEPTEMBER));
+        model.addAttribute("october_workshifts", workshiftService.listByMonth(Month.OCTOBER));
+        model.addAttribute("november_workshifts", workshiftService.listByMonth(Month.NOVEMBER));
+        model.addAttribute("december_workshifts", workshiftService.listByMonth(Month.DECEMBER));
+
         return "index";
     }
 
@@ -45,7 +67,6 @@ public class ApplicationController {
         return "add_workshift";
     }
 
-    //Getmapping?
     @RequestMapping ({"/edit_workshift/{id}"})
     public String editWorkshift(@PathVariable (value = "id") long id, Model model){
         WorkShift workShift = workshiftService.getWorkshift(id);
@@ -58,6 +79,7 @@ public class ApplicationController {
         User user = userService.get("123456");
 
         workShift.setTa(user);
+        user.addWorkshift(workShift);
 
         workshiftService.save(workShift);
 
@@ -92,5 +114,37 @@ public class ApplicationController {
         return "redirect:/user_details";
     }
 
+    @RequestMapping ({"/time_report"})
+    public String timeReport(Model model){
+        User user = userService.get("123456");
+        model.addAttribute("user", user);
+
+        model.addAttribute("lectureExercises",typeOfWorkshift(user.getWorkshifts(),"Lectures and exercise sessions"));
+        model.addAttribute("supervision",typeOfWorkshift(user.getWorkshifts(),"Project supervision and lab supervision"));
+        model.addAttribute("other",typeOfWorkshift(user.getWorkshifts(),"Other activities"));
+        model.addAttribute("labGrading",typeOfWorkshift(user.getWorkshifts(),"Lab grading"));
+        Set<LocalDate> dates = new HashSet<>();
+        for (WorkShift workShift : typeOfWorkshift(user.getWorkshifts(), "Exam grading")){
+            dates.add(workShift.getDate());
+        }
+        model.addAttribute("examGrading", dates.size());
+        return "time_report";
+    }
+
+    /**
+     * Method that gives a list of a specific type of workshift.
+     * @param workShifts A list of all workshifts.
+     * @param type The name of the type of workshifts wanted.
+     * @return A list of workshifts of a specific type.
+     */
+    private List<WorkShift> typeOfWorkshift(List<WorkShift> workShifts, String type){
+        List<WorkShift> typeOfWorkshift = new ArrayList<>();
+        for (WorkShift workshift: workShifts) {
+            if (workshift.getType().equals(type)){
+                typeOfWorkshift.add(workshift);
+            }
+        }
+        return typeOfWorkshift;
+    }
 
 }

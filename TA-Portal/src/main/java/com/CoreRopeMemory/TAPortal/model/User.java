@@ -2,8 +2,13 @@ package com.CoreRopeMemory.TAPortal.model;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 /**
  * Class representing a user of the application
@@ -63,6 +68,9 @@ public class User {
             columnDefinition = "BOOLEAN"
     )
     private boolean hasMaster;
+
+    private double SALARY = 156;
+    private double MASTER_SALARY = 200;
 
     /**
      * All the workshifts of the TA
@@ -162,6 +170,10 @@ public class User {
         workshifts.add(workShift);
     }
 
+    public List<WorkShift> getWorkshifts() {
+        return workshifts;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -176,4 +188,54 @@ public class User {
                 ", workshifts=" + workshifts +
                 '}';
     }
+
+    public double totalHoursWorked(List<WorkShift> workshifts){
+        double sum = 0;
+        for (WorkShift workshift : workshifts){
+            double add= workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
+            sum += add/60;
+        }
+        return sum;
+    }
+
+    public double getOvertimeHours(List<WorkShift> workshifts){
+        double sum = 0;
+        for (WorkShift workshift : workshifts){
+            DayOfWeek day = workshift.getDate().getDayOfWeek();
+            if (!workshift.getType().equals("Exam grading")) {
+                if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
+                    double add = workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
+                    sum += add / 60;
+                } else {
+                    LocalTime startOfOvertime = LocalTime.of(18, 0);
+                    if (workshift.getStartTime().isAfter(startOfOvertime)) {
+                        double add = workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
+                        sum += add / 60;
+                    } else if (workshift.getEndTime().isAfter(startOfOvertime)) {
+                        double add = startOfOvertime.until(workshift.getEndTime(), ChronoUnit.MINUTES);
+                        sum += add / 60;
+                    }
+                }
+            }
+        }
+
+        return sum;
+
+    }
+
+    public double getSalary(List<WorkShift> workshifts){
+        double salary = 0;
+        double overTimeHours = getOvertimeHours(workshifts);
+        double totalHours = totalHoursWorked(workshifts);
+        if (hasMaster){
+        salary += overTimeHours * MASTER_SALARY * 1.5;
+        salary += (totalHours - overTimeHours) * MASTER_SALARY;
+        }else{
+            salary += overTimeHours * SALARY * 1.5;
+            salary += (totalHours - overTimeHours) * SALARY;
+        }
+
+        return salary;
+    }
+
 }
