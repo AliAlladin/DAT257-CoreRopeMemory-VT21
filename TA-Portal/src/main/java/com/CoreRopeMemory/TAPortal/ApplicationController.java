@@ -114,6 +114,12 @@ public class ApplicationController {
         return "time_report";
     }
 
+    /**
+     * Method that gives a list of a specific type of workshift.
+     * @param workShifts A list of all workshifts.
+     * @param type The name of the type of workshifts wanted.
+     * @return A list of workshifts of a specific type.
+     */
     private List<WorkShift> typeOfWorkshift(List<WorkShift> workShifts, String type){
         List<WorkShift> typeOfWorkshift = new ArrayList<>();
         for (WorkShift workshift: workShifts) {

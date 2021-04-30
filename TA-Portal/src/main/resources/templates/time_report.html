@@ -18,10 +18,13 @@
 
 <div id="timeReport">
 
-    <h4>Course time report</h4>
+    <!--Title-->
+    <div class="container px-0">
+        <h4>Course time report</h4>
+    </div>
 
-
-    <div class="container border border-dark">
+    <!--Personal Info-->
+    <div class="container mt-3 border border-dark">
         <div class="row">
             <div class="col-sm-8 border border-dark p-1">
                 <label>One form for each month</label>
@@ -102,6 +105,7 @@
         </div>
     </div>
 
+    <!--Exercise and lab supervision-->
     <div class="container mt-4 border border-dark">
         <div class="row">
             <div class="col-sm-6 border border-dark py-2">
@@ -145,6 +149,7 @@
         </div>
     </div>
 
+    <!--Other activities-->
     <div class="container mt-4 border border-dark">
         <div class="row">
             <div class="col-sm-12 border border-dark py-2">
@@ -172,6 +177,7 @@
         </div>
     </div>
 
+    <!--Lab grading-->
     <div class="container mt-4 border border-dark">
         <div class="row">
             <div class="col-sm-12 border border-dark py-2">
@@ -197,6 +203,7 @@
         </div>
     </div>
 
+    <!--Exam grading-->
     <div id="page2el" class="container mt-4 border border-dark">
         <div class="row">
             <div class="col-sm-12 border border-dark py-2">
@@ -220,6 +227,7 @@
         </div>
     </div>
 
+    <!--Date and signature-->
     <div class="container mt-4 border border-dark">
         <div class="row">
             <div class="col-sm-3 border border-dark py-3">
@@ -231,6 +239,7 @@
         </div>
     </div>
 
+    <!--Course responsible-->
     <div class="container mt-4">
         <div class="row">
             <div class="col-sm-12 px-0">
@@ -241,7 +250,10 @@
 
 </div>
 
-<button class="btn btn-primary" onclick="generatePDF()">Save PDF</button>
+<!--Save button-->
+<div class="container px-0 mt-4">
+    <button class="btn btn-primary" onclick="generatePDF()">Save PDF</button>
+</div>
 
 </body>
 </html>
