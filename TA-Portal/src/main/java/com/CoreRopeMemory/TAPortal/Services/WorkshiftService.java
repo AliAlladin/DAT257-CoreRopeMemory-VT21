@@ -5,6 +5,9 @@ import com.CoreRopeMemory.TAPortal.model.WorkShift;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +45,17 @@ public class WorkshiftService {
         }
         return workshift;
     }
+
+    public List<WorkShift> listByMonth(Month month) {
+        List<WorkShift> workshifts = listALl();
+        List<WorkShift> workshiftsMonth = new ArrayList<WorkShift>();
+        for (WorkShift workshift : workshifts) {
+            if (workshift.getDate().getMonth() == month)
+                workshiftsMonth.add(workshift);
+
+        }
+        return workshiftsMonth;
+    };
 
     public void update(WorkShift workshift){
         //Id belongs to the old workshift to be deleted. 
