@@ -1,0 +1,17 @@
+what do I want to learn or understand better?
+Vi har diskuterat om att vi skulle vilja uttöka våra tester så att vi får en mer rejäl testmiljö för att undvika att kod som bråkar med tidigare kod mergas in i vår main-branch.
+Jag skulle vilja lära mig hur industristandarden för tester ser ut och hur man kan implementera en testmiljö som är rejäl men också passande för den storleken som vårt projekt har.
+
+how can I help someone else, or the entire team, to learn something new?
+Får jag tid över denna veckan att kika på hur vi bäst skulle sätta upp en bättre testmiljö kan jag förhoppningsvis dela med mig av nyttig information då.
+Annars har vi haft bra inlärning senaste veckorna genom att vi delar bra resurser via vår slack och att man lär sig utav varandra under parprogrammeringen. 
+
+what is my contribution towards the team’s use of Scrum?
+jag har varit delaktig i mötena med handledare och stakeholder och även varit delaktig i vår planering utav veckans sprint.
+Utöver det så körde vi på som i tidigare veckor då vi tycker att vi har hittat ett arbetssätt som fungerar bra för oss.
+
+what is my contribution towards the team’s deliveries?
+Deltog i planeringen för sprinten där dylan och jag tog tag i ett par user stories där vi först fixade till datatyper så att vi sen kunde implementera funktionalitet
+för att hämta antal timmar och övertidstimmar en lärarassistent hade jobbat en viss månad.
+Vi implementerade efter det metoder för att räkna ut en uppskattad lön för den månadens arbetspass beroende på om lärarassistenten har gjort färdig sin master och om
+hen jobbade på tider som gav övertidsbetalt.
