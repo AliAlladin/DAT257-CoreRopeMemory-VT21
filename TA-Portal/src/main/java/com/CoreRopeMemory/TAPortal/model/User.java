@@ -7,8 +7,10 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.time.LocalDate;
+import com.CoreRopeMemory.TAPortal.model.Role;
 
 /**
  * Class representing a user of the application
@@ -69,7 +71,15 @@ public class User {
     )
     private boolean hasMaster;
 
+    private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "userRoles", joinColumns = @JoinColumn(name = "UserId", referencedColumnName = "p_number"), inverseJoinColumns = @JoinColumn(name = "RoleId", referencedColumnName = "Id"))
+    private List<Role> roles = new ArrayList<>();
+
+    @Transient
     private double SALARY = 156;
+    @Transient
     private double MASTER_SALARY = 200;
 
     /**
@@ -87,7 +97,8 @@ public class User {
                 String streetAddr,
                 int postcode,
                 String city,
-                boolean hasMaster) {
+                boolean hasMaster,
+                String password) {
         this.pNumber = pNumber;
         this.email = email;
         this.familyName = familyName;
@@ -96,10 +107,19 @@ public class User {
         this.postcode = postcode;
         this.city = city;
         this.hasMaster = hasMaster;
+        this.password = password;
     }
 
     public User() {
 
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getpNumber() {
@@ -172,6 +192,14 @@ public class User {
 
     public List<WorkShift> getWorkshifts() {
         return workshifts;
+    }
+
+    public void setRoles(List<Role> roles){
+        this.roles = roles;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 
     @Override

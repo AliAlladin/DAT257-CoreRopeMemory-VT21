@@ -9,14 +9,14 @@
 <body>
 <h1>User Information</h1>
 <form action="#" th:action="@{/saveUser}" th:object="${user}" method="post">
+    <label for="pNumber">Personal Number:</label><br>
+    <input type="number" class="form-control" th:readonly="true" id="pNumber" th:value=" ${user.getpNumber()}" required th:field="*{pNumber}">
+
     <label for="firstName">First name:</label><br>
     <input type="text" class="form-control" id="firstName" th:value=" ${user.getFirstName()}" required th:field="*{firstName}">
 
     <label for="familyName">Family name:</label><br>
     <input type="text" class="form-control" id="familyName" th:value=" ${user.getFamilyName()}" required th:field="*{familyName}">
-
-    <label for="pNumber">Personal Number:</label><br>
-    <input type="number" class="form-control" id="pNumber" th:value=" ${user.getpNumber()}" required th:field="*{pNumber}">
 
     <label for="email">Email:</label><br>
     <input type="text" class="form-control" id="email" th:value=" ${user.getEmail()}" required th:field="*{email}">
@@ -29,6 +29,8 @@
 
     <label for="city">City:</label><br>
     <input type="text" class="form-control" id="city" th:value=" ${user.getCity()}" required th:field="*{city}">
+
+    <input type="hidden" th:value="${user.getPassword()}" th:field="*{password}">
 
     <label for="master">Have a Master?</label><br>
     <select class="form-control" id="master" th:field="*{hasMaster}">

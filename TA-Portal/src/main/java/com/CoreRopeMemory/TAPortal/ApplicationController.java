@@ -5,10 +5,13 @@ import com.CoreRopeMemory.TAPortal.Services.WorkshiftService;
 import com.CoreRopeMemory.TAPortal.model.User;
 import com.CoreRopeMemory.TAPortal.model.WorkShift;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,6 +31,13 @@ public class ApplicationController {
     @GetMapping({"/", "/index"})
     public String hello(Model model){
 
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails){
+            System.out.println(((UserDetails) principal).getUsername());
+        } else{
+            System.out.println(principal.toString());
+        }
+
         if (userService.isEmpty()){
             User user = new User("123456",
                     "test.person@mail.com",
@@ -36,13 +46,14 @@ public class ApplicationController {
                     "Kungsgatan 1",
                     12345,
                     "Göteborg",
-                    false);
+                    false,
+                    "123");
             userService.save(user);
         }
 
         model.addAttribute("workshifts", workshiftService.listALl());
 
-        model.addAttribute("currentUser", userService.get("123456"));
+        model.addAttribute("currentUser", userService.getByEmail(((UserDetails) principal).getUsername()));
 
         model.addAttribute("january_workshifts", workshiftService.listByMonth(Month.JANUARY));
         model.addAttribute("february_workshifts", workshiftService.listByMonth(Month.FEBRUARY));
@@ -110,7 +121,7 @@ public class ApplicationController {
     @RequestMapping(value = {"/saveUser"}, method = RequestMethod.POST)
     public String saveUserInfo(@ModelAttribute ("user")User user){
         //Database.saveUserInfo(user);
-        userService.save(user);
+        userService.saveUserDetails(user);
         return "redirect:/user_details";
     }
 
@@ -145,6 +156,41 @@ public class ApplicationController {
             }
         }
         return typeOfWorkshift;
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        if (userService.isEmpty()){
+            User user = new User("123456",
+                    "test.person@mail.com",
+                    "Person",
+                    "Test",
+                    "Kungsgatan 1",
+                    12345,
+                    "Göteborg",
+                    false,
+                    "123");
+            userService.save(user);
+
+            User user1 = new User("1234567",
+                    "test.person1@mail.com",
+                    "Person1",
+                    "Test1",
+                    "Kungsgatan 12",
+                    12345,
+                    "Göteborg1",
+                    false,
+                    "123");
+            userService.save(user1);
+        }
+        return "login";
+    }
+
+    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @ResponseBody
+    public String currentUser(Principal principal){
+        System.out.println(principal.getName());
+        return principal.getName();
     }
 
 }
