@@ -22,6 +22,11 @@ public class ApplicationController {
     @Autowired
     private UserService userService;
 
+    String courseCode = "TEST";
+    String finalForm = "No";
+    String newAddress = "No";
+    String salaryPrev = "Yes";
+
     @GetMapping({"/", "/index"})
     public String hello(Model model) {
 
@@ -58,22 +63,10 @@ public class ApplicationController {
 
         model.addAttribute("months", months);
 
-
-
-        /*model.addAttribute("january_workshifts", workshiftService.listByMonth(Month.JANUARY));
-        model.addAttribute("february_workshifts", workshiftService.listByMonth(Month.FEBRUARY));
-        model.addAttribute("march_workshifts", workshiftService.listByMonth(Month.MARCH));
-        model.addAttribute("april_workshifts", workshiftService.listByMonth(Month.APRIL));
-        model.addAttribute("may_workshifts", workshiftService.listByMonth(Month.MAY));
-        model.addAttribute("june_workshifts", workshiftService.listByMonth(Month.JUNE));
-        model.addAttribute("july_workshifts", workshiftService.listByMonth(Month.JULY));
-        model.addAttribute("august_workshifts", workshiftService.listByMonth(Month.AUGUST));
-        model.addAttribute("september_workshifts", workshiftService.listByMonth(Month.SEPTEMBER));
-        model.addAttribute("october_workshifts", workshiftService.listByMonth(Month.OCTOBER));
-        model.addAttribute("november_workshifts", workshiftService.listByMonth(Month.NOVEMBER));
-        model.addAttribute("december_workshifts", workshiftService.listByMonth(Month.DECEMBER));*/
-
-        model.addAttribute("months", months);
+        model.addAttribute("courseCode", courseCode);
+        model.addAttribute("finalForm", finalForm);
+        model.addAttribute("newAddress", newAddress);
+        model.addAttribute("salaryPrev", salaryPrev);
 
         return "index";
     }
@@ -132,10 +125,10 @@ public class ApplicationController {
         return "redirect:/user_details";
     }
 
-    @RequestMapping({"/time_report/{month}"})
-    public String timeReport(@PathVariable("month") Month month, Model model) {
-
-
+    @RequestMapping(value = {"/time_report/{month}"}, method = RequestMethod.POST)
+    public String timeReport(@PathVariable("month") Month month,
+                             @ModelAttribute("courseCode") String courseCode,
+                             Model model) {
         List<WorkShift> workshifts = workshiftService.listByMonth(month);
 
         User user = userService.get("123456");
@@ -150,6 +143,14 @@ public class ApplicationController {
             dates.add(workShift.getDate());
         }
         model.addAttribute("examGrading", dates.size());
+
+        this.courseCode = courseCode;
+
+        model.addAttribute("courseCode", courseCode);
+        model.addAttribute("finalForm", finalForm);
+        model.addAttribute("newAddress", newAddress);
+        model.addAttribute("salaryPrev", salaryPrev);
+
         return "time_report";
     }
 
