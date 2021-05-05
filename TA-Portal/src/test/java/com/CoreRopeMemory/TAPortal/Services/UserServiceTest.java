@@ -29,7 +29,8 @@ class UserServiceTest {
                 "Kungsgatan 1",
                 12345,
                 "Göteborg",
-                false);
+                false,
+                "123");
         userService.save(user);
         assertFalse(userService.isEmpty());
     }
@@ -43,7 +44,8 @@ class UserServiceTest {
                 "Kungsgatan 1",
                 12345,
                 "Göteborg",
-                false);
+                false,
+                "123");
         userService.save(user);
         User userDb = userService.get("123456");
         assertEquals(userDb, user);
