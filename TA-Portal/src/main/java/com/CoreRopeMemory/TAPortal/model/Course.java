@@ -63,6 +63,10 @@ public class Course {
         return name;
     }
 
+    /*public void addUser(User user) {
+        users.add(user);
+    }*/
+
     /*
     public void addWorkshift(WorkShift workShift){
         workshifts.add(workShift);

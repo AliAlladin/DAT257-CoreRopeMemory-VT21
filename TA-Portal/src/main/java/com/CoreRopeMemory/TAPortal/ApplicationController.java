@@ -1,8 +1,10 @@
 package com.CoreRopeMemory.TAPortal;
 
 import com.CoreRopeMemory.TAPortal.Services.UserService;
+import com.CoreRopeMemory.TAPortal.Services.CourseService;
 import com.CoreRopeMemory.TAPortal.Services.WorkshiftService;
 import com.CoreRopeMemory.TAPortal.model.User;
+import com.CoreRopeMemory.TAPortal.model.Course;
 import com.CoreRopeMemory.TAPortal.model.WorkShift;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class ApplicationController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CourseService courseService;
 
     @GetMapping({"/", "/index"})
     public String hello(Model model) {
@@ -125,11 +130,25 @@ public class ApplicationController {
         return "user_details";
     }
 
+    @RequestMapping({"/user_courses"}) 
+    public String course(Model model) {
+        List<Course> courses = courseService.listALl();
+        model.addAttribute("courses", courses);
+        return "user_courses";
+    }
+
     @RequestMapping(value = {"/saveUser"}, method = RequestMethod.POST)
     public String saveUserInfo(@ModelAttribute("user") User user) {
         //Database.saveUserInfo(user);
         userService.save(user);
         return "redirect:/user_details";
+    }
+
+    @RequestMapping(value = {"/addCourse"}, method = RequestMethod.POST)
+    public String addCourse(@ModelAttribute("course") Course course) {
+        courseService.save(course);
+        //course.addUser(userService.get("123456"));
+        return "redirect:/user_courses";
     }
 
     @RequestMapping({"/time_report/{month}"})

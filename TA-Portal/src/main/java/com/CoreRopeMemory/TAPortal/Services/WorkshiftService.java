@@ -58,7 +58,6 @@ public class WorkshiftService {
     };
 
     public void update(WorkShift workshift){
-        //Id belongs to the old workshift to be deleted. 
         repo.save(workshift);
     }
 
