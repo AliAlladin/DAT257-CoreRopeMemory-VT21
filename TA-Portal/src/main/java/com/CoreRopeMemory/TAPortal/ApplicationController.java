@@ -22,7 +22,6 @@ public class ApplicationController {
     @Autowired
     private UserService userService;
 
-    String courseCode = "TEST";
     String finalForm = "No";
     String newAddress = "No";
     String salaryPrev = "Yes";
@@ -63,10 +62,9 @@ public class ApplicationController {
 
         model.addAttribute("months", months);
 
-        model.addAttribute("courseCode", courseCode);
-        model.addAttribute("finalForm", finalForm);
+        /*model.addAttribute("finalForm", finalForm);
         model.addAttribute("newAddress", newAddress);
-        model.addAttribute("salaryPrev", salaryPrev);
+        model.addAttribute("salaryPrev", salaryPrev);*/
 
         return "index";
     }
@@ -125,9 +123,12 @@ public class ApplicationController {
         return "redirect:/user_details";
     }
 
-    @RequestMapping(value = {"/time_report/{month}"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/time_report/{month}"})
     public String timeReport(@PathVariable("month") Month month,
-                             @ModelAttribute("courseCode") String courseCode,
+                             @RequestParam("courseCode") String courseCode,
+                             @RequestParam("finalForm") String finalForm,
+                             @RequestParam("newAddress") String newAddress,
+                             @RequestParam("salaryPrev") String salaryPrev,
                              Model model) {
         List<WorkShift> workshifts = workshiftService.listByMonth(month);
 
@@ -143,8 +144,6 @@ public class ApplicationController {
             dates.add(workShift.getDate());
         }
         model.addAttribute("examGrading", dates.size());
-
-        this.courseCode = courseCode;
 
         model.addAttribute("courseCode", courseCode);
         model.addAttribute("finalForm", finalForm);
