@@ -73,6 +73,9 @@ public class User {
 
     private String password;
 
+    /**
+     * manytomany relationship for roles and users
+     */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "userRoles", joinColumns = @JoinColumn(name = "UserId", referencedColumnName = "p_number"), inverseJoinColumns = @JoinColumn(name = "RoleId", referencedColumnName = "Id"))
     private List<Role> roles = new ArrayList<>();
@@ -217,6 +220,11 @@ public class User {
                 '}';
     }
 
+    /**
+     * calculates  the amount of hours worked from a list of workshifts
+     * @param workshifts
+     * @return returns a double of the amount of hours
+     */
     public double totalHoursWorked(List<WorkShift> workshifts){
         double sum = 0;
         for (WorkShift workshift : workshifts){
@@ -226,6 +234,11 @@ public class User {
         return sum;
     }
 
+    /**
+     * calculates the amount of hours worked from a list of workshifts that are overtime
+     * @param workshifts
+     * @return returns a double of the amount of hours
+     */
     public double getOvertimeHours(List<WorkShift> workshifts){
         double sum = 0;
         for (WorkShift workshift : workshifts){
@@ -251,6 +264,11 @@ public class User {
 
     }
 
+    /**
+     * calculates a estimated salary from a list of workshifts
+     * @param workshifts
+     * @return returns a double of the amount in SEK
+     */
     public double getSalary(List<WorkShift> workshifts){
         double salary = 0;
         double overTimeHours = getOvertimeHours(workshifts);

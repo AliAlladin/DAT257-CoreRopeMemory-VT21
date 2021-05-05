@@ -27,6 +27,9 @@ public class UserService implements UserServiceInterface{
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * password encoder used to encode the users password
+     */
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -47,6 +50,12 @@ public class UserService implements UserServiceInterface{
         userRepository.save(user);
     }
 
+    /**
+     * spring security method for loading a user
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -71,6 +80,11 @@ public class UserService implements UserServiceInterface{
         return userRepository.getOne(pNumber);
     }
 
+    /**
+     * returns a user based on an email
+     * @param email
+     * @return
+     */
     public User getByEmail(String email) {
         return userRepository.findByEmail(email);
     }

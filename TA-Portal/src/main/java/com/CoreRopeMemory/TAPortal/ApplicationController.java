@@ -33,44 +33,20 @@ public class ApplicationController {
     @GetMapping({"/", "/index"})
     public String hello(Model model){
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(principal instanceof UserDetails){
-            System.out.println(((UserDetails) principal).getUsername());
-        } else{
-            System.out.println(principal.toString());
-        }
+        model.addAttribute("currentUser", userService.getByEmail(getCurrentUserEmail()));
 
-        if (userService.isEmpty()){
-            User user = new User("123456",
-                    "test.person@mail.com",
-                    "Person",
-                    "Test",
-                    "Kungsgatan 1",
-                    12345,
-                    "Göteborg",
-                    false,
-                    "123");
-            userService.save(user);
-        }
-
-        String currentUserEmail = (((UserDetails) principal).getUsername());
-
-        //model.addAttribute("workshifts", workshiftService.listByUser(currentUserEmail));
-
-        model.addAttribute("currentUser", userService.getByEmail(currentUserEmail));
-
-        model.addAttribute("january_workshifts", workshiftService.listByMonth(Month.JANUARY, currentUserEmail));
-        model.addAttribute("february_workshifts", workshiftService.listByMonth(Month.FEBRUARY, currentUserEmail));
-        model.addAttribute("march_workshifts", workshiftService.listByMonth(Month.MARCH, currentUserEmail));
-        model.addAttribute("april_workshifts", workshiftService.listByMonth(Month.APRIL, currentUserEmail));
-        model.addAttribute("may_workshifts", workshiftService.listByMonth(Month.MAY, currentUserEmail));
-        model.addAttribute("june_workshifts", workshiftService.listByMonth(Month.JUNE, currentUserEmail));
-        model.addAttribute("july_workshifts", workshiftService.listByMonth(Month.JULY, currentUserEmail));
-        model.addAttribute("august_workshifts", workshiftService.listByMonth(Month.AUGUST, currentUserEmail));
-        model.addAttribute("september_workshifts", workshiftService.listByMonth(Month.SEPTEMBER, currentUserEmail));
-        model.addAttribute("october_workshifts", workshiftService.listByMonth(Month.OCTOBER, currentUserEmail));
-        model.addAttribute("november_workshifts", workshiftService.listByMonth(Month.NOVEMBER, currentUserEmail));
-        model.addAttribute("december_workshifts", workshiftService.listByMonth(Month.DECEMBER, currentUserEmail));
+        model.addAttribute("january_workshifts", workshiftService.listByMonth(Month.JANUARY, getCurrentUserEmail()));
+        model.addAttribute("february_workshifts", workshiftService.listByMonth(Month.FEBRUARY, getCurrentUserEmail()));
+        model.addAttribute("march_workshifts", workshiftService.listByMonth(Month.MARCH, getCurrentUserEmail()));
+        model.addAttribute("april_workshifts", workshiftService.listByMonth(Month.APRIL, getCurrentUserEmail()));
+        model.addAttribute("may_workshifts", workshiftService.listByMonth(Month.MAY, getCurrentUserEmail()));
+        model.addAttribute("june_workshifts", workshiftService.listByMonth(Month.JUNE, getCurrentUserEmail()));
+        model.addAttribute("july_workshifts", workshiftService.listByMonth(Month.JULY, getCurrentUserEmail()));
+        model.addAttribute("august_workshifts", workshiftService.listByMonth(Month.AUGUST, getCurrentUserEmail()));
+        model.addAttribute("september_workshifts", workshiftService.listByMonth(Month.SEPTEMBER, getCurrentUserEmail()));
+        model.addAttribute("october_workshifts", workshiftService.listByMonth(Month.OCTOBER, getCurrentUserEmail()));
+        model.addAttribute("november_workshifts", workshiftService.listByMonth(Month.NOVEMBER, getCurrentUserEmail()));
+        model.addAttribute("december_workshifts", workshiftService.listByMonth(Month.DECEMBER, getCurrentUserEmail()));
 
         return "index";
     }
@@ -91,13 +67,9 @@ public class ApplicationController {
 
     @RequestMapping(value = {"/save"}, method = RequestMethod.POST)
     public String addWorkshift(@ModelAttribute ("workshift")WorkShift workShift){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String currentUserEmail = (((UserDetails) principal).getUsername());
-        User user = userService.getByEmail(currentUserEmail);
-
+        User user = userService.getByEmail(getCurrentUserEmail());
         workShift.setTa(user);
         user.addWorkshift(workShift);
-
         workshiftService.save(workShift);
 
         return "redirect:/";
@@ -105,9 +77,7 @@ public class ApplicationController {
 
     @RequestMapping(value = {"/edit/{id}"}, method = RequestMethod.POST)
     public String edit(@ModelAttribute ("workshift")WorkShift workShift, @PathVariable (value = "id") long id) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String currentUserEmail = (((UserDetails) principal).getUsername());
-        User user = userService.getByEmail(currentUserEmail);
+        User user = userService.getByEmail(getCurrentUserEmail());
         workShift.setTa(user);
         workshiftService.save(workShift);
         return "redirect:/";
@@ -121,25 +91,20 @@ public class ApplicationController {
 
     @RequestMapping ({"/user_details"})
     public String user(Model model){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String currentUserEmail = (((UserDetails) principal).getUsername());
-        User user = userService.getByEmail(currentUserEmail);
+        User user = userService.getByEmail(getCurrentUserEmail());
         model.addAttribute("user", user);
         return "user_details";
     }
 
     @RequestMapping(value = {"/saveUser"}, method = RequestMethod.POST)
     public String saveUserInfo(@ModelAttribute ("user")User user){
-        //Database.saveUserInfo(user);
         userService.saveUserDetails(user);
         return "redirect:/user_details";
     }
 
     @RequestMapping ({"/time_report"})
     public String timeReport(Model model){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String currentUserEmail = (((UserDetails) principal).getUsername());
-        User user = userService.getByEmail(currentUserEmail);
+        User user = userService.getByEmail(getCurrentUserEmail());
         model.addAttribute("user", user);
 
         model.addAttribute("lectureExercises",typeOfWorkshift(user.getWorkshifts(),"Lectures and exercise sessions"));
@@ -197,12 +162,11 @@ public class ApplicationController {
         }
         return "login";
     }
-
-    @RequestMapping(value = "/username", method = RequestMethod.GET)
-    @ResponseBody
-    public String currentUser(Principal principal){
-        System.out.println(principal.getName());
-        return principal.getName();
+    
+    public String getCurrentUserEmail(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userEmail = (((UserDetails) principal).getUsername());
+        return userEmail;
     }
 
 }
