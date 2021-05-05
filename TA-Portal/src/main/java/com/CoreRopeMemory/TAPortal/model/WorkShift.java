@@ -59,6 +59,13 @@ public class WorkShift {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ta", referencedColumnName = "p_number", nullable = false)
     private User ta;
+
+    /**
+     * The course of the workshift
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course", referencedColumnName = "course_code", nullable = true)
+    private Course course;
     
 
     public WorkShift() {
