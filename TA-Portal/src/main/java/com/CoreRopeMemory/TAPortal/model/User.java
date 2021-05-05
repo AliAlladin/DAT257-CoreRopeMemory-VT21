@@ -185,7 +185,7 @@ public class User {
         return hasMaster;
     }
 
-    public void setMaster(boolean haveMaster) {
+    public void setHasMaster(boolean haveMaster) {
         this.hasMaster = haveMaster;
     }
 
