@@ -22,10 +22,6 @@ public class ApplicationController {
     @Autowired
     private UserService userService;
 
-    String finalForm = "No";
-    String newAddress = "No";
-    String salaryPrev = "Yes";
-
     @GetMapping({"/", "/index"})
     public String hello(Model model) {
 
@@ -45,26 +41,13 @@ public class ApplicationController {
 
         model.addAttribute("currentUser", userService.get("123456"));
 
-
         LinkedHashMap<String, List<WorkShift>> months = new LinkedHashMap<>();
-        months.put("JANUARY", workshiftService.listByMonth(Month.JANUARY));
-        months.put("FEBRUARY", workshiftService.listByMonth(Month.FEBRUARY));
-        months.put("MARCH", workshiftService.listByMonth(Month.MARCH));
-        months.put("APRIL", workshiftService.listByMonth(Month.APRIL));
-        months.put("MAY", workshiftService.listByMonth(Month.MAY));
-        months.put("JUNE", workshiftService.listByMonth(Month.JUNE));
-        months.put("JULY", workshiftService.listByMonth(Month.JULY));
-        months.put("AUGUST", workshiftService.listByMonth(Month.AUGUST));
-        months.put("SEPTEMBER", workshiftService.listByMonth(Month.SEPTEMBER));
-        months.put("OCTOBER", workshiftService.listByMonth(Month.OCTOBER));
-        months.put("NOVEMBER", workshiftService.listByMonth(Month.NOVEMBER));
-        months.put("DECEMBER", workshiftService.listByMonth(Month.DECEMBER));
-
+        for (Month month:Month.values()) {
+            if (!workshiftService.listByMonth(month).isEmpty()){
+                months.put(month.name(), workshiftService.listByMonth(month));
+            }
+        }
         model.addAttribute("months", months);
-
-        /*model.addAttribute("finalForm", finalForm);
-        model.addAttribute("newAddress", newAddress);
-        model.addAttribute("salaryPrev", salaryPrev);*/
 
         return "index";
     }
@@ -136,19 +119,34 @@ public class ApplicationController {
         model.addAttribute("user", user);
 
         model.addAttribute("lectureExercises", typeOfWorkshift(workshifts, "Lectures and exercise sessions"));
+        model.addAttribute("lectureExercisesTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Lectures and exercise sessions")));
+        model.addAttribute("lectureExercisesOt", user.getOvertimeHours(typeOfWorkshift(workshifts, "Lectures and exercise sessions")));
+
         model.addAttribute("supervision", typeOfWorkshift(workshifts, "Project supervision and lab supervision"));
+        model.addAttribute("supervisionTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Project supervision and lab supervision")));
+        model.addAttribute("supervisionOt", user.getOvertimeHours(typeOfWorkshift(workshifts, "Project supervision and lab supervision")));
+
         model.addAttribute("other", typeOfWorkshift(workshifts, "Other activities"));
+        model.addAttribute("otherTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Other activities")));
+
         model.addAttribute("labGrading", typeOfWorkshift(workshifts, "Lab grading"));
+        model.addAttribute("labTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Lab grading")));
+
         Set<LocalDate> dates = new HashSet<>();
         for (WorkShift workShift : typeOfWorkshift(workshifts, "Exam grading")) {
             dates.add(workShift.getDate());
         }
         model.addAttribute("examGrading", dates.size());
+        model.addAttribute("examTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Exam grading")));
+
+        model.addAttribute("month", month.name().toLowerCase());
 
         model.addAttribute("courseCode", courseCode);
         model.addAttribute("finalForm", finalForm);
         model.addAttribute("newAddress", newAddress);
         model.addAttribute("salaryPrev", salaryPrev);
+
+        model.addAttribute("today", LocalDate.now());
 
         return "time_report";
     }

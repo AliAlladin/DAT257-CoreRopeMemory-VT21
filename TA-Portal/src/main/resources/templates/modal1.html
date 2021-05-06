@@ -13,11 +13,11 @@
     <input type="time" class="form-control" id="endTime" placeholder="Time" required th:field="*{startTime}">
     <input type="time" class="form-control" id="startTime" placeholder="Time" required th:field="*{endTime}">
     <select class="form-control" id="type" th:field="*{type}">
-        <option th:value="'Lectures and exercise sessions'">Exercise supervision</option>
-        <option th:value="'Project supervision and lab supervision'">Lab supervision</option>
+        <option th:value="'Lectures and exercise sessions'">Lectures and exercise sessions</option>
+        <option th:value="'Project supervision and lab supervision'">Project supervision and lab supervision</option>
         <option th:value="'Lab grading'">Lab grading</option>
         <option th:value="'Exam grading'">Exam grading</option>
-        <option th:value="'Other activities'">Other</option>
+        <option th:value="'Other activities'">Other activities</option>
     </select>
     <input type="text" class="form-control" id="comment" placeholder="Comment" th:field="*{comment}">
     <button type="submit" class="btn btn-primary">Spara</button>
