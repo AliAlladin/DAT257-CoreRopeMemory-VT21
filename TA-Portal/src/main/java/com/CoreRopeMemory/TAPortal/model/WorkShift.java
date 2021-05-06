@@ -65,6 +65,19 @@ public class WorkShift {
 
     }
 
+    public WorkShift(LocalDate date, LocalTime startTime, LocalTime endTime, String type) {
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.type = type;
+    }
+
+    public WorkShift(LocalDate date, LocalTime startTime, LocalTime endTime) {
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public Long getId(){
         return id;
     }
