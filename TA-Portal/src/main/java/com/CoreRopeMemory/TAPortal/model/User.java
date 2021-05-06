@@ -243,17 +243,17 @@ public class User {
         double sum = 0;
         for (WorkShift workshift : workshifts){
             DayOfWeek day = workshift.getDate().getDayOfWeek();
-            if (!workshift.getType().equals("Exam grading")) {
-                if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
+            if (workshift.getType().equals("Lectures and exercise sessions")||workshift.getType().equals("Project supervision and lab supervision")) { //If overtime is applicable
+                if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) { //if sat or sun, always overtime
                     double add = workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
                     sum += add / 60;
-                } else {
+                } else { //if not sat or sun
                     LocalTime startOfOvertime = LocalTime.of(18, 0);
-                    if (workshift.getStartTime().isAfter(startOfOvertime)) {
-                        double add = workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES);
+                    if (workshift.getStartTime().isAfter(startOfOvertime)) { //If start time is after 18
+                        double add = workshift.getStartTime().until(workshift.getEndTime(), ChronoUnit.MINUTES); //add whole workshifts
                         sum += add / 60;
-                    } else if (workshift.getEndTime().isAfter(startOfOvertime)) {
-                        double add = startOfOvertime.until(workshift.getEndTime(), ChronoUnit.MINUTES);
+                    } else if (workshift.getEndTime().isAfter(startOfOvertime)) { //if start time is before 18 and end time is after
+                        double add = startOfOvertime.until(workshift.getEndTime(), ChronoUnit.MINUTES); //add time from 18 til end of workshift.
                         sum += add / 60;
                     }
                 }
@@ -274,7 +274,7 @@ public class User {
         double overTimeHours = getOvertimeHours(workshifts);
         double totalHours = totalHoursWorked(workshifts);
         if (hasMaster){
-        salary += overTimeHours * MASTER_SALARY * 1.5;
+        salary += overTimeHours * MASTER_SALARY * 1.5; //overtime hours multiplied by 1.5
         salary += (totalHours - overTimeHours) * MASTER_SALARY;
         }else{
             salary += overTimeHours * SALARY * 1.5;
