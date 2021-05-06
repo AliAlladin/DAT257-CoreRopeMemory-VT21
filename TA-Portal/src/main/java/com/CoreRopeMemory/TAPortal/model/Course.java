@@ -93,4 +93,8 @@ public class Course {
                 '}';
     }
 
+    public String toFancyString() {
+        return courseCode + " - " + name;
+    }
+
 }

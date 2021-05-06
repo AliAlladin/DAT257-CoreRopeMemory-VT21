@@ -19,7 +19,11 @@
         <option th:value="'Exam grading'">Exam grading</option>
         <option th:value="'Other activities'">Other</option>
     </select>
-    
+    <select  class="form-control" id="course" th:field="*{course}">
+      <option th:each="course_temp : ${courses}" th:value="${course_temp.courseCode}" 
+       th:text="${course_temp.toFancyString()}" >
+      </option>
+    </select>
     <input type="text" class="form-control" id="comment" placeholder="Comment" th:field="*{comment}">
     <button type="submit" class="btn btn-primary">Spara</button>
 </form>
