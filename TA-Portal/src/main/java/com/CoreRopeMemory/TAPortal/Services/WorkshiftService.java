@@ -28,6 +28,22 @@ public class WorkshiftService {
     }
 
     /**
+     * Returns all workshifts belonging to a user
+     * @param email the email of the user
+     * @return
+     */
+    public List<WorkShift> listByUser(String email){
+        List<WorkShift> workshifts = listALl();
+        List<WorkShift> workshiftsUser = new ArrayList<WorkShift>();
+        for (WorkShift workShift : workshifts){
+            if (workShift.getTa().getEmail().equals(email)){
+                workshiftsUser.add(workShift);
+            }
+        }
+        return workshiftsUser;
+    }
+
+    /**
      * Saves a workshift to the database
      * @param workshift the workshift to save
      */
@@ -46,8 +62,14 @@ public class WorkshiftService {
         return workshift;
     }
 
-    public List<WorkShift> listByMonth(Month month) {
-        List<WorkShift> workshifts = listALl();
+    /**
+     * returns a list with all the workshifts belonging to a user for a certain month
+     * @param month specific month
+     * @param email email of the user
+     * @return
+     */
+    public List<WorkShift> listByMonth(Month month, String email) {
+        List<WorkShift> workshifts = listByUser(email);
         List<WorkShift> workshiftsMonth = new ArrayList<WorkShift>();
         for (WorkShift workshift : workshifts) {
             if (workshift.getDate().getMonth() == month)

@@ -5,16 +5,21 @@ import com.CoreRopeMemory.TAPortal.Services.WorkshiftService;
 import com.CoreRopeMemory.TAPortal.model.User;
 import com.CoreRopeMemory.TAPortal.model.WorkShift;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.*;
 import java.time.Month;
 
 @Controller
 public class ApplicationController {
+
+
 
     @Autowired
     private WorkshiftService workshiftService;
@@ -25,26 +30,15 @@ public class ApplicationController {
     @GetMapping({"/", "/index"})
     public String hello(Model model) {
 
-        if (userService.isEmpty()) {
-            User user = new User("123456",
-                    "test.person@mail.com",
-                    "Person",
-                    "Test",
-                    "Kungsgatan 1",
-                    12345,
-                    "Göteborg",
-                    false);
-            userService.save(user);
-        }
 
         model.addAttribute("workshifts", workshiftService.listALl());
 
-        model.addAttribute("currentUser", userService.get("123456"));
+        model.addAttribute("currentUser", userService.getByEmail(getCurrentUserEmail()));
 
         LinkedHashMap<String, List<WorkShift>> months = new LinkedHashMap<>();
         for (Month month:Month.values()) {
-            if (!workshiftService.listByMonth(month).isEmpty()){
-                months.put(month.name(), workshiftService.listByMonth(month));
+            if (!workshiftService.listByMonth(month, getCurrentUserEmail()).isEmpty()){
+                months.put(month.name(), workshiftService.listByMonth(month, getCurrentUserEmail()));
             }
         }
         model.addAttribute("months", months);
@@ -67,20 +61,18 @@ public class ApplicationController {
     }
 
     @RequestMapping(value = {"/save"}, method = RequestMethod.POST)
-    public String addWorkshift(@ModelAttribute("workshift") WorkShift workShift) {
-        User user = userService.get("123456");
-
+    public String addWorkshift(@ModelAttribute ("workshift")WorkShift workShift){
+        User user = userService.getByEmail(getCurrentUserEmail());
         workShift.setTa(user);
         user.addWorkshift(workShift);
-
         workshiftService.save(workShift);
 
         return "redirect:/";
     }
 
     @RequestMapping(value = {"/edit/{id}"}, method = RequestMethod.POST)
-    public String edit(@ModelAttribute("workshift") WorkShift workShift, @PathVariable(value = "id") long id) {
-        User user = userService.get("123456");
+    public String edit(@ModelAttribute ("workshift")WorkShift workShift, @PathVariable (value = "id") long id) {
+        User user = userService.getByEmail(getCurrentUserEmail());
         workShift.setTa(user);
         workshiftService.save(workShift);
         return "redirect:/";
@@ -92,17 +84,18 @@ public class ApplicationController {
         return "redirect:/";
     }
 
-    @RequestMapping({"/user_details"})
-    public String user(Model model) {
-        User user = userService.get("123456");
+
+
+    @RequestMapping ({"/user_details"})
+    public String user(Model model){
+        User user = userService.getByEmail(getCurrentUserEmail());
         model.addAttribute("user", user);
         return "user_details";
     }
 
     @RequestMapping(value = {"/saveUser"}, method = RequestMethod.POST)
-    public String saveUserInfo(@ModelAttribute("user") User user) {
-        //Database.saveUserInfo(user);
-        userService.save(user);
+    public String saveUserInfo(@ModelAttribute ("user")User user){
+        userService.saveUserDetails(user);
         return "redirect:/user_details";
     }
 
@@ -113,9 +106,10 @@ public class ApplicationController {
                              @RequestParam("newAddress") String newAddress,
                              @RequestParam("salaryPrev") String salaryPrev,
                              Model model) {
-        List<WorkShift> workshifts = workshiftService.listByMonth(month);
 
-        User user = userService.get("123456");
+        List<WorkShift> workshifts = workshiftService.listByMonth(month, getCurrentUserEmail());
+        User user = userService.getByEmail(getCurrentUserEmail());
+
         model.addAttribute("user", user);
 
         model.addAttribute("lectureExercises", typeOfWorkshift(workshifts, "Lectures and exercise sessions"));
@@ -166,6 +160,40 @@ public class ApplicationController {
             }
         }
         return typeOfWorkshift;
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        if (userService.isEmpty()){
+            User user = new User("123456",
+                    "test.person@mail.com",
+                    "Person",
+                    "Test",
+                    "Kungsgatan 1",
+                    12345,
+                    "Göteborg",
+                    false,
+                    "123");
+            userService.save(user);
+
+            User user1 = new User("1234567",
+                    "test.person1@mail.com",
+                    "Person1",
+                    "Test1",
+                    "Kungsgatan 12",
+                    12345,
+                    "Göteborg1",
+                    false,
+                    "123");
+            userService.save(user1);
+        }
+        return "login";
+    }
+    
+    public String getCurrentUserEmail(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userEmail = (((UserDetails) principal).getUsername());
+        return userEmail;
     }
 
 }

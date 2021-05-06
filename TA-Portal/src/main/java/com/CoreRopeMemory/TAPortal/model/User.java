@@ -7,8 +7,10 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.time.LocalDate;
+import com.CoreRopeMemory.TAPortal.model.Role;
 
 /**
  * Class representing a user of the application
@@ -69,7 +71,18 @@ public class User {
     )
     private boolean hasMaster;
 
+    private String password;
+
+    /**
+     * manytomany relationship for roles and users
+     */
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "userRoles", joinColumns = @JoinColumn(name = "UserId", referencedColumnName = "p_number"), inverseJoinColumns = @JoinColumn(name = "RoleId", referencedColumnName = "Id"))
+    private List<Role> roles = new ArrayList<>();
+
+    @Transient
     private double SALARY = 156;
+    @Transient
     private double MASTER_SALARY = 200;
 
     /**
@@ -87,7 +100,8 @@ public class User {
                 String streetAddr,
                 int postcode,
                 String city,
-                boolean hasMaster) {
+                boolean hasMaster,
+                String password) {
         this.pNumber = pNumber;
         this.email = email;
         this.familyName = familyName;
@@ -96,10 +110,19 @@ public class User {
         this.postcode = postcode;
         this.city = city;
         this.hasMaster = hasMaster;
+        this.password = password;
     }
 
     public User() {
 
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getpNumber() {
@@ -162,7 +185,7 @@ public class User {
         return hasMaster;
     }
 
-    public void setMaster(boolean haveMaster) {
+    public void setHasMaster(boolean haveMaster) {
         this.hasMaster = haveMaster;
     }
 
@@ -172,6 +195,14 @@ public class User {
 
     public List<WorkShift> getWorkshifts() {
         return workshifts;
+    }
+
+    public void setRoles(List<Role> roles){
+        this.roles = roles;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 
     @Override
@@ -189,6 +220,11 @@ public class User {
                 '}';
     }
 
+    /**
+     * calculates  the amount of hours worked from a list of workshifts
+     * @param workshifts
+     * @return returns a double of the amount of hours
+     */
     public double totalHoursWorked(List<WorkShift> workshifts){
         double sum = 0;
         for (WorkShift workshift : workshifts){
@@ -198,6 +234,11 @@ public class User {
         return sum;
     }
 
+    /**
+     * calculates the amount of hours worked from a list of workshifts that are overtime
+     * @param workshifts
+     * @return returns a double of the amount of hours
+     */
     public double getOvertimeHours(List<WorkShift> workshifts){
         double sum = 0;
         for (WorkShift workshift : workshifts){
@@ -223,6 +264,11 @@ public class User {
 
     }
 
+    /**
+     * calculates a estimated salary from a list of workshifts
+     * @param workshifts
+     * @return returns a double of the amount in SEK
+     */
     public double getSalary(List<WorkShift> workshifts){
         double salary = 0;
         double overTimeHours = getOvertimeHours(workshifts);
