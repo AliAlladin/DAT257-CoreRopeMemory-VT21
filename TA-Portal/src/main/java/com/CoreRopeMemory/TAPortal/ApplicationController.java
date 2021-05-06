@@ -36,21 +36,12 @@ public class ApplicationController {
         model.addAttribute("currentUser", userService.getByEmail(getCurrentUserEmail()));
 
         LinkedHashMap<String, List<WorkShift>> months = new LinkedHashMap<>();
-        months.put("JANUARY", workshiftService.listByMonth(Month.JANUARY, getCurrentUserEmail()));
-        months.put("FEBRUARY", workshiftService.listByMonth(Month.FEBRUARY, getCurrentUserEmail()));
-        months.put("MARCH", workshiftService.listByMonth(Month.MARCH, getCurrentUserEmail()));
-        months.put("APRIL", workshiftService.listByMonth(Month.APRIL, getCurrentUserEmail()));
-        months.put("MAY", workshiftService.listByMonth(Month.MAY, getCurrentUserEmail()));
-        months.put("JUNE", workshiftService.listByMonth(Month.JUNE, getCurrentUserEmail()));
-        months.put("JULY", workshiftService.listByMonth(Month.JULY, getCurrentUserEmail()));
-        months.put("AUGUST", workshiftService.listByMonth(Month.AUGUST, getCurrentUserEmail()));
-        months.put("SEPTEMBER", workshiftService.listByMonth(Month.SEPTEMBER, getCurrentUserEmail()));
-        months.put("OCTOBER", workshiftService.listByMonth(Month.OCTOBER, getCurrentUserEmail()));
-        months.put("NOVEMBER", workshiftService.listByMonth(Month.NOVEMBER, getCurrentUserEmail()));
-        months.put("DECEMBER", workshiftService.listByMonth(Month.DECEMBER, getCurrentUserEmail()));
-
+        for (Month month:Month.values()) {
+            if (!workshiftService.listByMonth(month, getCurrentUserEmail()).isEmpty()){
+                months.put(month.name(), workshiftService.listByMonth(month, getCurrentUserEmail()));
+            }
+        }
         model.addAttribute("months", months);
-
 
         return "index";
     }
@@ -108,23 +99,49 @@ public class ApplicationController {
         return "redirect:/user_details";
     }
 
-    @RequestMapping({"/time_report/{month}"})
-    public String timeReport(@PathVariable("month") Month month, Model model) {
-
+    @RequestMapping(value = {"/time_report/{month}"})
+    public String timeReport(@PathVariable("month") Month month,
+                             @RequestParam("courseCode") String courseCode,
+                             @RequestParam("finalForm") String finalForm,
+                             @RequestParam("newAddress") String newAddress,
+                             @RequestParam("salaryPrev") String salaryPrev,
+                             Model model) {
 
         List<WorkShift> workshifts = workshiftService.listByMonth(month, getCurrentUserEmail());
         User user = userService.getByEmail(getCurrentUserEmail());
+
         model.addAttribute("user", user);
 
         model.addAttribute("lectureExercises", typeOfWorkshift(workshifts, "Lectures and exercise sessions"));
+        model.addAttribute("lectureExercisesTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Lectures and exercise sessions")));
+        model.addAttribute("lectureExercisesOt", user.getOvertimeHours(typeOfWorkshift(workshifts, "Lectures and exercise sessions")));
+
         model.addAttribute("supervision", typeOfWorkshift(workshifts, "Project supervision and lab supervision"));
+        model.addAttribute("supervisionTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Project supervision and lab supervision")));
+        model.addAttribute("supervisionOt", user.getOvertimeHours(typeOfWorkshift(workshifts, "Project supervision and lab supervision")));
+
         model.addAttribute("other", typeOfWorkshift(workshifts, "Other activities"));
+        model.addAttribute("otherTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Other activities")));
+
         model.addAttribute("labGrading", typeOfWorkshift(workshifts, "Lab grading"));
+        model.addAttribute("labTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Lab grading")));
+
         Set<LocalDate> dates = new HashSet<>();
         for (WorkShift workShift : typeOfWorkshift(workshifts, "Exam grading")) {
             dates.add(workShift.getDate());
         }
         model.addAttribute("examGrading", dates.size());
+        model.addAttribute("examTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Exam grading")));
+
+        model.addAttribute("month", month.name().toLowerCase());
+
+        model.addAttribute("courseCode", courseCode);
+        model.addAttribute("finalForm", finalForm);
+        model.addAttribute("newAddress", newAddress);
+        model.addAttribute("salaryPrev", salaryPrev);
+
+        model.addAttribute("today", LocalDate.now());
+
         return "time_report";
     }
 

@@ -30,8 +30,8 @@
                 <label>One form for each month</label>
             </div>
             <div class="col-sm-4 border border-dark p-1">
-                <label for="month">Month</label>
-                <label id="month">April</label>
+                <label for="month">Month: </label>
+                <label id="month" th:text="${month}"></label>
             </div>
         </div>
         <div class="row">
@@ -41,11 +41,11 @@
             </div>
             <div class="col-sm-3 border border-dark p-1">
                 <label for="courseCode">Course code:</label>
-                <label id="courseCode">TDA548</label>
+                <label id="courseCode" th:text="${courseCode}"></label>
             </div>
             <div class="col-sm-3 border border-dark p-1">
                 <label for="finalForm">Is this the final form?:</label>
-                <label id="finalForm">No</label>
+                <label id="finalForm" th:text="${finalForm}"></label>
             </div>
         </div>
         <div class="row">
@@ -90,7 +90,7 @@
             </div>
             <div class="col-sm-3 border border-dark p-1">
                 <label for="firstForm">Is this a new address?:</label>
-                <label id="firstForm">No</label>
+                <label id="firstForm" th:text="${newAddress}"></label>
             </div>
         </div>
         <div class="row">
@@ -100,7 +100,7 @@
             </div>
             <div class="col-sm-6 border border-dark p-1">
                 <label for="salary">Received salary previously from Chalmers/GU?:</label>
-                <label id="salary">No</label>
+                <label id="salary" th:text="${salaryPrev}"></label>
             </div>
         </div>
     </div>
@@ -142,10 +142,10 @@
             </div>
         </div>
         <div class="row">
-            <p class="col-sm-3 py-2 border border-dark">Total nr of hours:</p>
-            <p class="col-sm-3 py-2 border border-dark">Of which after 6pm:</p>
-            <p class="col-sm-3 py-2 border border-dark">Total nr of hours:</p>
-            <p class="col-sm-3 py-2 border border-dark">Of which after 6pm:</p>
+            <p class="col-sm-3 py-2 border border-dark" th:text="${'Total nr of hours: ' + lectureExercisesTotal}"></p>
+            <p class="col-sm-3 py-2 border border-dark" th:text="${'Of which after 6pm: ' + lectureExercisesOt}"></p>
+            <p class="col-sm-3 py-2 border border-dark" th:text="${'Total nr of hours: ' + supervisionTotal}"></p>
+            <p class="col-sm-3 py-2 border border-dark" th:text="${'Of which after 6pm: ' + supervisionOt}"></p>
         </div>
     </div>
 
@@ -173,7 +173,7 @@
             </div>
         </div>
         <div class="row">
-            <p class="col-sm-12 py-2 border border-dark">Total nr of hours:</p>
+            <p class="col-sm-12 py-2 border border-dark" th:text="${'Total nr of hours: ' + otherTotal}"></p>
         </div>
     </div>
 
@@ -199,7 +199,7 @@
             </div>
         </div>
         <div class="row">
-            <p class="col-sm-12 py-2 border border-dark">Total nr of hours:</p>
+            <p class="col-sm-12 py-2 border border-dark" th:text="${'Total nr of hours: ' + labTotal}"></p>
         </div>
     </div>
 
@@ -216,14 +216,14 @@
                     <tr>
                         <th class="px-3">Number of different days used for grading</th>
                     </tr>
-                    <tr th:each="workshift : ${examGrading}">
-                        <td class="px-3">0</td>
+                    <tr>
+                        <td class="px-3" th:text="${examGrading}"></td>
                     </tr>
                 </table>
             </div>
         </div>
         <div class="row">
-            <p class="col-sm-12 py-2 border border-dark">Total nr of hours:</p>
+            <p class="col-sm-12 py-2 border border-dark" th:text="${'Total nr of hours: ' + examTotal}"></p>
         </div>
     </div>
 
@@ -231,7 +231,7 @@
     <div class="container mt-4 border border-dark">
         <div class="row">
             <div class="col-sm-3 border border-dark py-3">
-                <p>Date: 2021-05-01</p>
+                <p th:text="${'Date: ' + today}"></p>
             </div>
             <div class="col-sm-9 border border-dark py-3">
                 <p>Signature: </p>

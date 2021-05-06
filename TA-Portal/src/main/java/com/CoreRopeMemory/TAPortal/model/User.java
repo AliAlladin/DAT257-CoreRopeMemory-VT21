@@ -83,7 +83,7 @@ public class User {
     @Transient
     private double SALARY = 156;
     @Transient
-    private double MASTER_SALARY = 200;
+    private double MASTER_SALARY = 184;
 
     /**
      * All the workshifts of the TA
@@ -274,10 +274,10 @@ public class User {
         double overTimeHours = getOvertimeHours(workshifts);
         double totalHours = totalHoursWorked(workshifts);
         if (hasMaster){
-        salary += overTimeHours * MASTER_SALARY * 1.5;
+        salary += overTimeHours * (MASTER_SALARY + 39);
         salary += (totalHours - overTimeHours) * MASTER_SALARY;
         }else{
-            salary += overTimeHours * SALARY * 1.5;
+            salary += overTimeHours * (SALARY + 39);
             salary += (totalHours - overTimeHours) * SALARY;
         }
 
