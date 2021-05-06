@@ -97,6 +97,8 @@ public class ApplicationController {
     public String editWorkshift(@PathVariable(value = "id") long id, Model model) {
         WorkShift workShift = workshiftService.getWorkshift(id);
         model.addAttribute("workshift", workShift);
+        List<Course> courses = courseService.listALl();
+        model.addAttribute("courses", courses);
         return "edit_workshift";
     }
 
