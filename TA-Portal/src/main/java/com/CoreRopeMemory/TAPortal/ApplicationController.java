@@ -5,16 +5,21 @@ import com.CoreRopeMemory.TAPortal.Services.WorkshiftService;
 import com.CoreRopeMemory.TAPortal.model.User;
 import com.CoreRopeMemory.TAPortal.model.WorkShift;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.*;
 import java.time.Month;
 
 @Controller
 public class ApplicationController {
+
+
 
     @Autowired
     private WorkshiftService workshiftService;
@@ -25,55 +30,27 @@ public class ApplicationController {
     @GetMapping({"/", "/index"})
     public String hello(Model model) {
 
-        if (userService.isEmpty()) {
-            User user = new User("123456",
-                    "test.person@mail.com",
-                    "Person",
-                    "Test",
-                    "Kungsgatan 1",
-                    12345,
-                    "Göteborg",
-                    false);
-            userService.save(user);
-        }
 
         model.addAttribute("workshifts", workshiftService.listALl());
 
-        model.addAttribute("currentUser", userService.get("123456"));
-
+        model.addAttribute("currentUser", userService.getByEmail(getCurrentUserEmail()));
 
         LinkedHashMap<String, List<WorkShift>> months = new LinkedHashMap<>();
-        months.put("JANUARY", workshiftService.listByMonth(Month.JANUARY));
-        months.put("FEBRUARY", workshiftService.listByMonth(Month.FEBRUARY));
-        months.put("MARCH", workshiftService.listByMonth(Month.MARCH));
-        months.put("APRIL", workshiftService.listByMonth(Month.APRIL));
-        months.put("MAY", workshiftService.listByMonth(Month.MAY));
-        months.put("JUNE", workshiftService.listByMonth(Month.JUNE));
-        months.put("JULY", workshiftService.listByMonth(Month.JULY));
-        months.put("AUGUST", workshiftService.listByMonth(Month.AUGUST));
-        months.put("SEPTEMBER", workshiftService.listByMonth(Month.SEPTEMBER));
-        months.put("OCTOBER", workshiftService.listByMonth(Month.OCTOBER));
-        months.put("NOVEMBER", workshiftService.listByMonth(Month.NOVEMBER));
-        months.put("DECEMBER", workshiftService.listByMonth(Month.DECEMBER));
+        months.put("JANUARY", workshiftService.listByMonth(Month.JANUARY, getCurrentUserEmail()));
+        months.put("FEBRUARY", workshiftService.listByMonth(Month.FEBRUARY, getCurrentUserEmail()));
+        months.put("MARCH", workshiftService.listByMonth(Month.MARCH, getCurrentUserEmail()));
+        months.put("APRIL", workshiftService.listByMonth(Month.APRIL, getCurrentUserEmail()));
+        months.put("MAY", workshiftService.listByMonth(Month.MAY, getCurrentUserEmail()));
+        months.put("JUNE", workshiftService.listByMonth(Month.JUNE, getCurrentUserEmail()));
+        months.put("JULY", workshiftService.listByMonth(Month.JULY, getCurrentUserEmail()));
+        months.put("AUGUST", workshiftService.listByMonth(Month.AUGUST, getCurrentUserEmail()));
+        months.put("SEPTEMBER", workshiftService.listByMonth(Month.SEPTEMBER, getCurrentUserEmail()));
+        months.put("OCTOBER", workshiftService.listByMonth(Month.OCTOBER, getCurrentUserEmail()));
+        months.put("NOVEMBER", workshiftService.listByMonth(Month.NOVEMBER, getCurrentUserEmail()));
+        months.put("DECEMBER", workshiftService.listByMonth(Month.DECEMBER, getCurrentUserEmail()));
 
         model.addAttribute("months", months);
 
-
-
-        /*model.addAttribute("january_workshifts", workshiftService.listByMonth(Month.JANUARY));
-        model.addAttribute("february_workshifts", workshiftService.listByMonth(Month.FEBRUARY));
-        model.addAttribute("march_workshifts", workshiftService.listByMonth(Month.MARCH));
-        model.addAttribute("april_workshifts", workshiftService.listByMonth(Month.APRIL));
-        model.addAttribute("may_workshifts", workshiftService.listByMonth(Month.MAY));
-        model.addAttribute("june_workshifts", workshiftService.listByMonth(Month.JUNE));
-        model.addAttribute("july_workshifts", workshiftService.listByMonth(Month.JULY));
-        model.addAttribute("august_workshifts", workshiftService.listByMonth(Month.AUGUST));
-        model.addAttribute("september_workshifts", workshiftService.listByMonth(Month.SEPTEMBER));
-        model.addAttribute("october_workshifts", workshiftService.listByMonth(Month.OCTOBER));
-        model.addAttribute("november_workshifts", workshiftService.listByMonth(Month.NOVEMBER));
-        model.addAttribute("december_workshifts", workshiftService.listByMonth(Month.DECEMBER));*/
-
-        model.addAttribute("months", months);
 
         return "index";
     }
@@ -93,20 +70,18 @@ public class ApplicationController {
     }
 
     @RequestMapping(value = {"/save"}, method = RequestMethod.POST)
-    public String addWorkshift(@ModelAttribute("workshift") WorkShift workShift) {
-        User user = userService.get("123456");
-
+    public String addWorkshift(@ModelAttribute ("workshift")WorkShift workShift){
+        User user = userService.getByEmail(getCurrentUserEmail());
         workShift.setTa(user);
         user.addWorkshift(workShift);
-
         workshiftService.save(workShift);
 
         return "redirect:/";
     }
 
     @RequestMapping(value = {"/edit/{id}"}, method = RequestMethod.POST)
-    public String edit(@ModelAttribute("workshift") WorkShift workShift, @PathVariable(value = "id") long id) {
-        User user = userService.get("123456");
+    public String edit(@ModelAttribute ("workshift")WorkShift workShift, @PathVariable (value = "id") long id) {
+        User user = userService.getByEmail(getCurrentUserEmail());
         workShift.setTa(user);
         workshiftService.save(workShift);
         return "redirect:/";
@@ -118,17 +93,18 @@ public class ApplicationController {
         return "redirect:/";
     }
 
-    @RequestMapping({"/user_details"})
-    public String user(Model model) {
-        User user = userService.get("123456");
+
+
+    @RequestMapping ({"/user_details"})
+    public String user(Model model){
+        User user = userService.getByEmail(getCurrentUserEmail());
         model.addAttribute("user", user);
         return "user_details";
     }
 
     @RequestMapping(value = {"/saveUser"}, method = RequestMethod.POST)
-    public String saveUserInfo(@ModelAttribute("user") User user) {
-        //Database.saveUserInfo(user);
-        userService.save(user);
+    public String saveUserInfo(@ModelAttribute ("user")User user){
+        userService.saveUserDetails(user);
         return "redirect:/user_details";
     }
 
@@ -136,9 +112,8 @@ public class ApplicationController {
     public String timeReport(@PathVariable("month") Month month, Model model) {
 
 
-        List<WorkShift> workshifts = workshiftService.listByMonth(month);
-
-        User user = userService.get("123456");
+        List<WorkShift> workshifts = workshiftService.listByMonth(month, getCurrentUserEmail());
+        User user = userService.getByEmail(getCurrentUserEmail());
         model.addAttribute("user", user);
 
         model.addAttribute("lectureExercises", typeOfWorkshift(workshifts, "Lectures and exercise sessions"));
@@ -168,6 +143,40 @@ public class ApplicationController {
             }
         }
         return typeOfWorkshift;
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        if (userService.isEmpty()){
+            User user = new User("123456",
+                    "test.person@mail.com",
+                    "Person",
+                    "Test",
+                    "Kungsgatan 1",
+                    12345,
+                    "Göteborg",
+                    false,
+                    "123");
+            userService.save(user);
+
+            User user1 = new User("1234567",
+                    "test.person1@mail.com",
+                    "Person1",
+                    "Test1",
+                    "Kungsgatan 12",
+                    12345,
+                    "Göteborg1",
+                    false,
+                    "123");
+            userService.save(user1);
+        }
+        return "login";
+    }
+    
+    public String getCurrentUserEmail(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userEmail = (((UserDetails) principal).getUsername());
+        return userEmail;
     }
 
 }
