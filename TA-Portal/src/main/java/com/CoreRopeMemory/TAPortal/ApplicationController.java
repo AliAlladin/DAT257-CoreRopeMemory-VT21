@@ -46,6 +46,8 @@ public class ApplicationController {
 
         model.addAttribute("currentUser", userService.get("123456"));
 
+        //?
+        model.addAttribute("courses", courseService.listALl());
 
         LinkedHashMap<String, List<WorkShift>> months = new LinkedHashMap<>();
         months.put("JANUARY", workshiftService.listByMonth(Month.JANUARY));
@@ -132,7 +134,9 @@ public class ApplicationController {
 
     @RequestMapping({"/user_courses"}) 
     public String course(Model model) {
+        Course course = new Course();
         List<Course> courses = courseService.listALl();
+        model.addAttribute("course", course);
         model.addAttribute("courses", courses);
         return "user_courses";
     }

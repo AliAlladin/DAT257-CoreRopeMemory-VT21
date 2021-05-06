@@ -24,6 +24,15 @@
     </table>
 </div>
 
+<div>
+    <form action="#" th:action="@{/addCourse}" th:object="${course}" method="post">
+        <input type="text" class="form-control" id="courseCode" required th:field="*{courseCode}"> 
+        <input type="text" class="form-control" id="name" required th:field="*{name}">
+        <button type="submit" class="btn btn-primary">Spara</button>
+    </form>
+</div>
+    
+
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>

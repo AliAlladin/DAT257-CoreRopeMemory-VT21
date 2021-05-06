@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "course")
 public class Course {
+    
     @Id
     @Column(
             name = "course_code",
@@ -59,8 +60,16 @@ public class Course {
         return courseCode;
     }
 
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /*public void addUser(User user) {
