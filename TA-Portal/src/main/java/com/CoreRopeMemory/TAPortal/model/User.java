@@ -93,6 +93,12 @@ public class User {
             mappedBy = "ta")
     private List<WorkShift> workshifts = new ArrayList<>();
 
+    /**
+     * All the courses of the TA
+     */
+    @ManyToMany(mappedBy="users")
+    private List<Course> courses;
+
     public User(String pNumber,
                 String email,
                 String familyName,

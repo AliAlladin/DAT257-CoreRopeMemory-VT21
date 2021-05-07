@@ -15,6 +15,9 @@
     <div class="container">
         <h4 class="panel-title" style="text-align: right;">
             <a class="btn btn-primary" th:href="@{/user_details}">User Information</a>
+
+            <a class="btn btn-primary" th:href="@{/user_courses}">My Courses</a>
+
             <a class="btn btn-danger" th:href="@{/logout}">Log out</a>
         </h4>
     </div>
@@ -28,6 +31,7 @@
             <div th:id="${month.getKey()}" class="panel-collapse collapse">
                 <table class="table table-striped table-hover">
                     <tr>
+                        <th>Course</th>
                         <th>Date</th>
                         <th>Start Time</th>
                         <th>End Time</th>
@@ -36,6 +40,7 @@
                         <th>Actions</th>
                     </tr>
                     <tr th:each="workshift : ${month.getValue()}">
+                        <td th:text="${workshift.getCourse().toFancyString()}"></td>
                         <td th:text="${workshift.getDate()}"></td>
                         <td th:text="${workshift.getStartTime()}"></td>
                         <td th:text="${workshift.getEndTime()}"></td>

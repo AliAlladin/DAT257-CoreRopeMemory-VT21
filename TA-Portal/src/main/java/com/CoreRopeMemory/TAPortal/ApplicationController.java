@@ -1,8 +1,10 @@
 package com.CoreRopeMemory.TAPortal;
 
 import com.CoreRopeMemory.TAPortal.Services.UserService;
+import com.CoreRopeMemory.TAPortal.Services.CourseService;
 import com.CoreRopeMemory.TAPortal.Services.WorkshiftService;
 import com.CoreRopeMemory.TAPortal.model.User;
+import com.CoreRopeMemory.TAPortal.model.Course;
 import com.CoreRopeMemory.TAPortal.model.WorkShift;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +29,9 @@ public class ApplicationController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CourseService courseService;
+
     @GetMapping({"/", "/index"})
     public String hello(Model model) {
 
@@ -49,7 +54,9 @@ public class ApplicationController {
     @RequestMapping({"/add_workshift"})
     public String newWorkshift(Model model) {
         WorkShift workShift = new WorkShift();
+        List<Course> courses = courseService.listALl();
         model.addAttribute("workshift", workShift);
+        model.addAttribute("courses", courses);
         return "add_workshift";
     }
 
@@ -57,6 +64,8 @@ public class ApplicationController {
     public String editWorkshift(@PathVariable(value = "id") long id, Model model) {
         WorkShift workShift = workshiftService.getWorkshift(id);
         model.addAttribute("workshift", workShift);
+        List<Course> courses = courseService.listALl();
+        model.addAttribute("courses", courses);
         return "edit_workshift";
     }
 
@@ -93,10 +102,26 @@ public class ApplicationController {
         return "user_details";
     }
 
+    @RequestMapping({"/user_courses"}) 
+    public String course(Model model) {
+        Course course = new Course();
+        List<Course> courses = courseService.listALl();
+        model.addAttribute("course", course);
+        model.addAttribute("courses", courses);
+        return "user_courses";
+    }
+
     @RequestMapping(value = {"/saveUser"}, method = RequestMethod.POST)
     public String saveUserInfo(@ModelAttribute ("user")User user){
         userService.saveUserDetails(user);
         return "redirect:/user_details";
+    }
+
+    @RequestMapping(value = {"/addCourse"}, method = RequestMethod.POST)
+    public String addCourse(@ModelAttribute("course") Course course) {
+        courseService.save(course);
+        //course.addUser(userService.get("123456"));
+        return "redirect:/user_courses";
     }
 
     @RequestMapping(value = {"/time_report/{month}"})
