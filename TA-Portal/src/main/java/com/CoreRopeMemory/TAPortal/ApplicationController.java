@@ -48,6 +48,9 @@ public class ApplicationController {
         }
         model.addAttribute("months", months);
 
+        List<Course> courses = courseService.listALl();
+        model.addAttribute("courses", courses);
+
         return "index";
     }
 
@@ -132,7 +135,7 @@ public class ApplicationController {
                              @RequestParam("salaryPrev") String salaryPrev,
                              Model model) {
 
-        List<WorkShift> workshifts = workshiftService.listByMonth(month, getCurrentUserEmail());
+        List<WorkShift> workshifts = workshiftService.listByCourse(courseCode, month, getCurrentUserEmail());
         User user = userService.getByEmail(getCurrentUserEmail());
 
         model.addAttribute("user", user);
@@ -161,6 +164,7 @@ public class ApplicationController {
         model.addAttribute("month", month.name().toLowerCase());
 
         model.addAttribute("courseCode", courseCode);
+        model.addAttribute("courseName", courseService.get(courseCode).getName());
         model.addAttribute("finalForm", finalForm);
         model.addAttribute("newAddress", newAddress);
         model.addAttribute("salaryPrev", salaryPrev);

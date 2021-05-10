@@ -1,6 +1,7 @@
 package com.CoreRopeMemory.TAPortal.Services;
 
 import com.CoreRopeMemory.TAPortal.Repositories.WorkshiftRepository;
+import com.CoreRopeMemory.TAPortal.model.Course;
 import com.CoreRopeMemory.TAPortal.model.WorkShift;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,6 +78,24 @@ public class WorkshiftService {
 
         }
         return workshiftsMonth;
+    };
+
+    /**
+     * returns a list with all the workshifts belonging to a user for a certain month
+     * @param course    course that the workshifts should belong to.
+     * @param month     specific month
+     * @param email     email of the user
+     * @return
+     */
+    public List<WorkShift> listByCourse(String course, Month month, String email) {
+        List<WorkShift> workshifts = listByMonth(month, email);
+        List<WorkShift> workshiftsCourse = new ArrayList<>();
+        for (WorkShift workshift : workshifts) {
+            if (workshift.getCourse().getCourseCode().equals(course)) {
+                workshiftsCourse.add(workshift);
+            }
+        }
+        return workshiftsCourse;
     };
 
     public void update(WorkShift workshift){
