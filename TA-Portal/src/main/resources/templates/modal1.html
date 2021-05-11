@@ -9,6 +9,12 @@
 <body>
 <h1>New Workshift</h1>
 <form action="#" th:action="@{/save}" th:object="${workshift}" method="post">
+    <select  class="form-control" id="course" required th:field="*{course}">
+        <option value="" hidden>Select course</option>
+        <option th:each="course_temp : ${courses}" th:value="${course_temp.courseCode}"
+                th:text="${course_temp.toFancyString()}" >
+        </option>
+    </select>
     <input type="date" class="form-control" id="date" placeholder="Date" required th:field="*{date}">
     <input type="time" class="form-control" id="endTime" placeholder="Time" required th:field="*{startTime}">
     <input type="time" class="form-control" id="startTime" placeholder="Time" required th:field="*{endTime}">
@@ -18,11 +24,6 @@
         <option th:value="'Lab grading'">Lab grading</option>
         <option th:value="'Exam grading'">Exam grading</option>
         <option th:value="'Other activities'">Other activities</option>
-    </select>
-    <select  class="form-control" id="course" th:field="*{course}">
-      <option th:each="course_temp : ${courses}" th:value="${course_temp.courseCode}" 
-       th:text="${course_temp.toFancyString()}" >
-      </option>
     </select>
     <input type="text" class="form-control" id="comment" placeholder="Comment" th:field="*{comment}">
     <button type="submit" class="btn btn-primary">Spara</button>
