@@ -20,6 +20,7 @@
         <tr th:each="course : ${courses}">
             <td th:text="${course.getCourseCode()}"></td>
             <td th:text="${course.getName()}"></td>
+            <td> <a class="btn btn-danger" th:href="@{delete_course/{courseCode}(courseCode=${course.getCourseCode()})}">Delete</a></td>
         </tr>
         </tr>
     </table>
