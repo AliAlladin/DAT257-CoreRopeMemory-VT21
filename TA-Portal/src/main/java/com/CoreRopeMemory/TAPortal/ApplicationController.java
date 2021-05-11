@@ -108,8 +108,9 @@ public class ApplicationController {
     @RequestMapping({"/user_courses"}) 
     public String course(Model model) {
         Course course = new Course();
-        List<Course> courses = courseService.listALl();
         model.addAttribute("course", course);
+
+        List<Course> courses = courseService.listALl();
         model.addAttribute("courses", courses);
         return "user_courses";
     }

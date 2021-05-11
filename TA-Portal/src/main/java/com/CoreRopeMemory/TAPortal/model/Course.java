@@ -2,6 +2,7 @@ package com.CoreRopeMemory.TAPortal.model;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.awt.*;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.Month;
@@ -31,6 +32,12 @@ public class Course {
     )
     private String name;
 
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String color;
+
     /**
      * All the TAs in the course
      */
@@ -46,10 +53,10 @@ public class Course {
             mappedBy = "course")
     private List<WorkShift> workshifts = new ArrayList<>();
 
-    public Course(String courseCode,
-                String name) {
+    public Course(String courseCode, String name, String color) {
         this.courseCode = courseCode;
         this.name = name;
+        this.color = color;
     }
 
     public Course() {
@@ -70,6 +77,14 @@ public class Course {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     /*public void addUser(User user) {

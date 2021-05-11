@@ -40,7 +40,7 @@
                         <th>Actions</th>
                     </tr>
                     <tr th:each="workshift : ${month.getValue()}">
-                        <td th:text="${workshift.getCourse().toFancyString()}"></td>
+                        <td ><span class="badge" th:style="'background-color : ' + ${workshift.getCourse().getColor()}" th:text="${workshift.getCourse().toFancyString()}"></span></td>
                         <td th:text="${workshift.getDate()}"></td>
                         <td th:text="${workshift.getStartTime()}"></td>
                         <td th:text="${workshift.getEndTime()}"></td>
