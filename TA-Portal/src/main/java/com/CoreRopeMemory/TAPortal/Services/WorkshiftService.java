@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,17 +64,39 @@ public class WorkshiftService {
         return workshift;
     }
 
+    public List<WorkShift> listByYear(int year, String email){
+        List<WorkShift> workShifts = listByUser(email);
+        List<WorkShift> workShiftsYear = new ArrayList<>();
+        for (WorkShift workShift : workShifts){
+            if (workShift.getDate().getYear() == year) {
+                workShiftsYear.add(workShift);
+            }
+        }
+        return workShiftsYear;
+    }
+
+    public List<Integer> getYearsWorked(String email){
+        List<WorkShift> workShifts = listByUser(email);
+        List<Integer> years = new ArrayList<>();
+        for (WorkShift workShift : workShifts){
+            if (!years.contains(workShift.getDate().getYear())){
+                years.add(workShift.getDate().getYear());
+            }
+        }
+        return years;
+    }
+
     /**
      * returns a list with all the workshifts belonging to a user for a certain month
      * @param month specific month
      * @param email email of the user
      * @return
      */
-    public List<WorkShift> listByMonth(Month month, String email) {
+    public List<WorkShift> listByMonth(Month month, String email, int year) {
         List<WorkShift> workshifts = listByUser(email);
         List<WorkShift> workshiftsMonth = new ArrayList<WorkShift>();
         for (WorkShift workshift : workshifts) {
-            if (workshift.getDate().getMonth() == month)
+            if (workshift.getDate().getMonth() == month && workshift.getDate().getYear() == year)
                 workshiftsMonth.add(workshift);
 
         }
@@ -87,8 +110,8 @@ public class WorkshiftService {
      * @param email     email of the user
      * @return
      */
-    public List<WorkShift> listByCourse(String course, Month month, String email) {
-        List<WorkShift> workshifts = listByMonth(month, email);
+    public List<WorkShift> listByCourse(String course, Month month, String email, int year) {
+        List<WorkShift> workshifts = listByMonth(month, email, year);
         List<WorkShift> workshiftsCourse = new ArrayList<>();
         for (WorkShift workshift : workshifts) {
             if (workshift.getCourse().getCourseCode().equals(course)) {

@@ -35,17 +35,22 @@ public class ApplicationController {
     @GetMapping({"/", "/index"})
     public String hello(Model model) {
 
-
         model.addAttribute("workshifts", workshiftService.listALl());
 
         model.addAttribute("currentUser", userService.getByEmail(getCurrentUserEmail()));
 
+        List<Integer> years = new ArrayList<>();
+        years = workshiftService.getYearsWorked(getCurrentUserEmail());
+
         LinkedHashMap<String, List<WorkShift>> months = new LinkedHashMap<>();
-        for (Month month:Month.values()) {
-            if (!workshiftService.listByMonth(month, getCurrentUserEmail()).isEmpty()){
-                months.put(month.name(), workshiftService.listByMonth(month, getCurrentUserEmail()));
+        for (Integer year:years) {
+            for (Month month:Month.values()) {
+                if (!workshiftService.listByMonth(month, getCurrentUserEmail(), year).isEmpty()){
+                    months.put(month.name() + " " + year, workshiftService.listByMonth(month, getCurrentUserEmail(), year));
+                }
             }
         }
+
         model.addAttribute("months", months);
 
         List<Course> courses = courseService.listALl();
@@ -135,7 +140,7 @@ public class ApplicationController {
                              @RequestParam("salaryPrev") String salaryPrev,
                              Model model) {
 
-        List<WorkShift> workshifts = workshiftService.listByCourse(courseCode, month, getCurrentUserEmail());
+        List<WorkShift> workshifts = workshiftService.listByCourse(courseCode, month, getCurrentUserEmail(), 2021);
         User user = userService.getByEmail(getCurrentUserEmail());
 
         model.addAttribute("user", user);
