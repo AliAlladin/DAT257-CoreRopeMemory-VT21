@@ -35,17 +35,24 @@ public class ApplicationController {
     @GetMapping({"/", "/index"})
     public String hello(Model model) {
 
-
         model.addAttribute("workshifts", workshiftService.listALl());
 
         model.addAttribute("currentUser", userService.getByEmail(getCurrentUserEmail()));
 
+        List<Integer> years = new ArrayList<>();
+        years = workshiftService.getYearsWorked(getCurrentUserEmail());
+        Collections.sort(years);
+
         LinkedHashMap<String, List<WorkShift>> months = new LinkedHashMap<>();
-        for (Month month:Month.values()) {
-            if (!workshiftService.listByMonth(month, getCurrentUserEmail()).isEmpty()){
-                months.put(month.name(), workshiftService.listByMonth(month, getCurrentUserEmail()));
+
+        for (int i = years.size()-1; i >= 0; i--) {
+            for (int j = Month.values().length; j > 0; j--) {
+                if (!workshiftService.listByMonth(Month.of(j), getCurrentUserEmail(), years.get(i)).isEmpty()){
+                    months.put(Month.of(j).name() + "_" + years.get(i), workshiftService.listByMonth(Month.of(j), getCurrentUserEmail(), years.get(i)));
+                }
             }
         }
+
         model.addAttribute("months", months);
 
         List<Course> courses = courseService.listALl();
@@ -129,14 +136,17 @@ public class ApplicationController {
     }
 
     @RequestMapping(value = {"/time_report/{month}"})
-    public String timeReport(@PathVariable("month") Month month,
+    public String timeReport(@PathVariable("month") String month,
                              @RequestParam("courseCode") String courseCode,
                              @RequestParam("finalForm") String finalForm,
                              @RequestParam("newAddress") String newAddress,
                              @RequestParam("salaryPrev") String salaryPrev,
                              Model model) {
 
-        List<WorkShift> workshifts = workshiftService.listByCourse(courseCode, month, getCurrentUserEmail());
+        Month m = Month.valueOf(month.substring(0, month.indexOf('_')));
+        int year = Integer.parseInt(month.substring(month.indexOf('_') + 1));
+
+        List<WorkShift> workshifts = workshiftService.listByCourse(courseCode, m, getCurrentUserEmail(), year);
         User user = userService.getByEmail(getCurrentUserEmail());
 
         model.addAttribute("user", user);
@@ -162,7 +172,7 @@ public class ApplicationController {
         model.addAttribute("examGrading", dates.size());
         model.addAttribute("examTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Exam grading")));
 
-        model.addAttribute("month", month.name().toLowerCase());
+        model.addAttribute("month", month.substring(0, month.indexOf('_')).toLowerCase());
 
         model.addAttribute("courseCode", courseCode);
         model.addAttribute("courseName", courseService.get(courseCode).getName());
