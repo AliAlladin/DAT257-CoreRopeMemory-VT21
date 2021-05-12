@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,17 +65,12 @@ public class WorkshiftService {
         return workshift;
     }
 
-    public List<WorkShift> listByYear(int year, String email){
-        List<WorkShift> workShifts = listByUser(email);
-        List<WorkShift> workShiftsYear = new ArrayList<>();
-        for (WorkShift workShift : workShifts){
-            if (workShift.getDate().getYear() == year) {
-                workShiftsYear.add(workShift);
-            }
-        }
-        return workShiftsYear;
-    }
 
+    /**
+     *
+     * @param email
+     * @return
+     */
     public List<Integer> getYearsWorked(String email){
         List<WorkShift> workShifts = listByUser(email);
         List<Integer> years = new ArrayList<>();

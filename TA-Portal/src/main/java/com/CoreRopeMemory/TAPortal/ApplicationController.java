@@ -41,12 +41,14 @@ public class ApplicationController {
 
         List<Integer> years = new ArrayList<>();
         years = workshiftService.getYearsWorked(getCurrentUserEmail());
+        Collections.sort(years);
 
         LinkedHashMap<String, List<WorkShift>> months = new LinkedHashMap<>();
-        for (Integer year:years) {
-            for (Month month:Month.values()) {
-                if (!workshiftService.listByMonth(month, getCurrentUserEmail(), year).isEmpty()){
-                    months.put(month.name() + "_" + year, workshiftService.listByMonth(month, getCurrentUserEmail(), year));
+
+        for (int i = years.size()-1; i >= 0; i--) {
+            for (int j = Month.values().length; j > 0; j--) {
+                if (!workshiftService.listByMonth(Month.of(j), getCurrentUserEmail(), years.get(i)).isEmpty()){
+                    months.put(Month.of(j).name() + "_" + years.get(i), workshiftService.listByMonth(Month.of(j), getCurrentUserEmail(), years.get(i)));
                 }
             }
         }
