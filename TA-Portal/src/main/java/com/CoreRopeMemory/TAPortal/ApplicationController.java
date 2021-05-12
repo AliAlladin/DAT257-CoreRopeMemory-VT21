@@ -46,7 +46,7 @@ public class ApplicationController {
         for (Integer year:years) {
             for (Month month:Month.values()) {
                 if (!workshiftService.listByMonth(month, getCurrentUserEmail(), year).isEmpty()){
-                    months.put(month.name() + " " + year, workshiftService.listByMonth(month, getCurrentUserEmail(), year));
+                    months.put(month.name() + "_" + year, workshiftService.listByMonth(month, getCurrentUserEmail(), year));
                 }
             }
         }
@@ -133,14 +133,17 @@ public class ApplicationController {
     }
 
     @RequestMapping(value = {"/time_report/{month}"})
-    public String timeReport(@PathVariable("month") Month month,
+    public String timeReport(@PathVariable("month") String month,
                              @RequestParam("courseCode") String courseCode,
                              @RequestParam("finalForm") String finalForm,
                              @RequestParam("newAddress") String newAddress,
                              @RequestParam("salaryPrev") String salaryPrev,
                              Model model) {
 
-        List<WorkShift> workshifts = workshiftService.listByCourse(courseCode, month, getCurrentUserEmail(), 2021);
+        Month m = Month.valueOf(month.substring(0, month.indexOf('_')));
+        int year = Integer.parseInt(month.substring(month.indexOf('_') + 1));
+
+        List<WorkShift> workshifts = workshiftService.listByCourse(courseCode, m, getCurrentUserEmail(), year);
         User user = userService.getByEmail(getCurrentUserEmail());
 
         model.addAttribute("user", user);
@@ -166,7 +169,7 @@ public class ApplicationController {
         model.addAttribute("examGrading", dates.size());
         model.addAttribute("examTotal", user.totalHoursWorked(typeOfWorkshift(workshifts, "Exam grading")));
 
-        model.addAttribute("month", month.name().toLowerCase());
+        model.addAttribute("month", month.substring(0, month.indexOf('_')).toLowerCase());
 
         model.addAttribute("courseCode", courseCode);
         model.addAttribute("courseName", courseService.get(courseCode).getName());
