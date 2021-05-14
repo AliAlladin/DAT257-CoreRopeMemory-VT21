@@ -135,6 +135,12 @@ public class ApplicationController {
         return "redirect:/user_courses";
     }
 
+    @RequestMapping(value = {"/delete_course/{courseCode}"})
+    public String deleteCourse(@PathVariable(value = "courseCode") String courseCode) {
+        courseService.delete(courseCode);
+        return "redirect:/user_courses";
+    }
+
     @RequestMapping(value = {"/time_report/{month}"})
     public String timeReport(@PathVariable("month") String month,
                              @RequestParam("courseCode") String courseCode,
