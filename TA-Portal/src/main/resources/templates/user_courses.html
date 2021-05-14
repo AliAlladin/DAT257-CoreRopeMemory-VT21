@@ -28,6 +28,7 @@
         <tr th:each="course : ${courses}">
             <td th:style="'color : white; background-color : ' + ${course.color}" th:text="${course.getCourseCode()}"></td>
             <td th:style="'color : white; background-color : ' + ${course.color}" th:text="${course.getName()}"></td>
+            <td> <a class="btn btn-danger" th:href="@{delete_course/{courseCode}(courseCode=${course.getCourseCode()})}">Delete</a></td>
         </tr>
         </tr>
     </table>

@@ -25,7 +25,7 @@
         <div th:each="month : ${months}" class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title" style="text-align: center;">
-                <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" th:href="'#' + ${month.getKey()}" th:text="${month.getKey()}">January</a>
+                <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" th:href="'#' + ${month.getKey()}" th:text="${#strings.substringBefore(month.getKey(), '_') + ' ' + #strings.substringAfter(month.getKey(), '_')}">January</a>
               </h4>
             </div>
             <div th:id="${month.getKey()}" class="panel-collapse collapse">

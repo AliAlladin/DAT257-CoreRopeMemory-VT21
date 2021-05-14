@@ -29,6 +29,10 @@ public class CourseService {
         courseRepository.save(course);
     }
 
+    public void delete(String courseCode){
+        courseRepository.deleteById(courseCode);
+    }
+
     /**
      * Gets the user with a specific personal number
      * @param courseCode the personal number of the user
