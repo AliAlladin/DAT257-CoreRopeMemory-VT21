@@ -27,7 +27,10 @@ public class WorkshiftService {
      * @return
      */
     public List<WorkShift> listALl(){
-        return repo.findAll();
+        List<WorkShift> workshifts = repo.findAll();
+        Collections.sort(workshifts);
+        Collections.reverse(workshifts);
+        return workshifts;
     }
 
     /**

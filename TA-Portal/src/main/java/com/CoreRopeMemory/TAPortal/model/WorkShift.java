@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 
@@ -12,7 +13,7 @@ import java.time.LocalTime;
  */
 @Entity
 @Table(name = "work_shift")
-public class WorkShift {
+public class WorkShift implements Comparable<WorkShift>{
     @Id
     @SequenceGenerator(name = "workshift_sequence",
                 sequenceName = "workshift_sequence",
@@ -66,7 +67,6 @@ public class WorkShift {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course", referencedColumnName = "course_code", nullable = true)
     private Course course;
-    
 
     public WorkShift() {
 
@@ -160,5 +160,10 @@ public class WorkShift {
                 ", comment='" + comment + '\'' +
                 ", ta=" + ta +
                 '}';
+    }
+
+    @Override
+    public int compareTo(WorkShift o) {
+        return LocalDateTime.of(getDate(), getStartTime()).compareTo(LocalDateTime.of(o.getDate(), o.getStartTime()));
     }
 }
