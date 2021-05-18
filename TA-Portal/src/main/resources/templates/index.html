@@ -46,6 +46,7 @@
                         <td th:text="${workshift.getEndTime()}"></td>
                         <td th:text="${workshift.getType()}"></td>
                         <td th:text="${workshift.getComment()}"></td>
+                            <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" th:attr="data-object-name=${workshift.getId()}">
                                 Edit workshift
                             </button>
