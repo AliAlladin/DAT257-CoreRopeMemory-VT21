@@ -112,4 +112,7 @@ public class Course {
         return courseCode + " - " + name;
     }
 
+    public List<WorkShift> getWorkshifts() {
+        return workshifts;
+    }
 }

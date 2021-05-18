@@ -73,7 +73,7 @@
                                     <div class="form-group">
                                         <select name="courseCode" required class="form-select" aria-label="Select course" >
                                             <option disabled selected value="">Select course</option>
-                                            <option th:each="course : ${courses}" th:value="${course.getCourseCode()}" th:text="${course.toFancyString()}"></option>
+                                            <option th:each="course : ${courses.get(month.getKey())}" th:value="${course.getCourseCode()}" th:text="${course.toFancyString()}"></option>
                                         </select>
                                     </div>
                                     <div class="form-group">

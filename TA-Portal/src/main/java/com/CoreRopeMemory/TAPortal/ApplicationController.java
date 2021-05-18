@@ -44,19 +44,31 @@ public class ApplicationController {
         Collections.sort(years);
 
         LinkedHashMap<String, List<WorkShift>> months = new LinkedHashMap<>();
+        LinkedHashMap<String,List<Course>> notEmptyCourses = new LinkedHashMap<>();
 
         for (int i = years.size()-1; i >= 0; i--) {
             for (int j = Month.values().length; j > 0; j--) {
+                List<Course> courses = new ArrayList<>();
                 if (!workshiftService.listByMonth(Month.of(j), getCurrentUserEmail(), years.get(i)).isEmpty()){
                     months.put(Month.of(j).name() + "_" + years.get(i), workshiftService.listByMonth(Month.of(j), getCurrentUserEmail(), years.get(i)));
+                    for (WorkShift workshift: workshiftService.listByMonth(Month.of(j), getCurrentUserEmail(), years.get(i))) {
+                        if (!courses.contains(workshift.getCourse())){
+                            courses.add(workshift.getCourse());
+                        }
+                    }
+                    notEmptyCourses.put(Month.of(j).name() + "_" + years.get(i), courses);
                 }
             }
         }
 
+
+
+
         model.addAttribute("months", months);
 
         List<Course> courses = courseService.listALl();
-        model.addAttribute("courses", courses);
+        
+        model.addAttribute("courses", notEmptyCourses);
 
         return "index";
     }
