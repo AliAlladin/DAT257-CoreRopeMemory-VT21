@@ -46,7 +46,11 @@
                         <td th:text="${workshift.getEndTime()}"></td>
                         <td th:text="${workshift.getType()}"></td>
                         <td th:text="${workshift.getComment()}"></td>
-                        <td> <a class="btn btn-primary" th:href="@{/edit_workshift/{id}(id=${workshift.getId()})}">Edit</a>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" th:attr="data-object-name=${workshift.getId()}">
+                                Edit workshift
+                            </button>
+
+                            <th:block th:replace="_modals :: modal('exampleModal2')">modal</th:block>
                             <a class="btn btn-danger" th:href="@{delete_workshift/{id}(id=${workshift.getId()})}">Delete</a></td>
                     </tr>
                     </tr>
@@ -146,6 +150,14 @@
             $('#exampleModal1').find('.modal-body').html(data);
         })
     });
+
+    $('#exampleModal2').on('show.bs.modal', function (e) {
+        var workshiftId = $(e.relatedTarget).data('objectName')
+        $.get("/modals/modal2?id=" + workshiftId, function (data) {
+            $('#exampleModal2').find('.modal-body').html(data);
+        })
+    });
+
 
 
 </script>
