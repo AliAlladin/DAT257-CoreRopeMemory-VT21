@@ -1,0 +1,47 @@
+.input-field-sizing {
+    display: inline;
+    width: 30%;
+    margin-right: 10px;
+    height: 50px;
+    font-size: 20px;
+}
+
+.label-styling {
+    margin-right: 5px;
+    width: 155px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-styling {
+    font-size: 22px;
+    margin-left: 10px;
+}
+
+.div-btn {
+    width: 1300px;
+    margin-top: 60px;
+}
+
+.div-center {
+    width: 300px;
+    margin: 0 auto;
+}
+
+div {
+    width: 1300px;
+    margin-top: 20px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
