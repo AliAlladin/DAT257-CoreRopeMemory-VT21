@@ -6,40 +6,59 @@
 </head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<link href="../static/css/userInfo.css" th:href="@{/css/userInfo.css}" rel="stylesheet" media="screen, print"/>
 <body>
-<h1>User Information</h1>
+<div  class="mx-auto" style="width: 400px;">
+    <h1>User Information</h1>
+    <br>
+    <br>
+</div>
+
+
 <form action="#" th:action="@{/saveUser}" th:object="${user}" method="post">
-    <label for="pNumber">Personal Number:</label><br>
-    <input type="number" class="form-control" th:readonly="true" id="pNumber" th:value=" ${user.getpNumber()}" required th:field="*{pNumber}">
+    <div class="mx-auto" >
+        <label class="label-styling" for="pNumber">Personal Number:</label>
 
-    <label for="firstName">First name:</label><br>
-    <input type="text" class="form-control" id="firstName" th:value=" ${user.getFirstName()}" required th:field="*{firstName}">
+        <input type="number" class="form-control input-field-sizing" th:readonly="true" id="pNumber" th:value=" ${user.getpNumber()}" required th:field="*{pNumber}">
 
-    <label for="familyName">Family name:</label><br>
-    <input type="text" class="form-control" id="familyName" th:value=" ${user.getFamilyName()}" required th:field="*{familyName}">
+        <label class="label-styling" for="email">Email:</label>
+        <input type="text" class="form-control input-field-sizing" id="email" th:readonly="true" th:value=" ${user.getEmail()}" required th:field="*{email}">
+    </div>
+    <div class="mx-auto">
 
-    <label for="email">Email:</label><br>
-    <input type="text" class="form-control" id="email" th:value=" ${user.getEmail()}" required th:field="*{email}">
+        <label class="label-styling" for="firstName">First name:</label>
+        <input type="text" class="form-control input-field-sizing" id="firstName" th:value=" ${user.getFirstName()}" required th:field="*{firstName}">
 
-    <label for="streetAddr">Street Address:</label><br>
-    <input type="text" class="form-control" id="streetAddr" th:value=" ${user.getStreetAddr()}" required th:field="*{streetAddr}">
+        <label class="label-styling" for="familyName">Last name:</label>
+        <input type="text" class="form-control input-field-sizing" id="familyName" th:value=" ${user.getFamilyName()}" required th:field="*{familyName}">
 
-    <label for="postcode">Postal Code:</label><br>
-    <input type="number" class="form-control" id="postcode" th:value=" ${user.getPostcode()}" required th:field="*{postcode}">
+    </div>
+    <div class="mx-auto">
+        <label class="label-styling" for="streetAddr">Street Address:</label>
+        <input type="text" class="form-control input-field-sizing" id="streetAddr" th:value=" ${user.getStreetAddr()}" required th:field="*{streetAddr}">
 
-    <label for="city">City:</label><br>
-    <input type="text" class="form-control" id="city" th:value=" ${user.getCity()}" required th:field="*{city}">
+        <label class="label-styling" for="postcode">Postal Code:</label>
+        <input type="number" class="form-control input-field-sizing" id="postcode" th:value=" ${user.getPostcode()}" required th:field="*{postcode}">
+    </div>
+    <div class="mx-auto">
+        <label class="label-styling" for="city">City:</label>
+        <input type="text" class="form-control input-field-sizing" id="city" th:value=" ${user.getCity()}" required th:field="*{city}">
 
-    <input type="hidden" th:value="${user.getPassword()}" th:field="*{password}">
+        <input type="hidden" th:value="${user.getPassword()}" th:field="*{password}">
 
-    <label for="master">Have a Master?</label><br>
-    <select class="form-control" id="master" th:field="*{hasMaster}">
-        <option th:value="'Yes'">Yes</option>
-        <option th:value="'No'">No</option>
-    </select>
-
-    <button type="submit" class="btn btn-primary">Spara</button>
+        <label class="label-styling" for="master">Have a Master?</label>
+        <select class="form-control input-field-sizing" id="master" th:field="*{hasMaster}">
+            <option th:value="'Yes'">Yes</option>
+            <option th:value="'No'">No</option>
+        </select>
+    </div>
+    <div class="mx-auto div-btn">
+        <div class="div-center">
+            <button type="submit" class="btn btn-primary btn-styling">Save</button>
+            <a class="btn btn-secondary btn-styling" th:href="@{/}">Back</a>
+        </div>
+    </div>
 </form>
-<a class="btn btn-primary" th:href="@{/}">Back to Homepage</a>
+
 </body>
 </html>
