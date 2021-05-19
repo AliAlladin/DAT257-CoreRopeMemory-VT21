@@ -11,7 +11,7 @@
 <body>
 
 <div class="container bg-light">
-    <h2 style="text-align: center;">Workshifts by month</h2>
+    <h2 style="text-align: center;">TA-Portal</h2>
     <div class="container">
         <h4 class="panel-title" style="text-align: right;">
             <a class="btn btn-primary" th:href="@{/user_details}">User Information</a>
@@ -93,7 +93,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Do you have anew address?</label>
+                                        <label>Do you have a new address?</label>
                                         <div class="form-check form-check-inline">
                                             <input th:value="Yes" class="form-check-input" type="radio" name="newAddress" id="3">
                                             <label class="form-check-label" for="3">Yes</label>
@@ -117,7 +117,7 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit" th:form="${month.getKey() + 'Details'}">Submit form</button>
+                                <button class="btn btn-primary" type="submit" th:form="${month.getKey() + 'Details'}">Generate PDF</button>
                             </div>
                         </div>
                     </div>
@@ -139,22 +139,24 @@
     </div>
 </div>
 
-<div class="container">  
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title" style="text-align: center;">
-            <a class="btn btn-outline-primary" data-toggle="collapse" data-target="#help">Help</a>
-            </h4>
+<div class="pt-4">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" style="text-align: center;">
+                <a class="btn btn-outline-primary" data-toggle="collapse" data-target="#help">Help</a>
+                </h4>
+            </div>
+            <div id="help" class="panel-collapse collapse">
+                <p>
+                    Welcome to the TA Portal. In order to add your first workshift, you need to go to <b>My Courses</b> and add the course associated with the workshift.<br/><br/>
+                    Adding new workshifts is done by clicking <b>Add workshift</b>. The workshift will then show up in that month's workshift table.<br/><br/>
+                    If you need to edit your personal information, simply go to <b>User Information</b>.<br/><br/>
+                    At the end of each month you can generate a PDF-file that is ready to be sent to the course's examiner, by clicking <b>Generate PDF</b> at the bottom of that month's workshift table.
+                </p>
+            </div>
         </div>
-        <div id="help" class="panel-collapse collapse">
-            <p>
-                Welcome to the TA Portal. In order to add your first workshift, you need to go to <b>My Courses</b> and add the course associated with the workshift.<br/><br/>
-                Adding new workshifts is done by clicking <b>Add workshift</b>. The workshift will then show up in that month's workshift table.<br/><br/> 
-                If you need to edit your personal information, simply go to <b>User Informatiion</b>.<br/><br/>
-                At the end of each month you can generate a PDF-file that is ready to be sent to the course's examiner, by clicking <b>Generate PDF</b> at the bottom of that month's workshift table.         
-            </p>
-        </div>
-    </div>    
+    </div>
 </div>
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
