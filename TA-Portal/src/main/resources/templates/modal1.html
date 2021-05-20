@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>New Workshift</h1>
-<form action="#" th:action="@{/save}" th:object="${workshift}" method="post">
+<form id="AddWorkshift" name="AddWorkshift" action="#" th:action="@{/save}" th:object="${workshift}" method="post">
     <select  class="form-control" id="course" required th:field="*{course}">
         <option value="" hidden>Select course</option>
         <option th:each="course_temp : ${courses}" th:value="${course_temp.courseCode}"
@@ -16,8 +16,29 @@
         </option>
     </select>
     <input type="date" class="form-control" id="date" placeholder="Date" required th:field="*{date}">
-    <input type="time" step="900" class="form-control" id="endTime" placeholder="Time" required th:field="*{startTime}">
-    <input type="time" step="900" class="form-control" id="startTime" placeholder="Time" required th:field="*{endTime}">
+    <input name="startTime" type="time" step="900" class="form-control" id="startTime" placeholder="Time" required th:field="*{startTime}">
+    <input oninput="setCustomValidity('')" name="endTime" type="time" step="900" class="form-control" id="endTime" placeholder="Time" required th:field="*{endTime}">
+    <script>
+        var setTime = function(event) {
+            var startTime = document.forms["AddWorkshift"]["startTime"].value;
+            var endTime = document.forms["AddWorkshift"]["endTime"].value;
+            if (endTime < startTime && startTime != 0 && endTime != 0) {
+                console.log(startTime + " - " + endTime);
+                document.getElementById("endTime").setCustomValidity("The end-time cant be before the start-time.");
+                document.getElementById("endTime").reportValidity();
+                event.preventDefault();
+
+            }
+        }
+
+        // your form
+        var form = document.getElementById("AddWorkshift");
+
+        // attach event listener
+        form.addEventListener("submit", setTime);
+
+    </script>
+
     <select class="form-control" id="type" th:field="*{type}">
         <option th:value="'Lectures and exercise sessions'">Lectures and exercise sessions</option>
         <option th:value="'Project supervision and lab supervision'">Project supervision and lab supervision</option>

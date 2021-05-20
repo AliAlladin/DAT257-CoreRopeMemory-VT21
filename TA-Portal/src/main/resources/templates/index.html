@@ -108,7 +108,7 @@
                                                 <div class="form-group">
                                                     <select name="courseCode" required class="form-select" aria-label="Select course" >
                                                         <option disabled selected value="">Select course</option>
-                                                        <option th:each="course : ${courses}" th:value="${course.getCourseCode()}" th:text="${course.toFancyString()}"></option>
+                                                        <option th:each="course : ${courses.get(month.getKey())}" th:value="${course.getCourseCode()}" th:text="${course.toFancyString()}"></option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -181,7 +181,10 @@
                         <td th:text="${workshift.getEndTime()}"></td>
                         <td th:text="${workshift.getType()}"></td>
                         <td th:text="${workshift.getComment()}"></td>
-                        <td> <a class="btn btn-primary" th:href="@{/edit_workshift/{id}(id=${workshift.getId()})}">Edit</a>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" th:attr="data-object-name=${workshift.getId()}">
+                                Edit workshift
+                            </button>
                             <a class="btn btn-danger" th:href="@{delete_workshift/{id}(id=${workshift.getId()})}">Delete</a></td>
                     </tr>
                     </tr>
@@ -208,7 +211,7 @@
                                     <div class="form-group">
                                         <select name="courseCode" required class="form-select" aria-label="Select course" >
                                             <option disabled selected value="">Select course</option>
-                                            <option th:each="course : ${courses}" th:value="${course.getCourseCode()}" th:text="${course.toFancyString()}"></option>
+                                            <option th:each="course : ${courses.get(month.getKey())}" th:value="${course.getCourseCode()}" th:text="${course.toFancyString()}"></option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -267,6 +270,25 @@
   </div>
 
 
+<div class="container">  
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title" style="text-align: center;">
+            <a class="btn btn-outline-primary" data-toggle="collapse" data-target="#help">Help</a>
+            </h4>
+        </div>
+        <div id="help" class="panel-collapse collapse">
+            <p>
+                Welcome to the TA Portal. In order to add your first workshift, you need to go to <b>My Courses</b> and add the course associated with the workshift.<br/><br/>
+                Adding new workshifts is done by clicking <b>Add workshift</b>. The workshift will then show up in that month's workshift table.<br/><br/> 
+                If you need to edit your personal information, simply go to <b>User Informatiion</b>.<br/><br/>
+                At the end of each month you can generate a PDF-file that is ready to be sent to the course's examiner, by clicking <b>Generate PDF</b> at the bottom of that month's workshift table.         
+            </p>
+        </div>
+    </div>    
+</div>
+
+<th:block th:replace="_modals :: modal('exampleModal2')">modal</th:block>
 
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
@@ -279,6 +301,14 @@
             $('#exampleModal1').find('.modal-body').html(data);
         })
     });
+
+    $('#exampleModal2').on('show.bs.modal', function (e) {
+        var workshiftId = $(e.relatedTarget).data('objectName')
+        $.get("/modals/modal2?id=" + workshiftId, function (data) {
+            $('#exampleModal2').find('.modal-body').html(data);
+        })
+    });
+
 
 
 </script>

@@ -18,50 +18,75 @@
 </head>
 <body>
 
-<div>
-    <h2>All Courses</h2>
-    <table class="table table-striped table-hover">
-        <tr>
-            <th>Course Code</th>
-            <th>Course Name</th>
-        </tr>
-        <tr th:each="course : ${courses}">
-            <td th:style="'color : white; background-color : ' + ${course.color}" th:text="${course.getCourseCode()}"></td>
-            <td th:style="'color : white; background-color : ' + ${course.color}" th:text="${course.getName()}"></td>
-            <td> <a class="btn btn-danger" th:href="@{delete_course/{courseCode}(courseCode=${course.getCourseCode()})}">Delete</a></td>
-        </tr>
-        </tr>
-    </table>
+<div class="mx-auto" style="width:60%; margin-top: 5%;">
+    <div  style="float:right; width:50%">
+        <h2 style="text-align: left; margin-left: 1.5%"> All Courses</h2>
+        <br>
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="course : ${courses}">
+                <td th:style="'color : white; background-color : ' + ${course.color}" th:text="${course.getCourseCode()}"></td>
+                <td th:style="'color : white; background-color : ' + ${course.color}" th:text="${course.getName()}"></td>
+                <!-- <td th:style="'color : white; background-color : ' + ${course.color}">  <a class="btn btn-danger" th:href="@{delete_course/{courseCode}(courseCode=${course.getCourseCode()})}">Delete</a>   -->
+
+                <td th:style="'color : white; background-color : ' + ${course.color}"> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal3" th:attr="data-course-code=${course.getCourseCode}">
+                        Delete
+                    </button>
+                </td>
+
+
+
+
+            </tr>
+            </tr>
+        </table>
+    </div>
+
+    <div style="float:left; width:40%;">
+        <h2 style="text-align: left; margin-left: 5%"> Add New Course</h2>
+        <br>
+        <div class="mx-auto" style="background-color: WhiteSmoke; padding: 15px; border-style: solid; border-color: WhiteSmoke; border-radius: 5px;">
+        <form action="#" th:action="@{/addCourse}" th:object="${course}" method="post">
+            <label for="courseCode">Course Code:</label><br>
+            <input type="text" class="form-control" id="courseCode" required th:field="*{courseCode}">
+            <label style="margin-top: 1%" for="name">Course Name:</label><br>
+            <input type="text" class="form-control" id="name" required th:field="*{name}">
+
+            <input style="visibility: hidden" type="color" class="form-control" id="courseColor" required th:field="*{color}">
+
+            <label for="name">Course colour:</label><br>
+            <div class="picker" style="height: 30px; width: 30px;"></div><br>
+            <script>
+                $(".picker").colorPick({
+                    'allowRecent': false,
+                    'initialColor' : '#87CEEB',
+                    'onColorSelected': function() {
+                        document.getElementById("courseColor").value = this.color;
+                        this.element.css({'backgroundColor': this.color, 'color': this.color});
+                    }
+                });
+            </script>
+
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a class="btn btn-secondary" th:href="@{/}">Back to Homepage</a>
+        </form>
+        </div>
+    </div>
 </div>
-
-<div>
-    <h2>Add New Course</h2>
-    <form action="#" th:action="@{/addCourse}" th:object="${course}" method="post">
-        <label for="courseCode">Course Code:</label><br>
-        <input type="text" class="form-control" id="courseCode" required th:field="*{courseCode}"> 
-        <label for="name">Course Name:</label><br>
-        <input type="text" class="form-control" id="name" required th:field="*{name}">
-
-        <input style="visibility: hidden" type="color" class="form-control" id="courseColor" required th:field="*{color}">
-
-        <label for="name">Course colour:</label><br>
-        <div class="picker" style="height: 30px; width: 30px;"></div><br>
-        <script>
-            $(".picker").colorPick({
-                'allowRecent': false,
-                'initialColor' : '#ecf0f1',
-                'onColorSelected': function() {
-                    document.getElementById("courseColor").value = this.color;
-                    this.element.css({'backgroundColor': this.color, 'color': this.color});
-                }
-            });
-        </script>
-
-        <button type="submit" class="btn btn-primary">Spara</button>
-    </form>
-</div>
-
-<a class="btn btn-primary" th:href="@{/}">Back to Homepage</a>
-
+<br>
+<th:block th:replace="_modals :: modal('exampleModal3')">modal</th:block>
+<script>
+$('#exampleModal3').on('show.bs.modal', function (e) {
+var courseCode = $(e.relatedTarget).data('courseCode')
+console.log(courseCode)
+$.get("/modals/modal3?courseCode=" + courseCode, function (data) {
+$('#exampleModal3').find('.modal-body').html(data);
+})
+});
+</script>
 </body>
 </html>
