@@ -50,8 +50,6 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" th:attr="data-object-name=${workshift.getId()}">
                                 Edit workshift
                             </button>
-
-                            <th:block th:replace="_modals :: modal('exampleModal2')">modal</th:block>
                             <a class="btn btn-danger" th:href="@{delete_workshift/{id}(id=${workshift.getId()})}">Delete</a></td>
                     </tr>
                     </tr>
@@ -156,6 +154,9 @@
         </div>
     </div>    
 </div>
+
+<th:block th:replace="_modals :: modal('exampleModal2')">modal</th:block>
+
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
