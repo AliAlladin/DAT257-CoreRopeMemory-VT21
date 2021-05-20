@@ -16,6 +16,14 @@
 </head>
 <body>
 
+<div class="container px-0 mt-4">
+    <h4 class="panel-title" style="text-align: right;">
+        <button class="btn btn-primary" onclick="generatePDF()">Download PDF</button>
+
+        <a class="btn btn-secondary btn-styling" th:href="@{/}">Back</a>
+    </h4>
+</div>
+
 <div id="timeReport">
 
     <!--Title-->
@@ -250,9 +258,11 @@
 
 </div>
 
-<!--Save button-->
+<!--Download button-->
 <div class="container px-0 mt-4">
-    <button class="btn btn-primary" onclick="generatePDF()">Save PDF</button>
+    <h4 class="panel-title" style="text-align: right;">
+        <button class="btn btn-primary" onclick="generatePDF()">Download PDF</button>
+    </h4>
 </div>
 
 </body>

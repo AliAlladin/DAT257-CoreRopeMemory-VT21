@@ -39,8 +39,6 @@
                 </td>
 
 
-
-
             </tr>
             </tr>
         </table>
@@ -55,7 +53,6 @@
             <input type="text" class="form-control" id="courseCode" required th:field="*{courseCode}">
             <label style="margin-top: 1%" for="name">Course Name:</label><br>
             <input type="text" class="form-control" id="name" required th:field="*{name}">
-
             <input style="visibility: hidden" type="color" class="form-control" id="courseColor" required th:field="*{color}">
 
             <label for="name">Course colour:</label><br>
@@ -72,7 +69,7 @@
             </script>
 
             <button type="submit" class="btn btn-primary">Add</button>
-            <a class="btn btn-secondary" th:href="@{/}">Back to Homepage</a>
+            <a class="btn btn-secondary" th:href="@{/}">Back</a>
         </form>
         </div>
     </div>

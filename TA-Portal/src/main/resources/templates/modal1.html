@@ -7,47 +7,68 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>New Workshift</h1>
 <form id="AddWorkshift" name="AddWorkshift" action="#" th:action="@{/save}" th:object="${workshift}" method="post">
-    <select  class="form-control" id="course" required th:field="*{course}">
-        <option value="" hidden>Select course</option>
-        <option th:each="course_temp : ${courses}" th:value="${course_temp.courseCode}"
-                th:text="${course_temp.toFancyString()}" >
-        </option>
-    </select>
-    <input type="date" class="form-control" id="date" placeholder="Date" required th:field="*{date}">
-    <input name="startTime" type="time" step="900" class="form-control" id="startTime" placeholder="Time" required th:field="*{startTime}">
-    <input oninput="setCustomValidity('')" name="endTime" type="time" step="900" class="form-control" id="endTime" placeholder="Time" required th:field="*{endTime}">
-    <script>
-        var setTime = function(event) {
-            var startTime = document.forms["AddWorkshift"]["startTime"].value;
-            var endTime = document.forms["AddWorkshift"]["endTime"].value;
-            if (endTime < startTime && startTime != 0 && endTime != 0) {
-                console.log(startTime + " - " + endTime);
-                document.getElementById("endTime").setCustomValidity("The end-time cant be before the start-time.");
-                document.getElementById("endTime").reportValidity();
-                event.preventDefault();
 
+    <div class="my-2">
+        <select  class="form-control" id="course" required th:field="*{course}">
+            <option value="" hidden>Select course</option>
+            <option th:each="course_temp : ${courses}" th:value="${course_temp.courseCode}"
+                    th:text="${course_temp.toFancyString()}" >
+            </option>
+        </select>
+    </div>
+
+
+    <div class="my-2">
+        <label class="label-styling" for="date">Date:</label>
+        <input type="date" class="form-control" id="date" placeholder="Date" required th:field="*{date}">
+    </div>
+
+    <div class="my-2">
+        <label class="label-styling" for="startTime">Start Time:</label>
+        <input name="startTime" type="time" step="900" class="form-control" id="startTime" placeholder="Time" required th:field="*{startTime}">
+    </div>
+
+    <div class="my-2">
+        <label class="label-styling" for="endTime">End Time:</label>
+        <input oninput="setCustomValidity('')" name="endTime" type="time" step="900" class="form-control" id="endTime" placeholder="Time" required th:field="*{endTime}">
+        <script>
+            var setTime = function(event) {
+                var startTime = document.forms["AddWorkshift"]["startTime"].value;
+                var endTime = document.forms["AddWorkshift"]["endTime"].value;
+                if (endTime < startTime && startTime != 0 && endTime != 0) {
+                    console.log(startTime + " - " + endTime);
+                    document.getElementById("endTime").setCustomValidity("The end-time cant be before the start-time.");
+                    document.getElementById("endTime").reportValidity();
+                    event.preventDefault();
+
+                }
             }
-        }
 
-        // your form
-        var form = document.getElementById("AddWorkshift");
+            // your form
+            var form = document.getElementById("AddWorkshift");
 
-        // attach event listener
-        form.addEventListener("submit", setTime);
+            // attach event listener
+            form.addEventListener("submit", setTime);
 
-    </script>
+        </script>
+    </div>
 
-    <select class="form-control" id="type" th:field="*{type}">
-        <option th:value="'Lectures and exercise sessions'">Lectures and exercise sessions</option>
-        <option th:value="'Project supervision and lab supervision'">Project supervision and lab supervision</option>
-        <option th:value="'Lab grading'">Lab grading</option>
-        <option th:value="'Exam grading'">Exam grading</option>
-        <option th:value="'Other activities'">Other activities</option>
-    </select>
-    <input type="text" class="form-control" id="comment" placeholder="Comment" th:field="*{comment}">
-    <button type="submit" class="btn btn-primary">Spara</button>
+    <div class="my-2">
+        <select class="form-control" id="type" th:field="*{type}">
+            <option value="" hidden>Select type of workshift</option>
+            <option th:value="'Lectures and exercise sessions'">Lectures and exercise sessions</option>
+            <option th:value="'Project supervision and lab supervision'">Project supervision and lab supervision</option>
+            <option th:value="'Lab grading'">Lab grading</option>
+            <option th:value="'Exam grading'">Exam grading</option>
+            <option th:value="'Other activities'">Other activities</option>
+        </select>
+    </div>
+
+    <div class="my-2">
+        <input type="text" class="form-control" id="comment" placeholder="Comment" th:field="*{comment}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
 </form>
 </body>
 </html>
