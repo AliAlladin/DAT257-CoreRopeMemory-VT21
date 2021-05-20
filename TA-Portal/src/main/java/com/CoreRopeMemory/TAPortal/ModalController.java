@@ -44,4 +44,11 @@ public class ModalController {
         model.addAttribute("courses", courses);
         return "modal2";
     }
+
+    @GetMapping("modal3")
+    public String modal3(@RequestParam(value = "courseCode") String courseCode, Model model){
+        model.addAttribute("courseCode", courseCode);
+        return "modal3";
+    }
+
 }

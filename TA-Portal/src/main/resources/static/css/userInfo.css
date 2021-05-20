@@ -8,7 +8,7 @@
 
 .label-styling {
     margin-right: 5px;
-    width: 155px;
+    width: 13%;
     text-align: right;
     font-size: 18px;
     font-weight: bold;
@@ -20,17 +20,17 @@
 }
 
 .div-btn {
-    width: 1300px;
-    margin-top: 60px;
+    width: 58%;
+    margin-top: 5%;
 }
 
 .div-center {
-    width: 300px;
+    width: 25%;
     margin: 0 auto;
 }
 
 div {
-    width: 1300px;
+    width: 70%;
     margin-top: 20px;
 }
 
