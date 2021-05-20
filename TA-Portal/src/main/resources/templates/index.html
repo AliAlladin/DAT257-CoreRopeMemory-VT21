@@ -7,6 +7,19 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <style>
+        .float{
+            position:fixed;
+            width:60px;
+            height:60px;
+            bottom:40px;
+            right:40px;
+            background-color: #0d6efd;
+            color:#FFF;
+            border-radius:50px;
+            text-align:center;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
@@ -16,8 +29,8 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/user_details}">User Information</a>
                 </li>
@@ -25,7 +38,13 @@
                     <a class="nav-link" th:href="@{/user_courses}">My Courses</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/logout}">Log out</a>
+                    <a class="nav-link" th:href="@{/logout}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                            <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                        </svg>
+                        Log out
+                    </a>
                 </li>
             </ul>
         </div>
@@ -75,7 +94,12 @@
                                         <td th:text="${workshift.getEndTime()}"></td>
                                         <td th:text="${workshift.getType()}"></td>
                                         <td th:text="${workshift.getComment()}"></td>
-                                        <td> <a class="btn btn-primary" th:href="@{/edit_workshift/{id}(id=${workshift.getId()})}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                        <td>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" th:attr="data-object-name=${workshift.getId()}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                                </svg>
+                                            </button>
                                             <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                                         </svg></a>
                                             <a class="btn btn-danger" th:href="@{delete_workshift/{id}(id=${workshift.getId()})}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -269,24 +293,32 @@
 
   </div>
 
+<div class="container mt-4">
 
-<div class="container">  
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title" style="text-align: center;">
-            <a class="btn btn-outline-primary" data-toggle="collapse" data-target="#help">Help</a>
-            </h4>
-        </div>
         <div id="help" class="panel-collapse collapse">
-            <p>
-                Welcome to the TA Portal. In order to add your first workshift, you need to go to <b>My Courses</b> and add the course associated with the workshift.<br/><br/>
-                Adding new workshifts is done by clicking <b>Add workshift</b>. The workshift will then show up in that month's workshift table.<br/><br/> 
-                If you need to edit your personal information, simply go to <b>User Informatiion</b>.<br/><br/>
-                At the end of each month you can generate a PDF-file that is ready to be sent to the course's examiner, by clicking <b>Generate PDF</b> at the bottom of that month's workshift table.         
-            </p>
+            <div class="alert alert-dismissible alert-light" role="alert">
+                <h4 class="alert-heading">Help</h4>
+                <hr>
+                <p>
+                    Welcome to the TA Portal. In order to add your first workshift, you need to go to <b>My Courses</b> and add the course associated with the workshift.<br/><br/>
+                    Adding new workshifts is done by clicking <b>Add workshift</b>. The workshift will then show up in that month's workshift table.<br/><br/>
+                    If you need to edit your personal information, simply go to <b>User Informatiion</b>.<br/><br/>
+                    At the end of each month you can generate a PDF-file that is ready to be sent to the course's examiner, by clicking <b>Generate PDF</b> at the bottom of that month's workshift table.
+                </p>
+                <button data-toggle="collapse" data-target="#help" class="btn-close" role="button" data-bs-toggle="collapse"></button>
+
+            </div>
         </div>
     </div>    
 </div>
+
+
+<button data-toggle="collapse" data-target="#help" class="float" role="button" data-bs-toggle="collapse">
+    <svg class="bi bi-question-lg fa fa-plus my-float" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M3 4.075a.423.423 0 0 0 .43.44H4.9c.247 0 .442-.2.475-.445.159-1.17.962-2.022 2.393-2.022 1.222 0 2.342.611 2.342 2.082 0 1.132-.668 1.652-1.72 2.444-1.2.872-2.15 1.89-2.082 3.542l.005.386c.003.244.202.44.446.44h1.445c.247 0 .446-.2.446-.446v-.188c0-1.278.487-1.652 1.8-2.647 1.086-.826 2.217-1.743 2.217-3.667C12.667 1.301 10.393 0 7.903 0 5.645 0 3.17 1.053 3.001 4.075zm2.776 10.273c0 .95.758 1.652 1.8 1.652 1.085 0 1.832-.702 1.832-1.652 0-.985-.747-1.675-1.833-1.675-1.04 0-1.799.69-1.799 1.675z"/>
+    </svg>
+</button>
 
 <th:block th:replace="_modals :: modal('exampleModal2')">modal</th:block>
 
