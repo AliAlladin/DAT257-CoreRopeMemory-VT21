@@ -200,7 +200,7 @@
                         <th class="px-3">Hours</th>
                     </tr>
                     <tr th:each="workshift : ${labGrading}">
-                        <td class="px-3" th:text="${workshift.getDate()}"></td>
+                        <td class="px-3" th:text="${workshift.getComment()}"></td>
                         <td class="px-3" th:text="${workshift.getStartTime() + '-' + workshift.getEndTime()}"></td>
                     </tr>
                 </table>

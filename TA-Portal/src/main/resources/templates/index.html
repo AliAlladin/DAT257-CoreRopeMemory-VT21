@@ -7,23 +7,173 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <style>
+        .float{
+            position:fixed;
+            width:60px;
+            height:60px;
+            bottom:40px;
+            right:40px;
+            background-color: #0d6efd;
+            color:#FFF;
+            border-radius:50px;
+            border-style: hidden;
+            text-align:center;
+            box-shadow: 2px 2px 3px #999;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-light">
 
-<div class="container bg-light">
-    <h2 style="text-align: center;">TA-Portal</h2>
-    <div class="container">
-        <h4 class="panel-title" style="text-align: right;">
-            <a class="btn btn-primary" th:href="@{/user_details}">User Information</a>
-
-            <a class="btn btn-primary" th:href="@{/user_courses}">My Courses</a>
-
-            <a class="btn btn-danger" th:href="@{/logout}">Log out</a>
-        </h4>
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand mb-0 font-weight-bold" th:href="@{/index}">TA-Portal</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user_courses}">My Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user_details}">User Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                            <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                        </svg>
+                        Log out
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
+</nav>
+
+<div class="container pt-5">
+
     <div class="panel-group" id="accordion">
         <div th:each="month : ${months}" class="panel panel-default">
-            <div class="panel-heading">
+
+            <div class="accordion" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" th:attr="data-bs-target='#'+${month.getKey()}" aria-expanded="false" aria-controls="flush-collapseOne" th:text="${#strings.substringBefore(month.getKey(), '_') + ' ' + #strings.substringAfter(month.getKey(), '_')}">
+                            Accordion Item #1
+                        </button>
+                    </h2>
+                    <div th:id="${month.getKey()}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <tr>
+                                        <th>Course</th>
+                                        <th>Date</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Type</th>
+                                        <th>Comments</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    <tr th:each="workshift : ${month.getValue()}">
+                                        <td ><span class="badge" th:style="'background-color : ' + ${workshift.getCourse().getColor()}" th:text="${workshift.getCourse().toFancyString()}"></span></td>
+                                        <td th:text="${workshift.getDate()}"></td>
+                                        <td th:text="${workshift.getStartTime()}"></td>
+                                        <td th:text="${workshift.getEndTime()}"></td>
+                                        <td th:text="${workshift.getType()}"></td>
+                                        <td th:text="${workshift.getComment()}"></td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" th:attr="data-object-name=${workshift.getId()}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                                </svg>
+                                            </button>
+                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                        </svg></a>
+                                            <a class="btn btn-danger" th:href="@{delete_workshift/{id}(id=${workshift.getId()})}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                            </svg></a></td>
+                                    </tr>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <p> Total hours worked: <span th:text="${#numbers.formatDecimal(currentUser.totalHoursWorked(month.getValue()), 1, 'COMMA', 2, 'POINT')}"></span></p>
+                            <p> Overtime hours: <span th:text="${#numbers.formatDecimal(currentUser.getOvertimeHours(month.getValue()), 1 , 'COMMA', 2, 'POINT')}"></span></p>
+                            <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(month.getValue()), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
+
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:attr="data-bs-target='#' + ${month.getKey() + 'modal'}">
+                                Generate PDF
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" th:id="${month.getKey() + 'modal'}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Timereport details</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form th:id="${month.getKey() + 'Details'}" th:action="@{/time_report/{month}(month=${month.getKey()})}" method="post">
+                                                <div class="form-group">
+                                                    <select name="courseCode" required class="form-select" aria-label="Select course" >
+                                                        <option disabled selected value="">Select course</option>
+                                                        <option th:each="course : ${courses.get(month.getKey())}" th:value="${course.getCourseCode()}" th:text="${course.toFancyString()}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Is this the final form of this course?</label>
+                                                    <div class="form-check form-check-inline">
+                                                        <input th:value="Yes" class="form-check-input" type="radio" name="finalForm" id="1">
+                                                        <label class="form-check-label" for="1">Yes</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input th:value="No" class="form-check-input" type="radio" name="finalForm" id="2" checked>
+                                                        <label class="form-check-label" for="2">No</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Do you have anew address?</label>
+                                                    <div class="form-check form-check-inline">
+                                                        <input th:value="Yes" class="form-check-input" type="radio" name="newAddress" id="3">
+                                                        <label class="form-check-label" for="3">Yes</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input th:value="No" class="form-check-input" type="radio" name="newAddress" id="4" checked>
+                                                        <label class="form-check-label" for="4">No</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Have you received salary previously from Chalmers/GU?</label>
+                                                    <div class="form-check form-check-inline">
+                                                        <input th:value="Yes" class="form-check-input" type="radio" name="salaryPrev" id="5" checked>
+                                                        <label class="form-check-label" for="5">Yes</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input th:value="No" class="form-check-input" type="radio" name="salaryPrev" id="6">
+                                                        <label class="form-check-label" for="6">No</label>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" type="submit" th:form="${month.getKey() + 'Details'}">Submit form</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--<div class="panel-heading">
               <h4 class="panel-title" style="text-align: center;">
                 <a class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" th:href="'#' + ${month.getKey()}" th:text="${#strings.substringBefore(month.getKey(), '_') + ' ' + #strings.substringAfter(month.getKey(), '_')}">January</a>
               </h4>
@@ -59,11 +209,11 @@
                 <p> Expected salary: <span th:text="${#numbers.formatDecimal(currentUser.getSalary(month.getValue()), 1 , 'COMMA', 2, 'POINT')}"></span>  kr</p>
 
 
-                <!-- Button trigger modal -->
+                &lt;!&ndash; Button trigger modal &ndash;&gt;
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:attr="data-bs-target='#' + ${month.getKey() + 'modal'}">
                     Generate PDF
                 </button>
-                <!-- Modal -->
+                &lt;!&ndash; Modal &ndash;&gt;
                 <div class="modal fade" th:id="${month.getKey() + 'modal'}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -120,42 +270,47 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
-    </div> 
+    </div>
+
+    <div class="d-grid pt-4">
+        <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="modal" data-target="#exampleModal1">
+            Add workshift
+        </button>
+    </div>
+
+    <th:block th:replace="_modals :: modal('exampleModal1')">modal</th:block>
+
   </div>
 
-<div class="container">
-    <div class="row mt-5">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal1">
-                Add workshift
-            </button>
-
-            <th:block th:replace="_modals :: modal('exampleModal1')">modal</th:block>
-
-    </div>
-</div>
-
-<div class="pt-4">
-    <div class="container">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title" style="text-align: center;">
-                <a class="btn btn-outline-primary" data-toggle="collapse" data-target="#help">Help</a>
-                </h4>
-            </div>
-            <div id="help" class="panel-collapse collapse">
+<div class="container mt-4">
+    <div class="collapse" id="help">
+        <div class="card card-body">
+            <div class="alert alert-dismissible alert-light" role="alert">
+                <h4 class="alert-heading">Help</h4>
+                <hr>
                 <p>
-                    Welcome to the TA Portal. In order to add your first workshift, you need to go to <b>My Courses</b> and add the course associated with the workshift.<br/><br/>
-                    Adding new workshifts is done by clicking <b>Add workshift</b>. The workshift will then show up in that month's workshift table.<br/><br/>
-                    If you need to edit your personal information, simply go to <b>User Information</b>.<br/><br/>
-                    At the end of each month you can generate a PDF-file that is ready to be sent to the course's examiner, by clicking <b>Generate PDF</b> at the bottom of that month's workshift table.
+                    Welcome to the TA Portal. In order to add your first workshift, you need to go to <b>My Courses</b>
+                    and add the course associated with the workshift.<br/><br/>
+                    Adding new workshifts is done by clicking <b>Add workshift</b>. The workshift will then show up in
+                    that month's workshift table.<br/><br/>
+                    If you need to edit your personal information, simply go to <b>User Informatiion</b>.<br/><br/>
+                    At the end of each month you can generate a PDF-file that is ready to be sent to the course's
+                    examiner, by clicking <b>Generate PDF</b> at the bottom of that month's workshift table.
                 </p>
             </div>
         </div>
     </div>
 </div>
+
+<button class="float" type="button" data-bs-toggle="collapse" data-bs-target="#help" aria-expanded="false"
+        aria-controls="collapseExample">
+    <svg class="bi bi-question-lg fa fa-plus my-float" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+         fill="currentColor" viewBox="0 0 16 16">
+        <path d="M3 4.075a.423.423 0 0 0 .43.44H4.9c.247 0 .442-.2.475-.445.159-1.17.962-2.022 2.393-2.022 1.222 0 2.342.611 2.342 2.082 0 1.132-.668 1.652-1.72 2.444-1.2.872-2.15 1.89-2.082 3.542l.005.386c.003.244.202.44.446.44h1.445c.247 0 .446-.2.446-.446v-.188c0-1.278.487-1.652 1.8-2.647 1.086-.826 2.217-1.743 2.217-3.667C12.667 1.301 10.393 0 7.903 0 5.645 0 3.17 1.053 3.001 4.075zm2.776 10.273c0 .95.758 1.652 1.8 1.652 1.085 0 1.832-.702 1.832-1.652 0-.985-.747-1.675-1.833-1.675-1.04 0-1.799.69-1.799 1.675z"/>
+    </svg>
+</button>
 
 <th:block th:replace="_modals :: modal('exampleModal2')">modal</th:block>
 
