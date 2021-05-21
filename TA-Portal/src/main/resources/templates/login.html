@@ -49,58 +49,63 @@
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
-
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">TA-Portal</span>
+<div class="text-center h-100 d-flex flex-column">
+    <div class="flex-column justify-content-center">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">TA-Portal</span>
+            </div>
+        </nav>
     </div>
-</nav>
 
-<div class="login">
-    <main class="form-signin">
-        <form th:action="@{/login}" method="post">
+    <div class="login flex-column justify-content-center flex-grow-1 overflow-auto">
+            <main class="form-signin">
+                <form th:action="@{/login}" method="post">
 
-            <!-- error message -->
-            <div th:if="${param.error}">
-                <div class="alert alert-danger">Invalid username or
-                    password.
-                </div>
-            </div>
+                    <!--error message-->
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">Invalid username or
+                            password.
+                        </div>
+                    </div>
 
-            <!-- logout message -->
-            <div th:if="${param.logout}">
-                <div class="alert alert-info">You have been logged out.</div>
-            </div>
+                    <!--logout message-->
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-info">You have been logged out.</div>
+                    </div>
 
-            <h1 class="h3 mb-3 fw-normal">Welcome, please log in</h1>
+                    <h1 class="h3 mb-3 fw-normal">Welcome, please log in</h1>
 
-            <div class="form-floating">
-                <input type="email" class="form-control" id="username" name="username" placeholder="Enter Email ID" autofocus="autofocus">
-                <label for="username"> Username </label>
-            </div>
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="username" name="username" placeholder="Enter Email ID" autofocus="autofocus">
+                        <label for="username"> Username </label>
+                    </div>
 
-            <div class="form-floating">
-                <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password"/>
-                <label for="password">Password</label>
-            </div>
+                    <div class="form-floating">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password"/>
+                        <label for="password">Password</label>
+                    </div>
 
-            <div class="form-group">
-                <input type="submit" name="login-submit" id="login-submit" class="w-100 btn btn-lg btn-primary" value="Log In"/>
-            </div>
-            <div class="form-group">
+                    <div class="form-group">
+                        <input type="submit" name="login-submit" id="login-submit" class="w-100 btn btn-lg btn-primary" value="Log In"/>
+                    </div>
+                    <div class="form-group">
                 <span>New user?
                     <a href="/" th:href="@{/registration}">Register here</a>
                 </span>
-            </div>
-            <p class="mt-5 mb-3 text-muted">© CoreRopeMemory 2021</p>
-        </form>
+                    </div>
+                    <p class="mt-5 mb-3 text-muted">© CoreRopeMemory 2021</p>
+                </form>
 
 
-    </main>
+            </main>
+    </div>
+
+
 </div>
 
 </body>

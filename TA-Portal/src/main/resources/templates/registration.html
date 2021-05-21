@@ -54,82 +54,96 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">TA-Portal</span>
+<div class="text-center h-100 d-flex flex-column">
+    <div class="flex-column justify-content-center">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">TA-Portal</span>
+            </div>
+        </nav>
     </div>
-</nav>
 
-<div class="register">
-    <main class="form-register">
-        <!-- success message -->
-        <div th:if="${param.success}">
-            <div class="alert alert-info">You've successfully registered
-                to our awesome app!
-            </div>
-        </div>
-
-        <h1 class="h3 mb-3 fw-normal">Create an account</h1>
-
-        <form th:action="@{/registration}" method="post" th:object="${user}">
-
-            <div class="form-floating">
-                <input placeholder="YYMMDDNNNN" type="number" id="PersonalNumber" class="form-control" th:field="*{pNumber}" required autofocus="autofocus"/>
-                <label for="PersonalNumber">Personal Number</label>
+    <div class="register flex-column justify-content-center flex-grow-1 overflow-auto">
+        <main class="form-register">
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">You've successfully registered
+                    to our awesome app!
+                </div>
             </div>
 
-            <div class="form-floating">
-                <input placeholder="John" id="firstName" class="form-control" th:field="*{firstName}" required />
-                <label for="firstName"> First Name </label>
-            </div>
+            <h1 class="h3 mb-3 fw-normal">Create an account</h1>
 
-            <div class="form-floating">
-                <input placeholder="Doe" id="lastName" class="form-control" th:field="*{familyName}" required />
-                <label for="lastName"> Last Name </label>
-            </div>
+            <form th:action="@{/registration}" method="post" th:object="${user}">
 
-            <div class="form-floating">
-                <input placeholder="john.doe@mail,com" id="email" class="form-control" th:field="*{email}" required />
-                <label for="email"> E-mail </label>
-            </div>
+                <div class="form-floating">
+                    <input placeholder="YYMMDDNNNN" type="number" id="PersonalNumber" class="form-control"
+                           th:field="*{pNumber}" required autofocus="autofocus"/>
+                    <label for="PersonalNumber">Personal Number</label>
+                </div>
 
-            <div class="form-floating">
-                <input placeholder="Kungsgatan 1" id="StreetAddress" class="form-control" th:field="*{streetAddr}" required />
-                <label for="StreetAddress"> Street Address </label>
-            </div>
+                <div class="form-floating">
+                    <input placeholder="John" id="firstName" class="form-control" th:field="*{firstName}" required/>
+                    <label for="firstName"> First Name </label>
+                </div>
 
-            <div class="form-floating">
-                <input placeholder="12345" type="number" id="postCode" class="form-control" th:field="*{postcode}" required/>
-                <label for="postCode"> Postal Code </label>
-            </div>
+                <div class="form-floating">
+                    <input placeholder="Doe" id="lastName" class="form-control" th:field="*{familyName}" required/>
+                    <label for="lastName"> Last Name </label>
+                </div>
 
-            <div class="form-floating">
-                <input placeholder="Gothenburg" type="text" id="city" class="form-control" th:field="*{city}" required />
-                <label for="city"> City </label>
-            </div>
+                <div class="form-floating">
+                    <input placeholder="john.doe@mail,com" id="email" class="form-control" th:field="*{email}"
+                           required/>
+                    <label for="email"> E-mail </label>
+                </div>
 
-            <div class="form-floating">
-                <select class="form-select" id="hasMaster">
-                    <option th:value="'Yes'">Yes</option>
-                    <option selected th:value="'No'">No</option>
-                </select>
-                <label class="control-label" for="hasMaster"> Do you have a master's degree? </label>
-            </div>
+                <div class="form-floating">
+                    <input placeholder="Kungsgatan 1" id="StreetAddress" class="form-control" th:field="*{streetAddr}"
+                           required/>
+                    <label for="StreetAddress"> Street Address </label>
+                </div>
 
-            <div class="form-floating">
-                <input placeholder="xxxxxx" type="password" id="password" class="form-control" th:field="*{password}" required/>
-                <label for="password"> Password </label>
-            </div>
+                <div class="form-floating">
+                    <input placeholder="12345" type="number" id="postCode" class="form-control" th:field="*{postcode}"
+                           required/>
+                    <label for="postCode"> Postal Code </label>
+                </div>
 
-            <div class="form-group">
-                <input type="submit" name="register-submit" id="login-register" class="w-100 btn btn-lg btn-primary"/>
-            </div>
+                <div class="form-floating">
+                    <input placeholder="Gothenburg" type="text" id="city" class="form-control" th:field="*{city}"
+                           required/>
+                    <label for="city"> City </label>
+                </div>
 
-            <div class="form-group">
+                <div class="form-floating">
+                    <select class="form-select" id="hasMaster">
+                        <option th:value="'Yes'">Yes</option>
+                        <option selected th:value="'No'">No</option>
+                    </select>
+                    <label class="control-label" for="hasMaster"> Do you have a master's degree? </label>
+                </div>
+
+                <div class="form-floating">
+                    <input placeholder="xxxxxx" type="password" id="password" class="form-control"
+                           th:field="*{password}" required/>
+                    <label for="password"> Password </label>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Register" name="register-submit" id="login-register"
+                           class="w-100 btn btn-lg btn-primary"/>
+                </div>
+
+                <div class="form-group">
                     <span>Already registered? <a href="/" th:href="@{/login}">Log in</a></span>
-            </div>
-        </form>
-    </main>
+                </div>
+
+                <p class="mt-5 mb-3 text-muted">© CoreRopeMemory 2021</p>
+
+            </form>
+        </main>
+    </div>
 </div>
 </body>
 </html>
