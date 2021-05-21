@@ -135,9 +135,9 @@ public class ApplicationController {
     }
 
     @RequestMapping(value = {"/saveUser"}, method = RequestMethod.POST)
-    public String saveUserInfo(@ModelAttribute ("user")User user){
+    public String saveUserInfo(@ModelAttribute ("user")User user, Model model){
         userService.saveUserDetails(user);
-        return "redirect:/";
+        return "redirect:/user_details";
     }
 
     @RequestMapping(value = {"/addCourse"}, method = RequestMethod.POST)

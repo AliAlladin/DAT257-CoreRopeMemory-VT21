@@ -25,19 +25,19 @@
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
     <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">TA-Portal</span>
+        <a class="navbar-brand mb-0 font-weight-bold" th:href="@{/index}">TA-Portal</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user_details}">User Information</a>
+                    <a class="nav-link" th:href="@{/user_courses}">My Courses</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user_courses}">My Courses</a>
+                    <a class="nav-link" th:href="@{/user_details}">User Information</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">
@@ -296,28 +296,32 @@
   </div>
 
 <div class="container mt-4">
-
-    <div class="panel panel-default">
-        <div id="help" class="panel-collapse collapse">
+    <div class="collapse" id="help">
+        <div class="card card-body">
             <div class="alert alert-dismissible alert-light" role="alert">
                 <h4 class="alert-heading">Help</h4>
                 <hr>
                 <p>
-                    Welcome to the TA Portal. In order to add your first workshift, you need to go to <b>My Courses</b> and add the course associated with the workshift.<br/><br/>
-                    Adding new workshifts is done by clicking <b>Add workshift</b>. The workshift will then show up in that month's workshift table.<br/><br/>
+                    Welcome to the TA Portal. In order to add your first workshift, you need to go to <b>My Courses</b>
+                    and add the course associated with the workshift.<br/><br/>
+                    Adding new workshifts is done by clicking <b>Add workshift</b>. The workshift will then show up in
+                    that month's workshift table.<br/><br/>
                     If you need to edit your personal information, simply go to <b>User Informatiion</b>.<br/><br/>
-                    At the end of each month you can generate a PDF-file that is ready to be sent to the course's examiner, by clicking <b>Generate PDF</b> at the bottom of that month's workshift table.
+                    At the end of each month you can generate a PDF-file that is ready to be sent to the course's
+                    examiner, by clicking <b>Generate PDF</b> at the bottom of that month's workshift table.
                 </p>
-                <button data-toggle="collapse" data-target="#help" class="btn-close" role="button" data-bs-toggle="collapse"></button>
+                <button data-toggle="collapse" data-target="#help" class="btn-close" role="button"
+                        data-bs-toggle="collapse"></button>
 
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 
-
-<button data-toggle="collapse" data-target="#help" class="float" role="button" data-bs-toggle="collapse">
-    <svg class="bi bi-question-lg fa fa-plus my-float" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+<button class="float" type="button" data-bs-toggle="collapse" data-bs-target="#help" aria-expanded="false"
+        aria-controls="collapseExample">
+    <svg class="bi bi-question-lg fa fa-plus my-float" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+         fill="currentColor" viewBox="0 0 16 16">
         <path d="M3 4.075a.423.423 0 0 0 .43.44H4.9c.247 0 .442-.2.475-.445.159-1.17.962-2.022 2.393-2.022 1.222 0 2.342.611 2.342 2.082 0 1.132-.668 1.652-1.72 2.444-1.2.872-2.15 1.89-2.082 3.542l.005.386c.003.244.202.44.446.44h1.445c.247 0 .446-.2.446-.446v-.188c0-1.278.487-1.652 1.8-2.647 1.086-.826 2.217-1.743 2.217-3.667C12.667 1.301 10.393 0 7.903 0 5.645 0 3.17 1.053 3.001 4.075zm2.776 10.273c0 .95.758 1.652 1.8 1.652 1.085 0 1.832-.702 1.832-1.652 0-.985-.747-1.675-1.833-1.675-1.04 0-1.799.69-1.799 1.675z"/>
     </svg>
 </button>
