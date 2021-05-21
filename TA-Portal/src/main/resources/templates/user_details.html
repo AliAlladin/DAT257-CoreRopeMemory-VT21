@@ -39,6 +39,18 @@
             border-bottom-right-radius: 0 !important;
             border-bottom-left-radius: 0 !important;
         }
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 <body class="bg-light">
@@ -152,7 +164,7 @@
         </div>
 
         <div class="form-floating">
-            <input placeholder="12345" type="number" id="postCode" class="form-control" th:field="*{postcode}"
+            <input placeholder="12345" type="number" id="postCode" class="form-control" th:value="${user.getPostcode()}" th:field="*{postcode}"
                    required/>
             <label for="postCode"> Postal Code </label>
         </div>
@@ -167,11 +179,11 @@
         <input type="hidden" th:value="${user.getPassword()}" th:field="*{password}">
 
         <div class="form-floating">
-            <select class="form-select" id="hasMaster">
+            <select class="form-control input-field-sizing" id="master" th:field="*{hasMaster}">
                 <option th:value="'Yes'">Yes</option>
-                <option selected th:value="'No'">No</option>
+                <option th:value="'No'">No</option>
             </select>
-            <label class="control-label" for="hasMaster"> Do you have a master's degree? </label>
+            <label class="control-label" for="master"> Do you have a master's degree? </label>
         </div>
 
 
