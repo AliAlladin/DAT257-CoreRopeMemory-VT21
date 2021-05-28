@@ -1,0 +1,16 @@
+what do I want to learn or understand better?
+Nu då vår applikation har fått en stabil grund med funktionalitet kommer vi förmodligen att börja titta mer på front-end beroende på vad vår stakeholder anser är nästa steg, jag skulle vilja 
+kika närmre på verktygen för front-end och se om det är realistiskt att kunna implementera vår front end med angular eller något liknande ramverk.
+
+how can I help someone else, or the entire team, to learn something new?
+Som föregående veckor så tycker jag att parprogrammeringen ger mycket värde i lärandet och är väldigt effektivt.
+Då jag har ett intresse utöver kursen att lära mig verktygen för frontend så finns möjlighet att jag läser på extra om dessa och kan bidra info om vi skulle använda oss utav något av dem. 
+
+what is my contribution towards the team’s use of Scrum?
+Förutom det vanliga med möten med vår handledare, vår stakeholder och mötet då vi planerar vår sprint så finns inget större nytt att tillägga här då vårt arbetssätt utan 
+specifika roller har fungerat bra för oss och vi kört vidare på det.
+
+what is my contribution towards the team’s deliveries?
+Jag och Dylan tog oss an att implementera spring security och se till så att vi har en funktion för att registrera nya användare och att kunna logga in som befintlig användare, även att 
+dessa användare sparas i vår databas och frontend för dessa funktioner.
+Utöver det tog vi även tid till att felsöka kod i en annan user story som strulade.
