@@ -1,6 +1,6 @@
 # TA-Portal
 This is the repository of group Core Rope Memory’s project in the course Agile software project management (DAT257) VT21.  
-* [Scrum board]()
+* [Scrum board](https://trello.com/b/kBrnDPnN/dat257)
 * [Documents](/Documents/)
 
 ## Description
@@ -54,7 +54,7 @@ TA-portal is a web application that digitizes the course time report for teachin
     ```
 ## Running the application
 1. Open the terminal.
-2. Change the directory to [TA-Portal](/TA-Portal/) in the cloned repository.
+2. Change the directory to [TA-Portal](/TA-Portal/) from the cloned repository.
 3. Run the application with the following command.
     * MacOS: 
         ```bash
