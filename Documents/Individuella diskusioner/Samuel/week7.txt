@@ -1,0 +1,14 @@
+what do I want to learn or understand better?
+Samma som tidigare vecka vill jag fortfarande kika närmre på verktyg för frontenden då vi planerar att se till att vårt gränssnitt blir mer användarvänligt nu när 
+de flesta funktioner fungerar som de ska.
+
+how can I help someone else, or the entire team, to learn something new?
+Då jag repeterat en del information från vår tidigare kurs angående design av gränssnitt så finns kanske möjligheten att komma med input och förslag baserat från den kursen
+nu när vi ska designa om vårt gränssnitt. 
+
+what is my contribution towards the team’s use of Scrum?
+Samma som tidigare veckor har jag medverkat på möten och planering av vår sprint.
+
+what is my contribution towards the team’s deliveries?
+Denna veckan hade vi lite fler user stories med blandade estimat så några programmerade individuellt på dem mindre, jag och Oliver tog en story med lite mer estimat och ändrade
+så att månader i olika år skiljer sig åt när man genererar timmarna för en kurs och hamnar i egna moduler.

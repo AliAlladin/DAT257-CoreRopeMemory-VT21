@@ -1,0 +1,14 @@
+what do I want to learn or understand better?
+Då projektet nu är slut är det inget mer att lära sig inför detta projekt.
+Dock under projektets gång har man kikat på olika ramverk som används för webapplikationer och jag skulle vilja dels kolla närmre på ramverken react och node 
+då dessa nämns flitigt och möjligtvis hitta på ett eget sidoprojekt med hjälp av dessa för att få kunskap om dem.
+
+how can I help someone else, or the entire team, to learn something new?
+blir inga större nya saker att lära sig som lag nu under sista veckan då vi ska skriva slutrapport.
+
+what is my contribution towards the team’s use of Scrum?
+Samma som tidigare veckor har jag medverkat på alla möten och planeringar av sprints.
+
+what is my contribution towards the team’s deliveries?
+Vi körde en slutspurt denna sprint och hade en blandning av flera större user stories och många små user stories för buggar och fixar.
+Jag och Dylan tog tag i att fixa ut modals till olika funktioner i applikationen och ändra en del styling för några av sidorna.
