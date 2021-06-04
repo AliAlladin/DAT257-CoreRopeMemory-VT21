@@ -1,0 +1,7 @@
+I filen Git inspector.png redovisas data kring gruppmedlemmarnas commits och rader kod. Dock så anser vi att datan inte är helt rätt. 
+Vissa medlemmars insatser representeras inte korrekt, då hela gruppen vet att dessa medlemmar har gjort mycket mer än vad som visas.
+Vid parprogrammering kan man med hjälp av GitHub Desktop lägga till co-authors, vilket vi har använt flitigt. 
+Om man tittar på datan som redovisas i Contributors under Insights, direkt i det här repot, så ser man tydligt att alla commits räknas med, inklusive co-authors.
+En tänkbar förklaring till varför GitInspector missar en stor mängd commits, är att vi mot slutet av projektet byggde om stora delar av arkitekturen. 
+Många rader kod flyttades därför till nya filer, där de fyllde samma syfte som tidigare. 
+Kort sagt så blev därför tidigare commits, med kod som då inte längre fanns kvar på samma ställe, inte medtagna av GitInspector. 
