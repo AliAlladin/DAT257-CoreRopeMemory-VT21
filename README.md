@@ -1,6 +1,7 @@
 # TA-Portal
 This is the repository of group Core Rope Memory’s project in the course Agile software project management (DAT257) VT21.  
 * [Scrum board](https://trello.com/b/kBrnDPnN/dat257)
+* [Gitinspector](/Documents/Gitinspector)
 * [Documents](/Documents/)
 
 ## Description
